@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.library' version '4.0.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.4.20' apply false
+    id 'com.github.ben-manes.versions' version '0.36.0'
+    id 'xyz.tynn.idea.fix' version '0.1.2'
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+    group = 'xyz.tynn.astring'
+
+    tasks.withType(Test) {
+        testLogging {
+            events "failed"
+            exceptionFormat "full"
+            showCauses true
+            showExceptions true
+            showStackTraces true
+        }
+    }
+
+    plugins.withId('org.jetbrains.kotlin.android') {
+        android {
+            kotlinOptions {
+                jvmTarget = '1.8'
+            }
+        }
+    }
+
+    plugins.withType(com.android.build.gradle.BasePlugin) {
+        android {
+            compileSdkVersion 30
+            buildToolsVersion '30.0.2'
+
+            defaultConfig {
+                minSdkVersion 19
+                targetSdkVersion 30
+                testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+            }
+
+            compileOptions {
+                sourceCompatibility '1.8'
+                targetCompatibility '1.8'
+            }
+        }
+    }
+}
+
+dependencyUpdates {
+    def isNonStable = { String version ->
+        ['alpha', 'beta', 'dev', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'eap'].any {
+            version ==~ /(?i).*[.-]${it}[.\d-+]*.*/
+        }
+    }
+    rejectVersionIf {
+        isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+    }
+    gradleReleaseChannel = 'current'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
