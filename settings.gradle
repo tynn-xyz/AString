@@ -13,3 +13,7 @@ pluginManagement {
 }
 
 include ':library'
+
+include ':example:common'
+include ':example:java'
+include ':example:kotlin'

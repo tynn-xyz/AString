@@ -1,0 +1,9 @@
+plugins {
+    id 'com.android.application'
+}
+
+dependencies {
+    implementation project(':example:common'), {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+}

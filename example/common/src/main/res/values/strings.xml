@@ -1,0 +1,18 @@
+<resources>
+    <string name="astring_append">Append string</string>
+    <string name="astring_append_range">Append string %s</string>
+    <string name="astring_error">Error string</string>
+    <string name="astring_error_with_icon">Error string with icon</string>
+    <string name="astring_text"><i>Some</i> <b>text</b></string>
+
+    <string name="string_text">"Text "</string>
+
+    <string name="title_view_append">TextView with appended text</string>
+    <string name="title_view_append_range">TextView with appended text range</string>
+    <string name="title_view_error">EditText with error</string>
+    <string name="title_view_error_icon">EditText with error and icon</string>
+    <string name="title_view_hint">EditText with hint</string>
+    <string name="title_view_text">TextView with text</string>
+    <string name="title_view_text_type">TextView with text and type</string>
+    <string name="title_view_view">ImageView with content description, tool tip, etc.</string>
+</resources>
