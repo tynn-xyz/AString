@@ -16,39 +16,29 @@ allprojects {
 subprojects {
     group = 'xyz.tynn.astring'
 
-    tasks.withType(Test) {
+    pluginManager.withPlugin('com.android.library') {
+        apply from: "$rootDir/android.gradle"
+
+        android {
+            libraryVariants.all {
+                it.generateBuildConfigProvider.configure {
+                    enabled = false
+                }
+            }
+        }
+    }
+
+    pluginManager.withPlugin('com.android.application') {
+        apply from: "$rootDir/android.gradle"
+    }
+
+    tasks.withType(Test).configureEach {
         testLogging {
             events "failed"
             exceptionFormat "full"
             showCauses true
             showExceptions true
             showStackTraces true
-        }
-    }
-
-    plugins.withId('org.jetbrains.kotlin.android') {
-        android {
-            kotlinOptions {
-                jvmTarget = '1.8'
-            }
-        }
-    }
-
-    plugins.withType(com.android.build.gradle.BasePlugin) {
-        android {
-            compileSdkVersion 30
-            buildToolsVersion '30.0.2'
-
-            defaultConfig {
-                minSdkVersion 19
-                targetSdkVersion 30
-                testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-            }
-
-            compileOptions {
-                sourceCompatibility '1.8'
-                targetCompatibility '1.8'
-            }
         }
     }
 }

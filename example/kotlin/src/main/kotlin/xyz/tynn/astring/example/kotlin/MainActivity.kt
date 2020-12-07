@@ -9,10 +9,11 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getDrawable
-import xyz.tynn.astring.*
+import xyz.tynn.astring.core.*
 import xyz.tynn.astring.example.common.*
 import xyz.tynn.astring.example.common.databinding.ActivityMainBinding
 import xyz.tynn.astring.example.common.databinding.ActivityMainBinding.inflate
+import xyz.tynn.astring.getValue
 
 class MainActivity : AppCompatActivity() {
 

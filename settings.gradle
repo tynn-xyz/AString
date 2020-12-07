@@ -12,7 +12,9 @@ pluginManagement {
     }
 }
 
-include ':library'
+include ':core'
+
+include ':testing'
 
 include ':example:common'
 include ':example:java'
