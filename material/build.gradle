@@ -1,0 +1,11 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+dependencies {
+    api project(':appcompat')
+    api 'com.google.android.material:material:1.2.1'
+
+    testImplementation project(':testing')
+}
