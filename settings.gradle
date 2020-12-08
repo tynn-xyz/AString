@@ -13,6 +13,7 @@ pluginManagement {
 }
 
 include ':core'
+include ':appcompat'
 
 include ':testing'
 
