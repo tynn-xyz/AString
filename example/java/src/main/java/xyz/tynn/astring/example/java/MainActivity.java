@@ -14,6 +14,14 @@ import xyz.tynn.astring.example.common.R;
 import xyz.tynn.astring.example.common.databinding.ActivityMainBinding;
 
 import static android.widget.TextView.BufferType.SPANNABLE;
+import static xyz.tynn.astring.core.AStringTextView.append;
+import static xyz.tynn.astring.core.AStringTextView.setError;
+import static xyz.tynn.astring.core.AStringTextView.setHint;
+import static xyz.tynn.astring.core.AStringTextView.setText;
+import static xyz.tynn.astring.core.AStringView.setAccessibilityPaneTitle;
+import static xyz.tynn.astring.core.AStringView.setContentDescription;
+import static xyz.tynn.astring.core.AStringView.setStateDescription;
+import static xyz.tynn.astring.core.AStringView.setTooltipText;
 import static xyz.tynn.astring.example.common.AStringsKt.*;
 import static xyz.tynn.astring.example.common.databinding.ActivityMainBinding.inflate;
 
@@ -43,16 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private void setupAStrings(ActivityMainBinding binding) {
         Log.d(getTag(), "in setupAStrings");
         setContentView(binding.getRoot());
-        xyz.tynn.astring.core.AStringTextView.setText(binding.viewText, AStringsKt.getText());
-        xyz.tynn.astring.core.AStringTextView.setText(binding.viewTextType, getTextType(), SPANNABLE);
-        xyz.tynn.astring.core.AStringTextView.append(binding.viewAppend, getAppend());
-        xyz.tynn.astring.core.AStringTextView.append(binding.viewAppendRange, getAppendRange(), 1, 7);
-        xyz.tynn.astring.core.AStringTextView.setHint(binding.viewHint, getHint());
-        xyz.tynn.astring.core.AStringTextView.setError(binding.viewError, getError());
-        xyz.tynn.astring.core.AStringTextView.setError(binding.viewErrorIcon, getErrorIcon(), getErrorDrawable());
-        xyz.tynn.astring.core.AStringView.setAccessibilityPaneTitle(binding.viewView, getAccessibilityPaneTitle());
-        xyz.tynn.astring.core.AStringView.setContentDescription(binding.viewView, getContentDescription());
-        xyz.tynn.astring.core.AStringView.setStateDescription(binding.viewView, getStateDescription());
-        xyz.tynn.astring.core.AStringView.setTooltipText(binding.viewView, getTooltipText());
+        setText(binding.viewText, AStringsKt.getText());
+        setText(binding.viewTextType, getTextType(), SPANNABLE);
+        append(binding.viewAppend, getAppend());
+        append(binding.viewAppendRange, getAppendRange(), 1, 7);
+        setHint(binding.viewHint, getHint());
+        setError(binding.viewError, getError());
+        setError(binding.viewErrorIcon, getErrorIcon(), getErrorDrawable());
+        setAccessibilityPaneTitle(binding.viewView, getAccessibilityPaneTitle());
+        setContentDescription(binding.viewView, getContentDescription());
+        setStateDescription(binding.viewView, getStateDescription());
+        setTooltipText(binding.viewView, getTooltipText());
     }
 }
