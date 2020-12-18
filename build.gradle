@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.library' version '4.0.2' apply false
+    id 'com.android.library' version '4.1.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.4.21' apply false
     id 'com.github.ben-manes.versions' version '0.36.0'
     id 'xyz.tynn.idea.fix' version '0.1.2'
@@ -44,7 +44,7 @@ subprojects {
 }
 
 dependencyUpdates {
-    def isNonStable = { String version ->
+    def isNonStable = { version ->
         ['alpha', 'beta', 'dev', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'eap'].any {
             version ==~ /(?i).*[.-]${it}[.\d-+]*.*/
         }

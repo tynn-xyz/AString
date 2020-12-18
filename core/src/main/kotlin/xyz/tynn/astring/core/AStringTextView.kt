@@ -6,15 +6,24 @@
 package xyz.tynn.astring.core
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.TextView
 import xyz.tynn.astring.AString
 
+/**
+ * Appends the text to the display buffer
+ * @see TextView.append
+ */
 fun TextView.append(
     text: AString,
 ) = append(
     text(context),
 )
 
+/**
+ * Appends the text to the display buffer
+ * @see TextView.append
+ */
 fun TextView.append(
     text: AString,
     start: Int,
@@ -25,12 +34,20 @@ fun TextView.append(
     end,
 )
 
+/**
+ * Sets the error message
+ * @see TextView.setError
+ */
 fun TextView.setError(
     error: AString,
 ) = setError(
     error(context),
 )
 
+/**
+ * Sets the error message
+ * @see TextView.setError
+ */
 fun TextView.setError(
     error: AString,
     icon: Drawable?,
@@ -39,18 +56,30 @@ fun TextView.setError(
     icon,
 )
 
+/**
+ * Sets the text to be displayed when the text of the TextView is empty
+ * @see TextView.setHint
+ */
 fun TextView.setHint(
     hint: AString,
 ) = setHint(
     hint(context),
 )
 
+/**
+ * Sets the text to be displayed
+ * @see TextView.setText
+ */
 fun TextView.setText(
     text: AString,
 ) = setText(
     text(context),
 )
 
+/**
+ * Sets the text to be displayed
+ * @see TextView.setText
+ */
 fun TextView.setText(
     text: AString,
     type: TextView.BufferType,

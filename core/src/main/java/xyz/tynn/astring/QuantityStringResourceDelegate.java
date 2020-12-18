@@ -11,6 +11,10 @@ import androidx.annotation.PluralsRes;
 
 import java.util.Arrays;
 
+/**
+ * Implementation delegating to a quantity string resource
+ * with or without format arguments
+ */
 final class QuantityStringResourceDelegate implements AString {
 
     private final int resId;

@@ -12,6 +12,11 @@ import static xyz.tynn.astring.NullValueWrapper.I;
 public class AStringFactoryTest {
 
     @Test
+    public void nullAsAString_should_return_NullValueWrapper() {
+        assertSame(I, AStringFactory.nullAsAString);
+    }
+
+    @Test
     public void createFromCharSequence_should_return_NullValueWrapper() {
         assertSame(I, AStringFactory.createFromCharSequence(null));
     }

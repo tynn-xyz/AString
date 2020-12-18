@@ -10,6 +10,10 @@ import androidx.annotation.StringRes;
 
 import java.util.Arrays;
 
+/**
+ * Implementation delegating to a string resource
+ * with or without format arguments
+ */
 final class StringResourceDelegate implements AString {
 
     private final int resId;

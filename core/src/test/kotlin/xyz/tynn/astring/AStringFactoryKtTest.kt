@@ -10,6 +10,14 @@ import kotlin.test.assertSame
 internal class AStringFactoryKtTest {
 
     @Test
+    fun `nullAsAString should be the NullValueWrapper singleton`() {
+        assertSame(
+            NullValueWrapper.I,
+            nullAsAString,
+        )
+    }
+
+    @Test
     fun `asAString should return NullValueWrapper for null`() {
         assertSame(
             NullValueWrapper.I,

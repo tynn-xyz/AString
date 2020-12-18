@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+/**
+ * Implementation delegating to a text resource
+ */
 final class TextResourceDelegate implements AString {
 
     private final int resId;

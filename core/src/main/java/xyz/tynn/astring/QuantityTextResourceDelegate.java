@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 
+/**
+ * Implementation delegating to a quantity text resource
+ */
 final class QuantityTextResourceDelegate implements AString {
 
     private final int resId;

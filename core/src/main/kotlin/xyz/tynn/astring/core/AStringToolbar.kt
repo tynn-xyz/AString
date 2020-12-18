@@ -10,13 +10,22 @@ import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import xyz.tynn.astring.AString
 
+/**
+ * Sets a description of the toolbar's logo
+ * @see Toolbar.setLogoDescription
+ */
 @RequiresApi(LOLLIPOP)
+@Suppress("UsePropertyAccessSyntax")
 fun Toolbar.setLogoDescription(
     description: AString,
 ) = setLogoDescription(
     description(context),
 )
 
+/**
+ * Sets a subtitle
+ * @see Toolbar.setSubtitle
+ */
 @RequiresApi(LOLLIPOP)
 fun Toolbar.setSubtitle(
     subtitle: AString,
@@ -24,6 +33,10 @@ fun Toolbar.setSubtitle(
     subtitle(context),
 )
 
+/**
+ * Sets a title
+ * @see Toolbar.setTitle
+ */
 @RequiresApi(LOLLIPOP)
 fun Toolbar.setTitle(
     title: AString,

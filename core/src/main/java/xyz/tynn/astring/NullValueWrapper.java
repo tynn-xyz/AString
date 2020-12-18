@@ -7,6 +7,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * Implementation wrapping {@code null}
+ */
 final class NullValueWrapper implements AString {
 
     @NonNull

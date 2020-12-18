@@ -4,11 +4,15 @@
 package xyz.tynn.astring;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
+/**
+ * Implementation wrapping a {@link CharSequence}
+ */
 final class CharSequenceWrapper implements AString {
 
     private final CharSequence string;
