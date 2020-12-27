@@ -1,4 +1,6 @@
 # AString
+[![Build][build-shield]][build]
+[![Download][bintray-shield]][bintray]
 ###### A context aware string abstraction for _Android_
 
 ```
@@ -98,3 +100,9 @@ Views provided by the _Material_ components by _Google_:
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+  [bintray]: https://bintray.com/tynn-xyz/maven/AString/_latestVersion
+  [bintray-shield]: https://api.bintray.com/packages/tynn-xyz/maven/AString/images/download.svg
+  [build]: https://github.com/tynn-xyz/AString/actions
+  [build-shield]: https://github.com/tynn-xyz/AString/workflows/Build/badge.svg

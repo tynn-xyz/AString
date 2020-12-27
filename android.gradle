@@ -17,7 +17,6 @@ pluginManager.withPlugin('org.jetbrains.kotlin.android') {
     android {
         kotlinOptions {
             jvmTarget = '1.8'
-            noStdlib = true
             freeCompilerArgs += [
                     '-Xno-call-assertions',
                     '-Xno-param-assertions',
