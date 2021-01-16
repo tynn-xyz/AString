@@ -1,11 +1,22 @@
 <resources>
+    <string name="astring_action">Action %d</string>
     <string name="astring_append">Append string</string>
     <string name="astring_append_range">Append string %s</string>
+    <string name="astring_dialog">Dialog string</string>
     <string name="astring_error">Error string</string>
     <string name="astring_error_with_icon">Error string with icon</string>
+    <string name="astring_message">AString message</string>
     <string name="astring_text"><i>Some</i> <b>text</b></string>
+    <string name="astring_title">Title</string>
 
     <string name="string_text">"Text "</string>
+
+    <string name="action_alert_dialog">AlertDialog</string>
+    <string name="action_alert_dialog_legacy">AlertDialog from framework</string>
+    <string name="action_snackbar">Snackbar</string>
+    <string name="action_snackbar_update">Snackbar with update</string>
+    <string name="action_toast">Toast</string>
+    <string name="action_toast_update">Toast with update</string>
 
     <string name="title_view_append">TextView with appended text</string>
     <string name="title_view_append_range">TextView with appended text range</string>

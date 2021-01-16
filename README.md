@@ -13,6 +13,18 @@ public interface AString {
 The library is implemented with _Kotlin_ for _Java_.
 The _Kotlin Standard Library_ is not required to use _AString_.
 
+## Installation
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        implementation "xyz.tynn.astring:core:$aStringVersion"
+        implementation "xyz.tynn.astring:appcompat:$aStringVersion"
+        implementation "xyz.tynn.astring:material:$aStringVersion"
+    }
+
 
 ## Usage
 
@@ -54,7 +66,7 @@ There are several _core_ implementations of `AString` for:
  * quantity string resources delegation
  * formatted quantity string resources delegation
 
-### Supported `View` types
+### Supported _Android_ types
 
 There are several (_Kotlin_) extension overloads for methods taking
 a `CharSequence` as an argument.
@@ -72,17 +84,29 @@ Views provided by the _Android_ framework and _AndroidX_ core:
  * `ToggleButton`
  * `TextSwitcher`
 
+ * `Toast`
+
+ * `AlertDialog`
+ * `AlertDialog.Builder`
+
 #### AppCompat module
 
 Views provided by  _AndroidX_ appcompat:
 
  * `Toobar`
 
+ * `AlertDialog`
+ * `AlertDialog.Builder`
+
 #### Material module
 
 Views provided by the _Material_ components by _Google_:
 
  * `TextInputLayout`
+
+ * `Snackbar`
+
+ * `MaterialAlertDialogBuilder`
 
 
 ## License

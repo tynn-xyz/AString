@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     api 'org.jetbrains.kotlin:kotlin-test-junit'
-    api 'io.mockk:mockk:1.10.3'
+    api 'io.mockk:mockk:1.10.5'
 }
