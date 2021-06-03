@@ -4,9 +4,11 @@
 package xyz.tynn.astring.material;
 
 import com.google.android.material.textfield.TextInputLayout;
-import io.mockk.impl.annotations.MockK;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
 
 import static xyz.tynn.astring.testing.mockk.MockKt.init;

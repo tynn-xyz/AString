@@ -5,11 +5,9 @@ package xyz.tynn.astring.core
 
 import android.view.View
 import androidx.core.view.ViewCompat
-import androidx.core.view.ViewCompat.setAccessibilityPaneTitle
-import androidx.core.view.ViewCompat.setTooltipText
+import androidx.core.view.ViewCompat.*
 import io.mockk.*
 import xyz.tynn.astring.AString
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 internal class AStringViewKtTest {
@@ -36,14 +34,13 @@ internal class AStringViewKtTest {
     }
 
     @Test
-    @Ignore("Requires ViewCompat 1.5.0")
     fun `setStateDescription should delegate to ViewCompat`() {
         withViewCompat {
-//            every { setStateDescription(any(), any()) } just runs
+            every { setStateDescription(any(), any()) } just runs
 
             view.setStateDescription(aString)
 
-//            verify { setStateDescription(view, aString(view.context)) }
+            verify { setStateDescription(view, aString(view.context)) }
         }
     }
 

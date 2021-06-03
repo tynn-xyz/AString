@@ -4,9 +4,11 @@
 package xyz.tynn.astring.core;
 
 import android.widget.TextSwitcher;
-import io.mockk.impl.annotations.MockK;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
 
 import static xyz.tynn.astring.testing.mockk.MockKt.init;

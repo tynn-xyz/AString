@@ -6,7 +6,6 @@
 package xyz.tynn.astring.core
 
 import android.graphics.drawable.Drawable
-import android.view.View
 import android.widget.TextView
 import xyz.tynn.astring.AString
 

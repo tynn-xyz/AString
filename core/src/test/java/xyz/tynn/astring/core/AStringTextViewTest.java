@@ -6,9 +6,11 @@ package xyz.tynn.astring.core;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
-import io.mockk.impl.annotations.MockK;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
 
 import static android.widget.TextView.BufferType.SPANNABLE;

@@ -4,10 +4,13 @@
 package xyz.tynn.astring;
 
 import android.view.View;
+
 import androidx.fragment.app.Fragment;
-import io.mockk.impl.annotations.MockK;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import io.mockk.impl.annotations.MockK;
 
 import static xyz.tynn.astring.testing.mockk.MockKt.init;
 import static xyz.tynn.astring.testing.mockk.MockKt.verify;

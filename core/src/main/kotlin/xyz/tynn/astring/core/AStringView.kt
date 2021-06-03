@@ -5,12 +5,8 @@
 
 package xyz.tynn.astring.core
 
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.R
 import android.view.View
-import android.widget.TextSwitcher
-import androidx.core.view.ViewCompat.setAccessibilityPaneTitle
-import androidx.core.view.ViewCompat.setTooltipText
+import androidx.core.view.ViewCompat.*
 import xyz.tynn.astring.AString
 
 /**
@@ -44,11 +40,6 @@ fun View.setStateDescription(
     this,
     stateDescription(context),
 )
-
-// TODO replace with ViewCompat 1.5.0
-private fun setStateDescription(v: View, s: CharSequence?) {
-    if (SDK_INT >= R) v.stateDescription = s
-}
 
 /**
  * Sets the tooltip for the view

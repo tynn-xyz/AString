@@ -5,7 +5,6 @@
 
 package xyz.tynn.astring.core
 
-import android.widget.Switch
 import android.widget.TextSwitcher
 import xyz.tynn.astring.AString
 
