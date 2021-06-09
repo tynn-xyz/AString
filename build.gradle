@@ -1,12 +1,17 @@
 plugins {
     id 'com.android.library' version '4.2.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.5.10' apply false
+    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
     id 'xyz.tynn.android.maven' version '0.1.0' apply false
     id 'com.github.ben-manes.versions' version '0.39.0'
     id 'xyz.tynn.idea.fix' version '0.1.2'
 }
 
+apply from: 'publishing.gradle'
+
 allprojects {
+    group = 'xyz.tynn.astring'
+
     repositories {
         google()
         mavenCentral()
@@ -14,12 +19,6 @@ allprojects {
 }
 
 subprojects {
-    group = 'xyz.tynn.astring'
-
-    pluginManager.withPlugin('maven-publish') {
-        apply from: "$rootDir/publishing.gradle"
-    }
-
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
         apply from: "$rootDir/android.gradle"
@@ -32,17 +31,21 @@ subprojects {
             }
         }
 
-        dependencies {
-            compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
-        }
-
         tasks.withType(GenerateModuleMetadata).configureEach {
             enabled = false
+        }
+
+        dependencies {
+            compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
         }
     }
 
     pluginManager.withPlugin('com.android.application') {
         apply from: "$rootDir/android.gradle"
+    }
+
+    pluginManager.withPlugin('maven-publish') {
+        apply from: "$rootDir/publishing.gradle"
     }
 
     tasks.withType(Test).configureEach {

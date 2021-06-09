@@ -12,8 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v2
         with:
+          distribution: adopt
           java-version: 15
       - uses: actions/cache@v2
         with:
@@ -26,11 +27,14 @@ jobs:
         with:
           versioning: ${{ github.ref }}
         id: semver
-      - run: gradle publishReleasePublicationToBintrayRepository
+      - run: gradle publishReleasePublicationToSonatypeRepository closeSonatypeStagingRepository
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.semver.outputs.version }}
-          BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-          BINTRAY_USER: tynn
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.NEXUS_USERNAME }}
+          PROJECT_URL: 'https://github.com/${{ github.repository }}'
+          SIGNING_PASSWORD: ${{ secrets.PGP_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.PGP_KEY }}
 
   release:
     runs-on: ubuntu-latest

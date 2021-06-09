@@ -16,7 +16,7 @@ The _Kotlin Standard Library_ is not required to use _AString_.
 ## Installation
 
     repositories {
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -38,7 +38,7 @@ In Kotlin these methods are top level and extension functions.
     "aString".asAString()
      StringResource(R.string.app_name)
 
-If `null` or `0` are used to create an `AString`, an instance returning `null` is created.
+If `null` or `0` is used to create an `AString`, an instance returning `null` is created.
 
     AStringFactory.nullAsAString
 
