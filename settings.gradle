@@ -12,11 +12,12 @@ pluginManagement {
     }
 }
 
+include ':bom'
+include ':testing'
+
 include ':core'
 include ':appcompat'
 include ':material'
-
-include ':testing'
 
 include ':example:common'
 include ':example:java'

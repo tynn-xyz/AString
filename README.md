@@ -1,6 +1,7 @@
 # AString
 [![Build][build-shield]][build]
-[![Download][bintray-shield]][bintray]
+[![Download][download-shield]][download]
+[![API][api-shield]][api]
 ###### A context aware string abstraction for _Android_
 
 ```
@@ -20,25 +21,27 @@ The _Kotlin Standard Library_ is not required to use _AString_.
     }
 
     dependencies {
-        implementation "xyz.tynn.astring:core:$aStringVersion"
-        implementation "xyz.tynn.astring:appcompat:$aStringVersion"
-        implementation "xyz.tynn.astring:material:$aStringVersion"
+        implementation platform("xyz.tynn.astring:bom:$aStringVersion")
+
+        implementation 'xyz.tynn.astring:core'
+        implementation 'xyz.tynn.astring:appcompat'
+        implementation 'xyz.tynn.astring:material'
     }
 
 
 ## Usage
 
-To create a comparable `AString` instance use the `AStringFactory` methods in _Java_.
+To create a equatable `AString` instance use the `AStringFactory` methods in _Java_.
 
     AStringFactory.createFromCharSequence("aString")
     AStringFactory.createFromStringResource(R.string.app_name)
 
-In Kotlin these methods are top level and extension functions.
+In Kotlin these methods are top level or extension functions.
 
     "aString".asAString()
      StringResource(R.string.app_name)
 
-If `null` or `0` is used to create an `AString`, an instance returning `null` is created.
+If `null` or `0` is used to create an `AString`, an instance providing `null` is created.
 
     AStringFactory.nullAsAString
 
@@ -75,43 +78,38 @@ _Feel free to provide a PR for missing methods._
 
 #### Core module
 
-Views provided by the _Android_ framework and _AndroidX_ core:
+Components provided by the _Android_ framework and _AndroidX_ core:
 
- * `View`
- * `TextView`
- * `Toobar`
- * `Switch`
- * `ToggleButton`
- * `TextSwitcher`
-
- * `Toast`
-
- * `AlertDialog`
- * `AlertDialog.Builder`
+ `View`
+ `TextView`
+ `Toobar`
+ `Switch`
+ `ToggleButton`
+ `TextSwitcher`
+ `Toast`
+ `AlertDialog`
+ `AlertDialog.Builder`
 
 #### AppCompat module
 
-Views provided by  _AndroidX_ appcompat:
+Components provided by  _AndroidX_ appcompat:
 
- * `Toobar`
-
- * `AlertDialog`
- * `AlertDialog.Builder`
+ `Toobar`
+ `AlertDialog`
+ `AlertDialog.Builder`
 
 #### Material module
 
-Views provided by the _Material_ components by _Google_:
+Components provided by the _Material_ components by _Google_:
 
- * `TextInputLayout`
-
- * `Snackbar`
-
- * `MaterialAlertDialogBuilder`
+ `TextInputLayout`
+ `Snackbar`
+ `MaterialAlertDialogBuilder`
 
 
 ## License
 
-    Copyright (C) 2020 Christian Schmitz
+    Copyright (C) 2020-2021 Christian Schmitz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -126,7 +124,9 @@ Views provided by the _Material_ components by _Google_:
     limitations under the License.
 
 
-  [bintray]: https://bintray.com/tynn-xyz/maven/AString/_latestVersion
-  [bintray-shield]: https://api.bintray.com/packages/tynn-xyz/maven/AString/images/download.svg
+  [api]: https://asapi.herokuapp.com/xyz.tynn.astring/astring
+  [api-shield]: https://asapi.herokuapp.com/xyz.tynn.astring/astring@svg
   [build]: https://github.com/tynn-xyz/AString/actions
-  [build-shield]: https://github.com/tynn-xyz/AString/workflows/Build/badge.svg
+  [build-shield]: https://img.shields.io/github/workflow/status/tynn-xyz/AString/Build
+  [download]: https://search.maven.org/search?q=xyz.tynn.astring
+  [download-shield]: https://img.shields.io/maven-central/v/xyz.tynn.astring/core

@@ -1,0 +1,24 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+}
+
+dependencies {
+    constraints {
+        rootProject.subprojects.each { library ->
+            library.pluginManager.withPlugin('maven-publish') {
+                if (library != project) {
+                    api library
+                }
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenBom(MavenPublication) {
+            from components.javaPlatform
+        }
+    }
+}
