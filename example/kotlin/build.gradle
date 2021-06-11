@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation project(':example:common')
+    implementation project(':example:base')
 }

@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(':example:common'), {
+    implementation project(':example:base'), {
         exclude group: 'org.jetbrains.kotlin'
     }
 }

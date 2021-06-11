@@ -17,9 +17,9 @@ import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.make
 import xyz.tynn.astring.appcompat.*
 import xyz.tynn.astring.core.*
-import xyz.tynn.astring.example.common.*
-import xyz.tynn.astring.example.common.databinding.ActivityMainBinding
-import xyz.tynn.astring.example.common.databinding.ActivityMainBinding.inflate
+import xyz.tynn.astring.example.base.*
+import xyz.tynn.astring.example.base.databinding.ActivityMainBinding
+import xyz.tynn.astring.example.base.databinding.ActivityMainBinding.inflate
 import xyz.tynn.astring.getValue
 import xyz.tynn.astring.material.makeSnackbar
 import xyz.tynn.astring.material.setAction
@@ -64,12 +64,12 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(action3, null)
                 .setMessage(message)
                 .create()
-                .apply { setTitle(xyz.tynn.astring.example.common.title) }
+                .apply { setTitle(xyz.tynn.astring.example.base.title) }
                 .show()
         }
         buttonAlertDialogLegacy.setOnClickListener {
             AlertDialog.Builder(this@MainActivity)
-                .setTitle(xyz.tynn.astring.example.common.title)
+                .setTitle(xyz.tynn.astring.example.base.title)
                 .setMessage(message)
                 .setPositiveButton(action1, null)
                 .setNeutralButton(action2, null)
