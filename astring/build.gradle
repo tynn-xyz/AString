@@ -4,8 +4,7 @@ plugins {
 }
 
 dependencies {
-    api project(':astring')
-    api 'androidx.core:core:1.5.0'
+    api 'androidx.fragment:fragment:1.3.4'
 
     testImplementation project(':testing')
 }

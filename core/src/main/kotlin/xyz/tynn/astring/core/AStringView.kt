@@ -6,8 +6,10 @@
 package xyz.tynn.astring.core
 
 import android.view.View
-import androidx.core.view.ViewCompat.*
+import androidx.core.view.ViewCompat.setAccessibilityPaneTitle
+import androidx.core.view.ViewCompat.setTooltipText
 import xyz.tynn.astring.AString
+import androidx.core.view.ViewCompat.setStateDescription as setStateDescriptionCompat
 
 /**
  * Sets the accessibility pane title
@@ -36,7 +38,7 @@ fun View.setContentDescription(
  */
 fun View.setStateDescription(
     stateDescription: AString,
-) = setStateDescription(
+) = setStateDescriptionCompat(
     this,
     stateDescription(context),
 )
