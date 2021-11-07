@@ -15,9 +15,9 @@ import androidx.core.view.ViewCompat.setStateDescription as setStateDescriptionC
  * Sets the accessibility pane title
  * @see View.setAccessibilityPaneTitle
  */
-fun View.setAccessibilityPaneTitle(
+public fun View.setAccessibilityPaneTitle(
     accessibilityPaneTitle: AString,
-) = setAccessibilityPaneTitle(
+): Unit = setAccessibilityPaneTitle(
     this,
     accessibilityPaneTitle(context),
 )
@@ -26,9 +26,9 @@ fun View.setAccessibilityPaneTitle(
  * Sets the content description
  * @see View.setContentDescription
  */
-fun View.setContentDescription(
+public fun View.setContentDescription(
     contentDescription: AString,
-) = setContentDescription(
+): Unit = setContentDescription(
     contentDescription(context),
 )
 
@@ -36,9 +36,9 @@ fun View.setContentDescription(
  * Sets the state description
  * @see View.setStateDescription
  */
-fun View.setStateDescription(
+public fun View.setStateDescription(
     stateDescription: AString,
-) = setStateDescriptionCompat(
+): Unit = setStateDescriptionCompat(
     this,
     stateDescription(context),
 )
@@ -47,9 +47,9 @@ fun View.setStateDescription(
  * Sets the tooltip for the view
  * @see View.setTooltipText
  */
-fun View.setTooltipText(
+public fun View.setTooltipText(
     tooltipText: AString,
-) = setTooltipText(
+): Unit = setTooltipText(
     this,
     tooltipText(context),
 )

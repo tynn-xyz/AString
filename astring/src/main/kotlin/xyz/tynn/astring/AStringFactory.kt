@@ -10,7 +10,7 @@ import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 
 @JvmField
-val nullAsAString: AString = NullValueWrapper.I
+public val nullAsAString: AString = NullValueWrapper.I
 
 /**
  * Creates an `AString` from a `CharSequence?`
@@ -18,8 +18,8 @@ val nullAsAString: AString = NullValueWrapper.I
  * Returns [nullAsAString] for null
  */
 @JvmName("createFromCharSequence")
-fun CharSequence?.asAString() = if (this == null)
-    NullValueWrapper.I
+public fun CharSequence?.asAString(): AString = if (this == null)
+    nullAsAString
 else CharSequenceWrapper(this)
 
 /**
@@ -28,11 +28,11 @@ else CharSequenceWrapper(this)
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromQuantityStringResource")
-fun QuantityStringResource(
+public fun QuantityStringResource(
     @PluralsRes resId: Int,
     quantity: Int,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else QuantityStringResourceDelegate(
     resId,
     quantity,
@@ -45,12 +45,12 @@ else QuantityStringResourceDelegate(
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromQuantityStringResource")
-fun QuantityStringResource(
+public fun QuantityStringResource(
     @PluralsRes resId: Int,
     quantity: Int,
     vararg formatArgs: Any?,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else QuantityStringResourceDelegate(
     resId,
     quantity,
@@ -63,11 +63,11 @@ else QuantityStringResourceDelegate(
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromQuantityTextResource")
-fun QuantityTextResource(
+public fun QuantityTextResource(
     @PluralsRes resId: Int,
     quantity: Int,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else QuantityTextResourceDelegate(
     resId,
     quantity,
@@ -79,10 +79,10 @@ else QuantityTextResourceDelegate(
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromStringResource")
-fun StringResource(
+public fun StringResource(
     @StringRes resId: Int,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else StringResourceDelegate(
     resId,
     null,
@@ -94,11 +94,11 @@ else StringResourceDelegate(
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromStringResource")
-fun StringResource(
+public fun StringResource(
     @StringRes resId: Int,
     vararg formatArgs: Any?,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else StringResourceDelegate(
     resId,
     formatArgs,
@@ -110,10 +110,10 @@ else StringResourceDelegate(
  * Returns [nullAsAString] for 0
  */
 @JvmName("createFromTextResource")
-fun TextResource(
+public fun TextResource(
     @StringRes resId: Int,
-) = if (resId == 0)
-    NullValueWrapper.I
+): AString = if (resId == 0)
+    nullAsAString
 else TextResourceDelegate(
     resId,
 )

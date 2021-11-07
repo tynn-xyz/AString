@@ -13,7 +13,7 @@ import io.mockk.spyk
 import io.mockk.verify
 import kotlin.test.Test
 
-class AStringKtTest {
+internal class AStringKtTest {
 
     val aString = mockk<AString>(relaxed = true)
     val aContext = mockk<Context>()

@@ -14,15 +14,14 @@ import xyz.tynn.astring.AString
  *
  * @see Builder.setNegativeButton
  */
-fun <B : Builder> B.setNegativeButton(
+public fun <B : Builder> B.setNegativeButton(
     text: AString,
     listener: OnClickListener?,
-): B {
+): B = apply {
     setNegativeButton(
         text(context),
         listener,
     )
-    return this
 }
 
 /**
@@ -30,15 +29,14 @@ fun <B : Builder> B.setNegativeButton(
  *
  * @see Builder.setNeutralButton
  */
-fun <B : Builder> B.setNeutralButton(
+public fun <B : Builder> B.setNeutralButton(
     text: AString,
     listener: OnClickListener?,
-): B {
+): B = apply {
     setNeutralButton(
         text(context),
         listener,
     )
-    return this
 }
 
 /**
@@ -46,15 +44,14 @@ fun <B : Builder> B.setNeutralButton(
  *
  * @see Builder.setPositiveButton
  */
-fun <B : Builder> B.setPositiveButton(
+public fun <B : Builder> B.setPositiveButton(
     text: AString,
     listener: OnClickListener?,
-): B {
+): B = apply {
     setPositiveButton(
         text(context),
         listener,
     )
-    return this
 }
 
 /**
@@ -62,13 +59,12 @@ fun <B : Builder> B.setPositiveButton(
  *
  * @see Builder.setMessage
  */
-fun <B : Builder> B.setMessage(
+public fun <B : Builder> B.setMessage(
     message: AString,
-): B {
+): B = apply {
     setMessage(
         message(context),
     )
-    return this
 }
 
 /**
@@ -76,11 +72,10 @@ fun <B : Builder> B.setMessage(
  *
  * @see Builder.setTitle
  */
-fun <B : Builder> B.setTitle(
+public fun <B : Builder> B.setTitle(
     title: AString,
-): B {
+): B = apply {
     setTitle(
         title(context),
     )
-    return this
 }

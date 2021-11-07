@@ -3,6 +3,14 @@
 
 package xyz.tynn.astring.core;
 
+import static androidx.core.view.ViewCompat.setAccessibilityPaneTitle;
+import static androidx.core.view.ViewCompat.setStateDescription;
+import static androidx.core.view.ViewCompat.setTooltipText;
+import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+
 import android.view.View;
 
 import androidx.core.view.ViewCompat;
@@ -13,14 +21,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static androidx.core.view.ViewCompat.setAccessibilityPaneTitle;
-import static androidx.core.view.ViewCompat.setStateDescription;
-import static androidx.core.view.ViewCompat.setTooltipText;
-import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringViewTest {
 

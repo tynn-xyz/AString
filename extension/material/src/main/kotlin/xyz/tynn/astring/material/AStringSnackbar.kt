@@ -20,25 +20,25 @@ import xyz.tynn.astring.AString
  * @see Snackbar.make
  */
 @JvmName("make")
-fun makeSnackbar(
+public fun makeSnackbar(
     view: View,
     text: AString,
     @Duration duration: Int,
-): Snackbar {
-    var textValue = text(view.context)
-    if (textValue == null) textValue = ""
-    return make(view, textValue, duration)
-}
+): Snackbar = make(
+    view,
+    text(view.context) ?: "",
+    duration,
+)
 
 /**
  * Sets the action to be displayed in this [Snackbar]
  *
  * @see Snackbar.setAction
  */
-fun Snackbar.setAction(
+public fun Snackbar.setAction(
     text: AString,
     listener: OnClickListener?,
-) = setAction(
+): Snackbar = setAction(
     text(context),
     listener,
 )
@@ -50,10 +50,8 @@ fun Snackbar.setAction(
  *
  * @see Snackbar.setText
  */
-fun Snackbar.setText(
+public fun Snackbar.setText(
     text: AString,
-): Snackbar {
-    var textValue = text(context)
-    if (textValue == null) textValue = ""
-    return setText(textValue)
-}
+): Snackbar = setText(
+    text(context) ?: "",
+)

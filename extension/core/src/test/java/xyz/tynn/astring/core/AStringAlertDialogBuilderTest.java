@@ -3,6 +3,10 @@
 
 package xyz.tynn.astring.core;
 
+import static org.junit.Assert.assertSame;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 
@@ -11,10 +15,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static org.junit.Assert.assertSame;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringAlertDialogBuilderTest {
 

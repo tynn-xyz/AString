@@ -3,6 +3,16 @@
 
 package xyz.tynn.astring.material;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+import static org.junit.Assert.assertSame;
+import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkAStringInvoke;
+import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkGetMainLooper;
+import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkSnackbarMake;
+
 import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,16 +25,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
-import static org.junit.Assert.assertSame;
-import static xyz.tynn.astring.material.MockkDefinitionsKt.mockkAStringInvoke;
-import static xyz.tynn.astring.material.MockkDefinitionsKt.mockkGetMainLooper;
-import static xyz.tynn.astring.material.MockkDefinitionsKt.mockkSnackbarMake;
-import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringSnackbarTest {
 

@@ -13,9 +13,9 @@ import xyz.tynn.astring.AString
  * Appends the text to the display buffer
  * @see TextView.append
  */
-fun TextView.append(
+public fun TextView.append(
     text: AString,
-) = append(
+): Unit = append(
     text(context),
 )
 
@@ -23,11 +23,11 @@ fun TextView.append(
  * Appends the text to the display buffer
  * @see TextView.append
  */
-fun TextView.append(
+public fun TextView.append(
     text: AString,
     start: Int,
     end: Int,
-) = append(
+): Unit = append(
     text(context),
     start,
     end,
@@ -37,9 +37,9 @@ fun TextView.append(
  * Sets the error message
  * @see TextView.setError
  */
-fun TextView.setError(
+public fun TextView.setError(
     error: AString,
-) = setError(
+): Unit = setError(
     error(context),
 )
 
@@ -47,10 +47,10 @@ fun TextView.setError(
  * Sets the error message
  * @see TextView.setError
  */
-fun TextView.setError(
+public fun TextView.setError(
     error: AString,
     icon: Drawable?,
-) = setError(
+): Unit = setError(
     error(context),
     icon,
 )
@@ -59,9 +59,9 @@ fun TextView.setError(
  * Sets the text to be displayed when the text of the TextView is empty
  * @see TextView.setHint
  */
-fun TextView.setHint(
+public fun TextView.setHint(
     hint: AString,
-) = setHint(
+): Unit = setHint(
     hint(context),
 )
 
@@ -69,9 +69,9 @@ fun TextView.setHint(
  * Sets the text to be displayed
  * @see TextView.setText
  */
-fun TextView.setText(
+public fun TextView.setText(
     text: AString,
-) = setText(
+): Unit = setText(
     text(context),
 )
 
@@ -79,10 +79,10 @@ fun TextView.setText(
  * Sets the text to be displayed
  * @see TextView.setText
  */
-fun TextView.setText(
+public fun TextView.setText(
     text: AString,
     type: TextView.BufferType,
-) = setText(
+): Unit = setText(
     text(context),
     type,
 )

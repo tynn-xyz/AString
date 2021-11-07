@@ -22,22 +22,7 @@ subprojects {
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
         apply from: "$rootDir/android.gradle"
-
-        android {
-            libraryVariants.all {
-                it.generateBuildConfigProvider.configure {
-                    enabled = false
-                }
-            }
-        }
-
-        tasks.withType(GenerateModuleMetadata).configureEach {
-            enabled = false
-        }
-
-        dependencies {
-            compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
-        }
+        apply from: "$rootDir/library.gradle"
     }
 
     pluginManager.withPlugin('com.android.application') {

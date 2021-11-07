@@ -12,9 +12,9 @@ import xyz.tynn.astring.AString
  * Sets the text displayed when the button is not in the checked state
  * @see Switch.setTextOff
  */
-fun Switch.setTextOff(
+public fun Switch.setTextOff(
     textOff: AString,
-) = setTextOff(
+): Unit = setTextOff(
     textOff(context),
 )
 
@@ -22,8 +22,8 @@ fun Switch.setTextOff(
  * Sets the text displayed when the button is in the checked state
  * @see Switch.setTextOn
  */
-fun Switch.setTextOn(
+public fun Switch.setTextOn(
     textOn: AString,
-) = setTextOn(
+): Unit = setTextOn(
     textOn(context),
 )

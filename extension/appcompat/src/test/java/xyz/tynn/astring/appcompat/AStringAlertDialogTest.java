@@ -3,6 +3,10 @@
 
 package xyz.tynn.astring.appcompat;
 
+import static android.content.DialogInterface.BUTTON_NEUTRAL;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+
 import android.content.DialogInterface.OnClickListener;
 import android.os.Message;
 
@@ -13,10 +17,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static android.content.DialogInterface.BUTTON_NEUTRAL;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringAlertDialogTest {
 

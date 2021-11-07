@@ -13,9 +13,9 @@ import xyz.tynn.astring.AString
  * @see Toolbar.setLogoDescription
  */
 @Suppress("UsePropertyAccessSyntax")
-fun Toolbar.setLogoDescription(
+public fun Toolbar.setLogoDescription(
     description: AString,
-) = setLogoDescription(
+): Unit = setLogoDescription(
     description(context),
 )
 
@@ -23,9 +23,9 @@ fun Toolbar.setLogoDescription(
  * Sets a subtitle
  * @see Toolbar.setSubtitle
  */
-fun Toolbar.setSubtitle(
+public fun Toolbar.setSubtitle(
     subtitle: AString,
-) = setSubtitle(
+): Unit = setSubtitle(
     subtitle(context),
 )
 
@@ -33,8 +33,8 @@ fun Toolbar.setSubtitle(
  * Sets a title
  * @see Toolbar.setTitle
  */
-fun Toolbar.setTitle(
+public fun Toolbar.setTitle(
     title: AString,
-) = setTitle(
+): Unit = setTitle(
     title(context),
 )

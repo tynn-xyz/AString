@@ -25,7 +25,7 @@ private annotation class ToastDuration
  */
 @SuppressLint("ShowToast")
 @JvmName("makeText")
-fun makeToast(
+public fun makeToast(
     context: Context,
     text: AString,
     @ToastDuration duration: Int,
@@ -42,10 +42,10 @@ fun makeToast(
  *
  * @see Toast.setText
  */
-fun Toast.setText(
+public fun Toast.setText(
     context: Context,
     text: AString,
-) = setText(
+): Unit = setText(
     text(requireNonNull(context)),
 )
 

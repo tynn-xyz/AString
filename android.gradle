@@ -5,22 +5,4 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
     }
-
-    compileOptions {
-        sourceCompatibility '1.8'
-        targetCompatibility '1.8'
-    }
-}
-
-pluginManager.withPlugin('org.jetbrains.kotlin.android') {
-    android {
-        kotlinOptions {
-            jvmTarget = '1.8'
-            freeCompilerArgs += [
-                    '-Xno-call-assertions',
-                    '-Xno-param-assertions',
-                    '-Xno-receiver-assertions',
-            ]
-        }
-    }
 }

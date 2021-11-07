@@ -3,6 +3,14 @@
 
 package xyz.tynn.astring.core;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static org.junit.Assert.assertEquals;
+import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+import static xyz.tynn.astring.testing.mockk.MockkCoreKt.mockkToastMakeText;
+
 import android.content.Context;
 import android.widget.Toast;
 
@@ -12,14 +20,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static android.widget.Toast.LENGTH_LONG;
-import static org.junit.Assert.assertEquals;
-import static xyz.tynn.astring.core.MockkDefinitionsKt.mockkToastMakeText;
-import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringToastTest {
 

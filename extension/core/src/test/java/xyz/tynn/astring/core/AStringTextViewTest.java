@@ -3,6 +3,10 @@
 
 package xyz.tynn.astring.core;
 
+import static android.widget.TextView.BufferType.SPANNABLE;
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
@@ -12,10 +16,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static android.widget.TextView.BufferType.SPANNABLE;
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringTextViewTest {
 

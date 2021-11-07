@@ -1,0 +1,28 @@
+android {
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure {
+            enabled = false
+        }
+    }
+}
+
+pluginManager.withPlugin('org.jetbrains.kotlin.android') {
+    android {
+        kotlinOptions {
+            freeCompilerArgs += [
+                    '-Xno-call-assertions',
+                    '-Xno-param-assertions',
+                    '-Xno-receiver-assertions',
+                    '-Xexplicit-api=strict',
+            ]
+        }
+    }
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+dependencies {
+    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
+}

@@ -23,11 +23,11 @@ private annotation class DialogInterfaceButton
  *
  * @see AlertDialog.setButton
  */
-fun AlertDialog.setButton(
+public fun AlertDialog.setButton(
     @DialogInterfaceButton whichButton: Int,
     text: AString,
     listener: OnClickListener?,
-) = setButton(
+): Unit = setButton(
     whichButton,
     text(context),
     listener,
@@ -40,11 +40,11 @@ fun AlertDialog.setButton(
  *
  * @see AlertDialog.setButton
  */
-fun AlertDialog.setButton(
+public fun AlertDialog.setButton(
     @DialogInterfaceButton whichButton: Int,
     text: AString,
     msg: Message?,
-) = setButton(
+): Unit = setButton(
     whichButton,
     text(context),
     msg,
@@ -55,9 +55,9 @@ fun AlertDialog.setButton(
  *
  * @see AlertDialog.setMessage
  */
-fun AlertDialog.setMessage(
+public fun AlertDialog.setMessage(
     message: AString,
-) = setMessage(
+): Unit = setMessage(
     message(context),
 )
 
@@ -66,8 +66,8 @@ fun AlertDialog.setMessage(
  *
  * @see AlertDialog.setTitle
  */
-fun AlertDialog.setTitle(
+public fun AlertDialog.setTitle(
     title: AString,
-) = setTitle(
+): Unit = setTitle(
     title(context),
 )

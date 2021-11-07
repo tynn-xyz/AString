@@ -3,6 +3,9 @@
 
 package xyz.tynn.astring.core;
 
+import static xyz.tynn.astring.testing.mockk.MockKt.init;
+import static xyz.tynn.astring.testing.mockk.MockKt.verify;
+
 import android.widget.ToggleButton;
 
 import org.junit.Before;
@@ -10,9 +13,6 @@ import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
 import xyz.tynn.astring.AString;
-
-import static xyz.tynn.astring.testing.mockk.MockKt.init;
-import static xyz.tynn.astring.testing.mockk.MockKt.verify;
 
 public class AStringToggleButtonTest {
 

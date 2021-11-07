@@ -3,30 +3,6 @@
 
 package xyz.tynn.astring.example.java;
 
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface.OnClickListener;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
-
-import xyz.tynn.astring.appcompat.AStringAlertDialog;
-import xyz.tynn.astring.appcompat.AStringAlertDialogBuilder;
-import xyz.tynn.astring.core.AStringToast;
-import xyz.tynn.astring.example.base.AStringsKt;
-import xyz.tynn.astring.example.base.R;
-import xyz.tynn.astring.example.base.databinding.ActivityMainBinding;
-import xyz.tynn.astring.material.AStringSnackbar;
-
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.widget.TextView.BufferType.SPANNABLE;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -59,6 +35,30 @@ import static xyz.tynn.astring.example.base.AStringsKt.getTooltipText;
 import static xyz.tynn.astring.example.base.databinding.ActivityMainBinding.inflate;
 import static xyz.tynn.astring.material.AStringSnackbar.make;
 import static xyz.tynn.astring.material.AStringSnackbar.setAction;
+
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+
+import xyz.tynn.astring.appcompat.AStringAlertDialog;
+import xyz.tynn.astring.appcompat.AStringAlertDialogBuilder;
+import xyz.tynn.astring.core.AStringToast;
+import xyz.tynn.astring.example.base.AStringsKt;
+import xyz.tynn.astring.example.base.R;
+import xyz.tynn.astring.example.base.databinding.ActivityMainBinding;
+import xyz.tynn.astring.material.AStringSnackbar;
 
 public class MainActivity extends AppCompatActivity {
 

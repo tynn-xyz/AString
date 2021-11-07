@@ -12,9 +12,9 @@ import xyz.tynn.astring.AString
  * Sets a content description for the end icon
  * @see TextInputLayout.setEndIconContentDescription
  */
-fun TextInputLayout.setEndIconContentDescription(
+public fun TextInputLayout.setEndIconContentDescription(
     endIconContentDescription: AString,
-) = setEndIconContentDescription(
+): Unit = setEndIconContentDescription(
     endIconContentDescription(context),
 )
 
@@ -22,9 +22,9 @@ fun TextInputLayout.setEndIconContentDescription(
  * Sets a content description for the error message
  * @see TextInputLayout.setErrorContentDescription
  */
-fun TextInputLayout.setErrorContentDescription(
+public fun TextInputLayout.setErrorContentDescription(
     errorContentDescription: AString,
-) = setErrorContentDescription(
+): Unit = setErrorContentDescription(
     errorContentDescription(context),
 )
 
@@ -32,9 +32,9 @@ fun TextInputLayout.setErrorContentDescription(
  * Sets an error message
  * @see TextInputLayout.setError
  */
-fun TextInputLayout.setError(
+public fun TextInputLayout.setError(
     error: AString,
-) = setError(
+): Unit = setError(
     error(context),
 )
 
@@ -42,9 +42,9 @@ fun TextInputLayout.setError(
  * Sets a helper message
  * @see TextInputLayout.setHelperText
  */
-fun TextInputLayout.setHelperText(
+public fun TextInputLayout.setHelperText(
     helperText: AString,
-) = setHelperText(
+): Unit = setHelperText(
     helperText(context),
 )
 
@@ -52,9 +52,9 @@ fun TextInputLayout.setHelperText(
  * Sets a hint
  * @see TextInputLayout.setHint
  */
-fun TextInputLayout.setHint(
+public fun TextInputLayout.setHint(
     hint: AString,
-) = setHint(
+): Unit = setHint(
     hint(context),
 )
 
@@ -62,9 +62,9 @@ fun TextInputLayout.setHint(
  * Sets a placeholder text
  * @see TextInputLayout.setPlaceholderText
  */
-fun TextInputLayout.setPlaceholderText(
+public fun TextInputLayout.setPlaceholderText(
     placeholderText: AString,
-) = setPlaceholderText(
+): Unit = setPlaceholderText(
     placeholderText(context),
 )
 
@@ -72,9 +72,9 @@ fun TextInputLayout.setPlaceholderText(
  * Sets a prefix text
  * @see TextInputLayout.setPrefixText
  */
-fun TextInputLayout.setPrefixText(
+public fun TextInputLayout.setPrefixText(
     prefixText: AString,
-) = setPrefixText(
+): Unit = setPrefixText(
     prefixText(context),
 )
 
@@ -82,9 +82,9 @@ fun TextInputLayout.setPrefixText(
  * Sets a content description for the start icon
  * @see TextInputLayout.setStartIconContentDescription
  */
-fun TextInputLayout.setStartIconContentDescription(
+public fun TextInputLayout.setStartIconContentDescription(
     startIconContentDescription: AString,
-) = setStartIconContentDescription(
+): Unit = setStartIconContentDescription(
     startIconContentDescription(context),
 )
 
@@ -92,8 +92,8 @@ fun TextInputLayout.setStartIconContentDescription(
  * Sets the suffix text
  * @see TextInputLayout.setSuffixText
  */
-fun TextInputLayout.setSuffixText(
+public fun TextInputLayout.setSuffixText(
     suffixText: AString,
-) = setSuffixText(
+): Unit = setSuffixText(
     suffixText(context),
 )

@@ -12,9 +12,9 @@ import xyz.tynn.astring.AString
  *  Sets the text of the text view that is currently showing
  * @see TextSwitcher.setCurrentText
  */
-fun TextSwitcher.setCurrentText(
+public fun TextSwitcher.setCurrentText(
     text: AString,
-) = setCurrentText(
+): Unit = setCurrentText(
     text(context),
 )
 
@@ -22,8 +22,8 @@ fun TextSwitcher.setCurrentText(
  * Sets the text of the next view and switches to the next view
  * @see TextSwitcher.setText
  */
-fun TextSwitcher.setText(
+public fun TextSwitcher.setText(
     text: AString,
-) = setText(
+): Unit = setText(
     text(context),
 )
