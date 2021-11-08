@@ -9,48 +9,41 @@ import kotlin.test.*
 internal class NullValueWrapperTest {
 
     @Test
-    fun `I should be non null`() {
-        assertNotNull(
-            NullValueWrapper.I,
-        )
-    }
-
-    @Test
     fun `invoke should return null`() {
         assertNull(
-            NullValueWrapper().invoke(null),
+            NullValueWrapper.I.invoke(null),
         )
     }
 
     @Test
     fun `equals should be true for same type`() {
         assertTrue {
-            NullValueWrapper() == NullValueWrapper()
+            NullValueWrapper.I == mockk<NullValueWrapper>()
         }
     }
 
     @Test
-    fun `equals should be false for non CharSequenceWrapper`() {
+    fun `equals should be false for non NullValueWrapper`() {
         assertFalse {
-            NullValueWrapper().equals("foo")
+            NullValueWrapper.I.equals("foo")
         }
         assertFalse {
-            NullValueWrapper() == mockk<AString>()
+            NullValueWrapper.I == mockk<AString>()
         }
         assertFalse {
-            NullValueWrapper().equals(mockk<CharSequenceWrapper>())
+            NullValueWrapper.I.equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            NullValueWrapper().equals(mockk<QuantityStringResourceDelegate>())
+            NullValueWrapper.I.equals(mockk<QuantityStringResourceDelegate>())
         }
         assertFalse {
-            NullValueWrapper().equals(mockk<QuantityTextResourceDelegate>())
+            NullValueWrapper.I.equals(mockk<QuantityTextResourceDelegate>())
         }
         assertFalse {
-            NullValueWrapper().equals(mockk<StringResourceDelegate>())
+            NullValueWrapper.I.equals(mockk<StringResourceDelegate>())
         }
         assertFalse {
-            NullValueWrapper().equals(mockk<TextResourceDelegate>())
+            NullValueWrapper.I.equals(mockk<TextResourceDelegate>())
         }
     }
 
@@ -58,7 +51,7 @@ internal class NullValueWrapperTest {
     fun `hashCode should return 0`() {
         assertEquals(
             0,
-            NullValueWrapper().hashCode(),
+            NullValueWrapper.I.hashCode(),
         )
     }
 
@@ -66,7 +59,7 @@ internal class NullValueWrapperTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(NullValue(null))",
-            NullValueWrapper().toString(),
+            NullValueWrapper.I.toString(),
         )
     }
 }

@@ -2,10 +2,10 @@
 [![Build][build-shield]][build]
 [![Download][download-shield]][download]
 [![API][api-shield]][api]
-###### A context aware string abstraction for _Android_
+###### A context aware parcelable string abstraction for _Android_
 
 ```
-public interface AString {
+public interface AString extends Parcelable {
     @Nullable
     CharSequence invoke(@NonNull Context context);
 }

@@ -3,7 +3,11 @@
 
 package xyz.tynn.astring;
 
+import static android.text.TextUtils.CHAR_SEQUENCE_CREATOR;
+
 import android.content.Context;
+import android.os.Parcel;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,4 +49,22 @@ final class CharSequenceWrapper implements AString {
     public String toString() {
         return "AString(" + "CharSequence(" + string + "))";
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        TextUtils.writeToParcel(string, dest, flags);
+    }
+
+    public static final Creator<CharSequenceWrapper> CREATOR = new Creator<CharSequenceWrapper>() {
+
+        @Override
+        public CharSequenceWrapper createFromParcel(Parcel source) {
+            return new CharSequenceWrapper(CHAR_SEQUENCE_CREATOR.createFromParcel(source));
+        }
+
+        @Override
+        public CharSequenceWrapper[] newArray(int size) {
+            return new CharSequenceWrapper[size];
+        }
+    };
 }

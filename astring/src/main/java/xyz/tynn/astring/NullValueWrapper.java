@@ -4,6 +4,7 @@
 package xyz.tynn.astring;
 
 import android.content.Context;
+import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,9 @@ final class NullValueWrapper implements AString {
 
     @NonNull
     static NullValueWrapper I = new NullValueWrapper();
+
+    private NullValueWrapper() {
+    }
 
     @Nullable
     @Override
@@ -37,4 +41,21 @@ final class NullValueWrapper implements AString {
     public String toString() {
         return "AString(" + "NullValue(" + null + "))";
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+    }
+
+    public static final Creator<NullValueWrapper> CREATOR = new Creator<NullValueWrapper>() {
+
+        @Override
+        public NullValueWrapper createFromParcel(Parcel source) {
+            return I;
+        }
+
+        @Override
+        public NullValueWrapper[] newArray(int size) {
+            return new NullValueWrapper[size];
+        }
+    };
 }

@@ -6,6 +6,8 @@
 
 package xyz.tynn.astring
 
+import android.os.Parcel
+import android.text.TextUtils
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 
@@ -16,6 +18,9 @@ public val nullAsAString: AString = NullValueWrapper.I
  * Creates an `AString` from a `CharSequence?`
  *
  * Returns [nullAsAString] for null
+ *
+ * **Note** that [TextUtils.writeToParcel] is used to parcel
+ * the [CharSequence] which might lose some custom styles
  */
 @JvmName("createFromCharSequence")
 public fun CharSequence?.asAString(): AString = if (this == null)
@@ -43,6 +48,9 @@ else QuantityStringResourceDelegate(
  * Creates an `AString` from a plurals string resource with format arguments
  *
  * Returns [nullAsAString] for 0
+ *
+ * **Note** that [Parcel.writeValue] is used to parcel [formatArgs]
+ * which might throw a [RuntimeException] for un-parcelable values
  */
 @JvmName("createFromQuantityStringResource")
 public fun QuantityStringResource(
@@ -92,6 +100,9 @@ else StringResourceDelegate(
  * Creates an `AString` from a string resource with format arguments
  *
  * Returns [nullAsAString] for 0
+ *
+ * **Note** that [Parcel.writeValue] is used to parcel [formatArgs]
+ * which might throw a [RuntimeException] for un-parcelable values
  */
 @JvmName("createFromStringResource")
 public fun StringResource(

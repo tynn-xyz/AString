@@ -4,6 +4,7 @@
 package xyz.tynn.astring;
 
 import android.content.Context;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +19,7 @@ import androidx.annotation.Nullable;
  * {@code AString} is almost always used from the main thread,
  * therefore all implementations must be non-blocking since
  */
-public interface AString {
+public interface AString extends Parcelable {
 
     /**
      * Provides a context sensitive string
@@ -28,5 +29,10 @@ public interface AString {
      */
     @Nullable
     CharSequence invoke(@NonNull Context context);
+
+    @Override
+    default int describeContents() {
+        return 0;
+    }
 }
 

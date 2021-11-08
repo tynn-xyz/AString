@@ -5,6 +5,7 @@ package xyz.tynn.astring;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,4 +63,25 @@ final class QuantityStringResourceDelegate implements AString {
                 sb.append(',').append(o);
         return sb.append("))").toString();
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(resId);
+        dest.writeInt(quantity);
+        dest.writeValue(formatArgs);
+    }
+
+    public static final Creator<QuantityStringResourceDelegate> CREATOR = new Creator<QuantityStringResourceDelegate>() {
+
+        @Override
+        public QuantityStringResourceDelegate createFromParcel(Parcel source) {
+            return new QuantityStringResourceDelegate(source.readInt(), source.readInt(),
+                    (Object[]) source.readValue(getClass().getClassLoader()));
+        }
+
+        @Override
+        public QuantityStringResourceDelegate[] newArray(int size) {
+            return new QuantityStringResourceDelegate[size];
+        }
+    };
 }

@@ -2,8 +2,6 @@
     package="xyz.tynn.astring.example.base">
 
     <application
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" />
 </manifest>
