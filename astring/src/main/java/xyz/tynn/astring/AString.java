@@ -14,10 +14,10 @@ import androidx.annotation.Nullable;
  * <p>
  * The purpose of this type is to provide context sensitive strings.
  * This could be a plain {@link CharSequence} or a {@link android.text.Spannable},
- * a string resource or a formatted quantity string.
+ * a string resource, a formatted quantity string or something completely different.
  * <p>
  * {@code AString} is almost always used from the main thread,
- * therefore all implementations must be non-blocking since
+ * therefore all implementations must be non-blocking.
  */
 public interface AString extends Parcelable {
 

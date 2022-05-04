@@ -41,7 +41,8 @@ In Kotlin these methods are top level or extension functions.
     "aString".asAString()
      StringResource(R.string.app_name)
 
-If `null` or `0` is used to create an `AString`, an instance providing `null` is created.
+If `null`, `ID_NULL` or `0` is used to create an `AString`, an instance providing `null`
+constantly is created.
 
     AStringFactory.nullAsAString
 

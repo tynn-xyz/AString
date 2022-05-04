@@ -13,14 +13,18 @@ import kotlin.reflect.KProperty
  */
 public operator fun AString.invoke(
     fragment: Fragment,
-): CharSequence? = invoke(fragment.requireContext())
+): CharSequence? = invoke(
+    fragment.requireContext(),
+)
 
 /**
  * Invokes the `AString` with [View.getContext]
  */
 public operator fun AString.invoke(
     view: View,
-): CharSequence? = invoke(view.context)
+): CharSequence? = invoke(
+    view.context,
+)
 
 /**
  * Delegates a `CharSequence?` property within a [Context] to the `AString`
@@ -29,7 +33,9 @@ public operator fun AString.invoke(
 public operator fun AString.getValue(
     thisRef: Context,
     property: KProperty<*>,
-): CharSequence? = invoke(thisRef)
+): CharSequence? = invoke(
+    thisRef,
+)
 
 /**
  * Delegates a `CharSequence?` property within a [Fragment] to the `AString`
@@ -38,7 +44,9 @@ public operator fun AString.getValue(
 public operator fun AString.getValue(
     thisRef: Fragment,
     property: KProperty<*>,
-): CharSequence? = invoke(thisRef.requireContext())
+): CharSequence? = invoke(
+    thisRef.requireContext(),
+)
 
 /**
  * Delegates a `CharSequence?` property within a [View] to the `AString`
@@ -47,4 +55,36 @@ public operator fun AString.getValue(
 public operator fun AString.getValue(
     thisRef: View,
     property: KProperty<*>,
-): CharSequence? = invoke(thisRef.context)
+): CharSequence? = invoke(
+    thisRef.context,
+)
+
+/**
+ * Invokes the [aString] with [Context]
+ */
+@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
+public inline fun Context.aString(
+    aString: AString,
+): CharSequence? = aString.invoke(
+    this,
+)
+
+/**
+ * Invokes the [aString] with [Fragment.requireContext]
+ */
+@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
+public inline fun Fragment.aString(
+    aString: AString,
+): CharSequence? = aString.invoke(
+    requireContext(),
+)
+
+/**
+ * Invokes the [aString] with [View.getContext]
+ */
+@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
+public inline fun View.aString(
+    aString: AString,
+): CharSequence? = aString.invoke(
+    context,
+)

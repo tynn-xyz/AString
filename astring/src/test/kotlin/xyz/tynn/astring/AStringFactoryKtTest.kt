@@ -3,6 +3,7 @@
 
 package xyz.tynn.astring
 
+import android.content.res.Resources.ID_NULL
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
@@ -34,14 +35,14 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `StringResource should return NullValueWrapper for 0`() {
+    fun `StringResource should return NullValueWrapper for ID_NULL`() {
         assertSame(
             NullValueWrapper.I,
-            StringResource(0),
+            StringResource(ID_NULL),
         )
         assertSame(
             NullValueWrapper.I,
-            StringResource(0, 1),
+            StringResource(ID_NULL, 1),
         )
     }
 
@@ -62,10 +63,10 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `TextResource should return NullValueWrapper for 0`() {
+    fun `TextResource should return NullValueWrapper for ID_NULL`() {
         assertSame(
             NullValueWrapper.I,
-            TextResource(0),
+            TextResource(ID_NULL),
         )
     }
 
@@ -78,14 +79,14 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `QuantityStringResource should return NullValueWrapper for 0`() {
+    fun `QuantityStringResource should return NullValueWrapper for ID_NULL`() {
         assertSame(
             NullValueWrapper.I,
-            QuantityStringResource(0, 1),
+            QuantityStringResource(ID_NULL, 1),
         )
         assertSame(
             NullValueWrapper.I,
-            QuantityStringResource(0, 1, 2),
+            QuantityStringResource(ID_NULL, 1, 2),
         )
     }
 
@@ -106,10 +107,10 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `QuantityTextResource should return NullValueWrapper for 0`() {
+    fun `QuantityTextResource should return NullValueWrapper for ID_NULL`() {
         assertSame(
             NullValueWrapper.I,
-            QuantityTextResource(0, 1),
+            QuantityTextResource(ID_NULL, 1),
         )
     }
 

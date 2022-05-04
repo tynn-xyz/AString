@@ -6,6 +6,7 @@
 
 package xyz.tynn.astring
 
+import android.content.res.Resources.ID_NULL
 import android.os.Parcel
 import android.text.TextUtils
 import androidx.annotation.PluralsRes
@@ -30,13 +31,13 @@ else CharSequenceWrapper(this)
 /**
  * Creates an `AString` from a plurals string resource
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  */
 @JvmName("createFromQuantityStringResource")
 public fun QuantityStringResource(
     @PluralsRes resId: Int,
     quantity: Int,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else QuantityStringResourceDelegate(
     resId,
@@ -47,7 +48,7 @@ else QuantityStringResourceDelegate(
 /**
  * Creates an `AString` from a plurals string resource with format arguments
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  *
  * **Note** that [Parcel.writeValue] is used to parcel [formatArgs]
  * which might throw a [RuntimeException] for un-parcelable values
@@ -57,7 +58,7 @@ public fun QuantityStringResource(
     @PluralsRes resId: Int,
     quantity: Int,
     vararg formatArgs: Any?,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else QuantityStringResourceDelegate(
     resId,
@@ -68,13 +69,13 @@ else QuantityStringResourceDelegate(
 /**
  * Creates an `AString` from a plurals text resource
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  */
 @JvmName("createFromQuantityTextResource")
 public fun QuantityTextResource(
     @PluralsRes resId: Int,
     quantity: Int,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else QuantityTextResourceDelegate(
     resId,
@@ -84,12 +85,12 @@ else QuantityTextResourceDelegate(
 /**
  * Creates an `AString` from a string resource
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  */
 @JvmName("createFromStringResource")
 public fun StringResource(
     @StringRes resId: Int,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else StringResourceDelegate(
     resId,
@@ -99,7 +100,7 @@ else StringResourceDelegate(
 /**
  * Creates an `AString` from a string resource with format arguments
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  *
  * **Note** that [Parcel.writeValue] is used to parcel [formatArgs]
  * which might throw a [RuntimeException] for un-parcelable values
@@ -108,7 +109,7 @@ else StringResourceDelegate(
 public fun StringResource(
     @StringRes resId: Int,
     vararg formatArgs: Any?,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else StringResourceDelegate(
     resId,
@@ -118,12 +119,12 @@ else StringResourceDelegate(
 /**
  * Creates an `AString` from a text resource
  *
- * Returns [nullAsAString] for 0
+ * Returns [nullAsAString] for [ID_NULL]
  */
 @JvmName("createFromTextResource")
 public fun TextResource(
     @StringRes resId: Int,
-): AString = if (resId == 0)
+): AString = if (resId == ID_NULL)
     nullAsAString
 else TextResourceDelegate(
     resId,

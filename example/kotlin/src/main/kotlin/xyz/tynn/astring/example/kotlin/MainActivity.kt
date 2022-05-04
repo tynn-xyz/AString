@@ -9,7 +9,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast.*
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getDrawable
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

@@ -7,6 +7,7 @@ package xyz.tynn.astring.core
 
 import android.app.Activity
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets the title of the activity
@@ -16,5 +17,5 @@ import xyz.tynn.astring.AString
 public fun Activity.setTitle(
     title: AString,
 ): Unit = setTitle(
-    title(this),
+    aString(title),
 )

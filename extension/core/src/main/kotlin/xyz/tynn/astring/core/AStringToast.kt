@@ -42,10 +42,16 @@ public fun makeToast(
  *
  * @see Toast.setText
  */
+@Deprecated(
+    "Use AString directly",
+    ReplaceWith(
+        "setText(context.aString(text))",
+        "xyz.tynn.astring.aString"
+    ),
+)
 public fun Toast.setText(
     context: Context,
     text: AString,
 ): Unit = setText(
     text(requireNonNull(context)),
 )
-
