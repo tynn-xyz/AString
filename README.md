@@ -80,6 +80,7 @@ _Feel free to provide a PR for missing methods._
 
 Components provided by the _Android_ framework and _AndroidX_ core:
 
+ `Activity`
  `View`
  `TextView`
  `Toobar`
