@@ -8,7 +8,14 @@ pluginManagement {
 
     repositories {
         gradlePluginPortal()
-        maven { url 'https://maven.google.com' }
+        google()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
     }
 }
 
