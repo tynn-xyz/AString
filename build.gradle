@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library' version '7.2.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
     id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
-    id 'xyz.tynn.android.maven' version '0.2.1' apply false
     id 'com.github.ben-manes.versions' version '0.42.0'
 }
 
@@ -13,14 +12,14 @@ allprojects {
 }
 
 subprojects {
+    pluginManager.withPlugin('com.android.application') {
+        apply from: "$rootDir/android.gradle"
+    }
+
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
         apply from: "$rootDir/android.gradle"
         apply from: "$rootDir/library.gradle"
-    }
-
-    pluginManager.withPlugin('com.android.application') {
-        apply from: "$rootDir/android.gradle"
     }
 
     pluginManager.withPlugin('maven-publish') {

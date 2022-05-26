@@ -14,11 +14,3 @@ dependencies {
         }
     }
 }
-
-publishing {
-    publications {
-        release(MavenPublication) {
-            from components.javaPlatform
-        }
-    }
-}

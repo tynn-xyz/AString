@@ -1,7 +1,16 @@
 if (project != rootProject) publishing {
-    apply plugin: 'xyz.tynn.android.maven'
-    apply plugin: 'xyz.tynn.android.sources'
     apply plugin: 'signing'
+
+    publishing {
+        publications {
+            release(MavenPublication) {
+                afterEvaluate {
+                    from components.findByName('javaPlatform')
+                            ?: components.findByName('release')
+                }
+            }
+        }
+    }
 
     signing {
         final signingKey = System.env.SIGNING_KEY

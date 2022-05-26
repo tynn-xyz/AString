@@ -1,7 +1,11 @@
 android {
-    libraryVariants.all {
-        it.generateBuildConfigProvider.configure {
-            enabled = false
+    buildFeatures {
+        buildConfig false
+    }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
         }
     }
 }
