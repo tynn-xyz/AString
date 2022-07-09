@@ -21,7 +21,7 @@ The _Kotlin Standard Library_ is not required to use _AString_.
     }
 
     dependencies {
-        implementation platform("xyz.tynn.astring:bom:$aStringVersion")
+        implementation platform("xyz.tynn.astring:bom:$astringVersion")
 
         implementation 'xyz.tynn.astring:core'
         implementation 'xyz.tynn.astring:appcompat'
@@ -57,7 +57,7 @@ In _Kotlin_ this is simplified with extension functions.
 
 ### Supported `CharSequence` types
 
-There are several _core_ implementations of `AString` for:
+There are several _standard_ implementations of `AString` for:
 
  * `null` wrapping
  * `CharSequence` wrapping
@@ -69,6 +69,11 @@ There are several _core_ implementations of `AString` for:
  * quantity text resources delegation
  * quantity string resources delegation
  * formatted quantity string resources delegation
+
+In addition there are a few _delegated_ implementations of `AString` for:
+
+ * the application id from `Context.getPackageName()`
+ * the application version from `PackageInfo.versionName`
 
 ### Supported _Android_ types
 
@@ -111,7 +116,7 @@ Components provided by the _Material_ components by _Google_:
 
 ## License
 
-    Copyright (C) 2020-2021 Christian Schmitz
+    Copyright (C) 2020-2022 Christian Schmitz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

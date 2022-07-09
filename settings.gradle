@@ -1,11 +1,4 @@
 pluginManagement {
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.namespace == 'com.android')
-                useModule "com.android.tools.build:gradle:$requested.version"
-        }
-    }
-
     repositories {
         gradlePluginPortal()
         google()
@@ -20,13 +13,14 @@ dependencyResolutionManagement {
 }
 
 include ':bom'
-include ':astring'
-include ':testing'
 
-include ':extension:core'
-include ':extension:appcompat'
-include ':extension:material'
+include ':base:astring'
+include ':base:testing'
 
-include ':example:base'
-include ':example:java'
-include ':example:kotlin'
+include ':ktx:core'
+include ':ktx:appcompat'
+include ':ktx:material'
+
+include ':app:java'
+include ':app:kotlin'
+include ':app:shared'
