@@ -27,22 +27,22 @@ public class ParcelableAStringTest {
 
     @Test
     public void QuantityStringResourceDelegate_should_implement_parcelable() {
-        assertParcelable(new QuantityStringResourceDelegate(RES_ID, QUANTITY, FORMAT_ARGS));
+        assertParcelable(ResourceDelegate.quantityString(RES_ID, QUANTITY, FORMAT_ARGS));
     }
 
     @Test
     public void QuantityTextResourceDelegate_should_implement_parcelable() {
-        assertParcelable(new QuantityTextResourceDelegate(RES_ID, QUANTITY));
+        assertParcelable(ResourceDelegate.quantityText(RES_ID, QUANTITY));
     }
 
     @Test
     public void StringResourceDelegate_should_implement_parcelable() {
-        assertParcelable(new StringResourceDelegate(RES_ID, FORMAT_ARGS));
+        assertParcelable(ResourceDelegate.string(RES_ID, FORMAT_ARGS));
     }
 
     @Test
     public void TextResourceDelegate_should_implement_parcelable() {
-        assertParcelable(new TextResourceDelegate(RES_ID));
+        assertParcelable(ResourceDelegate.text(RES_ID));
     }
 
     @Test

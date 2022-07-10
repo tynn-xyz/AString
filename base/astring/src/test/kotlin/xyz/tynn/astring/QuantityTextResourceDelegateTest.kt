@@ -21,64 +21,58 @@ internal class QuantityTextResourceDelegateTest {
 
         assertEquals(
             "foo",
-            QuantityTextResourceDelegate(1, 2).invoke(context),
+            ResourceDelegate.quantityText(1, 2).invoke(context),
         )
     }
 
     @Test
     fun `equals should be true for matching text resources and quantities`() {
         assertTrue {
-            QuantityTextResourceDelegate(1, 2) ==
-                    QuantityTextResourceDelegate(1, 2)
+            ResourceDelegate.quantityText(1, 2) ==
+                    ResourceDelegate.quantityText(1, 2)
         }
     }
 
     @Test
     fun `equals should be false for non matching text resources or quantities`() {
         assertFalse {
-            QuantityTextResourceDelegate(1, 2) ==
-                    QuantityTextResourceDelegate(1, 1)
+            ResourceDelegate.quantityText(1, 2) ==
+                    ResourceDelegate.quantityText(1, 1)
         }
         assertFalse {
-            QuantityTextResourceDelegate(1, 2) ==
-                    QuantityTextResourceDelegate(2, 2)
+            ResourceDelegate.quantityText(1, 2) ==
+                    ResourceDelegate.quantityText(2, 2)
         }
     }
 
     @Test
     fun `equals should be false for non QuantityTextResourceDelegate`() {
         assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals("foo")
+            ResourceDelegate.quantityText(1, 2).equals("foo")
         }
         assertFalse {
-            QuantityTextResourceDelegate(1, 2) == mockk<AString>()
+            ResourceDelegate.quantityText(1, 2) == mockk<AString>()
         }
         assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals(mockk<CharSequenceWrapper>())
+            ResourceDelegate.quantityText(1, 2).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals(mockk<ValueProvider>())
+            ResourceDelegate.quantityText(1, 2).equals(mockk<ValueProvider>())
         }
         assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals(mockk<QuantityStringResourceDelegate>())
-        }
-        assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals(mockk<StringResourceDelegate>())
-        }
-        assertFalse {
-            QuantityTextResourceDelegate(1, 2).equals(mockk<TextResourceDelegate>())
+            ResourceDelegate.quantityText(1, 2).equals(mockk<ResourceDelegate>())
         }
     }
 
     @Test
     fun `hashCode should return delegate to text resource and quantity`() {
         assertEquals(
-            33,
-            QuantityTextResourceDelegate(1, 2).hashCode(),
+            1202157246,
+            ResourceDelegate.quantityText(1, 2).hashCode(),
         )
         assertEquals(
-            64,
-            QuantityTextResourceDelegate(2, 2).hashCode(),
+            1202158207,
+            ResourceDelegate.quantityText(2, 2).hashCode(),
         )
     }
 
@@ -86,7 +80,7 @@ internal class QuantityTextResourceDelegateTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(QuantityTextResource(1,2))",
-            QuantityTextResourceDelegate(1, 2).toString(),
+            ResourceDelegate.quantityText(1, 2).toString(),
         )
     }
 }

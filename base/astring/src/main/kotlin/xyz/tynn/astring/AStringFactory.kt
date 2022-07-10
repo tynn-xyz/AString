@@ -40,7 +40,7 @@ public fun QuantityStringResource(
     quantity: Int,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else QuantityStringResourceDelegate(
+else ResourceDelegate.quantityString(
     resId,
     quantity,
     null,
@@ -61,7 +61,7 @@ public fun QuantityStringResource(
     vararg formatArgs: Any?,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else QuantityStringResourceDelegate(
+else ResourceDelegate.quantityString(
     resId,
     quantity,
     formatArgs,
@@ -78,7 +78,7 @@ public fun QuantityTextResource(
     quantity: Int,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else QuantityTextResourceDelegate(
+else ResourceDelegate.quantityText(
     resId,
     quantity,
 )
@@ -93,7 +93,7 @@ public fun StringResource(
     @StringRes resId: Int,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else StringResourceDelegate(
+else ResourceDelegate.string(
     resId,
     null,
 )
@@ -112,7 +112,7 @@ public fun StringResource(
     vararg formatArgs: Any?,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else StringResourceDelegate(
+else ResourceDelegate.string(
     resId,
     formatArgs,
 )
@@ -127,7 +127,7 @@ public fun TextResource(
     @StringRes resId: Int,
 ): AString = if (resId == ID_NULL)
     nullAsAString
-else TextResourceDelegate(
+else ResourceDelegate.text(
     resId,
 )
 

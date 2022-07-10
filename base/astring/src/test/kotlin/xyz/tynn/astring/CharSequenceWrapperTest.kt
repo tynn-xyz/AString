@@ -45,16 +45,7 @@ internal class CharSequenceWrapperTest {
             CharSequenceWrapper("foo").equals(mockk<ValueProvider>())
         }
         assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<QuantityStringResourceDelegate>())
-        }
-        assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<QuantityTextResourceDelegate>())
-        }
-        assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<StringResourceDelegate>())
-        }
-        assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<TextResourceDelegate>())
+            CharSequenceWrapper("foo").equals(mockk<ResourceDelegate>())
         }
     }
 

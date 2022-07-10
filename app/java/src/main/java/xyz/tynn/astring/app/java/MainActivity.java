@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CharSequence tag = null;
 
+    @SuppressWarnings("ConstantConditions")
     private String getTag() {
         if (tag == null)
             tag = getAString().invoke(this);

@@ -32,22 +32,13 @@ internal class NullValueProviderTest {
             ValueProvider.NullValueProvider == mockk<AString>()
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<ValueProvider>())
-        }
-        assertFalse {
             ValueProvider.NullValueProvider.equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<QuantityStringResourceDelegate>())
+            ValueProvider.NullValueProvider.equals(mockk<ResourceDelegate>())
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<QuantityTextResourceDelegate>())
-        }
-        assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<StringResourceDelegate>())
-        }
-        assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<TextResourceDelegate>())
+            ValueProvider.NullValueProvider.equals(mockk<ValueProvider>())
         }
     }
 

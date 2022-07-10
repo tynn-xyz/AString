@@ -17,8 +17,12 @@ public class AssertParcelable {
 
     public static <T extends Parcelable> void assertParcelable(T expected) {
         Parcel parcel = obtain();
-        parcel.writeValue(expected);
-        parcel.setDataPosition(0);
-        assertEquals(expected, parcel.readValue(getClassloader()));
+        try {
+            parcel.writeParcelable(expected, 0);
+            parcel.setDataPosition(0);
+            assertEquals(expected, parcel.readParcelable(getClassloader()));
+        } finally {
+            parcel.recycle();
+        }
     }
 }

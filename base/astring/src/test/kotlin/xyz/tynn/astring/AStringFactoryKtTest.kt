@@ -49,7 +49,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `StringResource should return StringResourceDelegate without format args`() {
         assertEquals(
-            StringResourceDelegate(1, arrayOf()),
+            ResourceDelegate.string(1, arrayOf()),
             StringResource(1),
         )
     }
@@ -57,7 +57,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `StringResource should return StringResourceDelegate with format args`() {
         assertEquals(
-            StringResourceDelegate(1, arrayOf(2, "3")),
+            ResourceDelegate.string(1, arrayOf(2, "3")),
             StringResource(1, 2, "3"),
         )
     }
@@ -73,7 +73,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `TextResource should return TextResourceDelegate`() {
         assertEquals(
-            TextResourceDelegate(1),
+            ResourceDelegate.text(1),
             TextResource(1),
         )
     }
@@ -93,7 +93,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityStringResource should return QuantityStringResourceDelegate without format args`() {
         assertEquals(
-            QuantityStringResourceDelegate(1, 2, arrayOf()),
+            ResourceDelegate.quantityString(1, 2, arrayOf()),
             QuantityStringResource(1, 2),
         )
     }
@@ -101,7 +101,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityStringResource should return QuantityStringResourceDelegate with format args`() {
         assertEquals(
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")),
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")),
             QuantityStringResource(1, 2, 3, "4"),
         )
     }
@@ -117,7 +117,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityTextResource should return QuantityTextResourceDelegate`() {
         assertEquals(
-            QuantityTextResourceDelegate(1, 2),
+            ResourceDelegate.quantityText(1, 2),
             QuantityTextResource(1, 2),
         )
     }

@@ -21,7 +21,7 @@ internal class QuantityStringResourceDelegateTest {
 
         assertEquals(
             "foo",
-            QuantityStringResourceDelegate(1, 2, arrayOf()).invoke(context),
+            ResourceDelegate.quantityString(1, 2, arrayOf()).invoke(context),
         )
     }
 
@@ -33,96 +33,90 @@ internal class QuantityStringResourceDelegateTest {
 
         assertEquals(
             "foo",
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")).invoke(context),
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")).invoke(context),
         )
     }
 
     @Test
     fun `equals should be true for matching string resources and quantities`() {
         assertTrue {
-            QuantityStringResourceDelegate(1, 2, null) ==
-                    QuantityStringResourceDelegate(1, 2, arrayOf())
+            ResourceDelegate.quantityString(1, 2, null) ==
+                    ResourceDelegate.quantityString(1, 2, arrayOf())
         }
         assertTrue {
-            QuantityStringResourceDelegate(1, 2, arrayOf()) ==
-                    QuantityStringResourceDelegate(1, 2, arrayOf())
+            ResourceDelegate.quantityString(1, 2, arrayOf()) ==
+                    ResourceDelegate.quantityString(1, 2, arrayOf())
         }
         assertTrue {
-            QuantityStringResourceDelegate(1, 2, arrayOf(2, "3")) ==
-                    QuantityStringResourceDelegate(1, 2, arrayOf(2, "3"))
+            ResourceDelegate.quantityString(1, 2, arrayOf(2, "3")) ==
+                    ResourceDelegate.quantityString(1, 2, arrayOf(2, "3"))
         }
     }
 
     @Test
     fun `equals should be false for non matching string resources or quantities`() {
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()) ==
-                    QuantityStringResourceDelegate(1, 1, arrayOf())
+            ResourceDelegate.quantityString(1, 2, arrayOf()) ==
+                    ResourceDelegate.quantityString(1, 1, arrayOf())
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")) ==
-                    QuantityStringResourceDelegate(1, 1, arrayOf(3, "4"))
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")) ==
+                    ResourceDelegate.quantityString(1, 1, arrayOf(3, "4"))
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()) ==
-                    QuantityStringResourceDelegate(2, 2, arrayOf())
+            ResourceDelegate.quantityString(1, 2, arrayOf()) ==
+                    ResourceDelegate.quantityString(2, 2, arrayOf())
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")) ==
-                    QuantityStringResourceDelegate(2, 2, arrayOf(3, "4"))
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")) ==
+                    ResourceDelegate.quantityString(2, 2, arrayOf(3, "4"))
         }
     }
 
     @Test
     fun `equals should be false for non matching format args`() {
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, 4)) ==
-                    QuantityStringResourceDelegate(1, 2, arrayOf("3", "4"))
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, 4)) ==
+                    ResourceDelegate.quantityString(1, 2, arrayOf("3", "4"))
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()) ==
-                    QuantityStringResourceDelegate(1, 2, arrayOf(3, "4"))
+            ResourceDelegate.quantityString(1, 2, arrayOf()) ==
+                    ResourceDelegate.quantityString(1, 2, arrayOf(3, "4"))
         }
     }
 
     @Test
     fun `equals should be false for non QuantityStringResourceDelegate`() {
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals("foo")
+            ResourceDelegate.quantityString(1, 2, arrayOf()).equals("foo")
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()) == mockk<AString>()
+            ResourceDelegate.quantityString(1, 2, arrayOf()) == mockk<AString>()
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals(mockk<CharSequenceWrapper>())
+            ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals(mockk<ValueProvider>())
+            ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<ValueProvider>())
         }
         assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals(mockk<QuantityTextResourceDelegate>())
-        }
-        assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals(mockk<StringResourceDelegate>())
-        }
-        assertFalse {
-            QuantityStringResourceDelegate(1, 2, arrayOf()).equals(mockk<TextResourceDelegate>())
+            ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<ResourceDelegate>())
         }
     }
 
     @Test
     fun `hashCode should return delegate to string resource and quantity`() {
         assertEquals(
-            1023,
-            QuantityStringResourceDelegate(1, 2, null).hashCode(),
+            1202335992,
+            ResourceDelegate.quantityString(1, 2, null).hashCode(),
         )
         assertEquals(
-            1023,
-            QuantityStringResourceDelegate(1, 2, arrayOf()).hashCode(),
+            1202335992,
+            ResourceDelegate.quantityString(1, 2, arrayOf()).hashCode(),
         )
         assertEquals(
-            1023 + arrayOf(3, "4").contentHashCode(),
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")).hashCode(),
+            1202337098,
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")).hashCode(),
         )
     }
 
@@ -130,11 +124,11 @@ internal class QuantityStringResourceDelegateTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(QuantityStringResource(1,2))",
-            QuantityStringResourceDelegate(1, 2, arrayOf()).toString(),
+            ResourceDelegate.quantityString(1, 2, arrayOf()).toString(),
         )
         assertEquals(
             "AString(QuantityStringResource(1,2,3,4))",
-            QuantityStringResourceDelegate(1, 2, arrayOf(3, "4")).toString(),
+            ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")).toString(),
         )
     }
 }

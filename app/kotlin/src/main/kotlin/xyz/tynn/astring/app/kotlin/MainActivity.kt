@@ -20,8 +20,6 @@ import xyz.tynn.astring.aString
 import xyz.tynn.astring.app.shared.*
 import xyz.tynn.astring.app.shared.databinding.ActivityMainBinding
 import xyz.tynn.astring.app.shared.databinding.ActivityMainBinding.inflate
-import xyz.tynn.astring.appIdAString
-import xyz.tynn.astring.appVersionAString
 import xyz.tynn.astring.appcompat.*
 import xyz.tynn.astring.core.*
 import xyz.tynn.astring.getValue
@@ -47,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         Log.d(tag.toString(), "in setupAStrings")
         setContentView(root)
         setupDialogs()
-        viewAppId.setText(appIdAString)
-        viewAppVersion.setText(appVersionAString)
+        viewAppId.setText(aStringPackage)
+        viewAppVersion.setText(aStringVersion)
         viewText.setText(text)
         viewTextType.setText(textType, TextView.BufferType.SPANNABLE)
         viewAppend.append(append)
