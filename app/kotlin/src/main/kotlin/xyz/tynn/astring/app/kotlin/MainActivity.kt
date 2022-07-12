@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         setupDialogs()
         viewAppId.setText(aStringPackage)
         viewAppVersion.setText(aStringVersion)
+        viewAppLocale.setText(aStringLocale)
         viewText.setText(text)
         viewTextType.setText(textType, TextView.BufferType.SPANNABLE)
         viewAppend.append(append)
@@ -98,6 +99,10 @@ class MainActivity : AppCompatActivity() {
         buttonToastUpdate.setOnClickListener {
             makeText(this@MainActivity, "", LENGTH_SHORT)
                 .apply { setText(aString(dialog)) }
+                .show()
+        }
+        buttonKotlinSupport.setOnClickListener {
+            makeToast(this@MainActivity, kotlin, LENGTH_SHORT)
                 .show()
         }
     }

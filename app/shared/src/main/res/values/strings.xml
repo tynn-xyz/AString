@@ -13,6 +13,7 @@
 
     <string name="action_alert_dialog">AlertDialog</string>
     <string name="action_alert_dialog_legacy">AlertDialog from framework</string>
+    <string name="action_kotlin_support">Kotlin Support</string>
     <string name="action_snackbar">Snackbar</string>
     <string name="action_snackbar_update">Snackbar with update</string>
     <string name="action_toast">Toast</string>

@@ -19,6 +19,7 @@ import static xyz.tynn.astring.app.shared.AStringsKt.getDialog;
 import static xyz.tynn.astring.app.shared.AStringsKt.getError;
 import static xyz.tynn.astring.app.shared.AStringsKt.getErrorIcon;
 import static xyz.tynn.astring.app.shared.AStringsKt.getHint;
+import static xyz.tynn.astring.app.shared.AStringsKt.getKotlin;
 import static xyz.tynn.astring.app.shared.AStringsKt.getMessage;
 import static xyz.tynn.astring.app.shared.AStringsKt.getStateDescription;
 import static xyz.tynn.astring.app.shared.AStringsKt.getTextType;
@@ -36,6 +37,7 @@ import static xyz.tynn.astring.core.AStringView.setTooltipText;
 import static xyz.tynn.astring.material.AStringSnackbar.make;
 import static xyz.tynn.astring.material.AStringSnackbar.setAction;
 
+import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
@@ -46,20 +48,18 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import xyz.tynn.astring.app.shared.AStringsKt;
-import xyz.tynn.astring.app.shared.R;
 import xyz.tynn.astring.app.shared.databinding.ActivityMainBinding;
 import xyz.tynn.astring.appcompat.AStringAlertDialog;
 import xyz.tynn.astring.appcompat.AStringAlertDialogBuilder;
 import xyz.tynn.astring.material.AStringSnackbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private CharSequence tag = null;
 
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         setupDialogs(binding);
         setText(binding.viewAppId, AStringsKt.getAStringPackage());
         setText(binding.viewAppVersion, AStringsKt.getAStringVersion());
+        setText(binding.viewAppLocale, AStringsKt.getAStringLocale());
         setText(binding.viewText, AStringsKt.getText());
         setText(binding.viewTextType, getTextType(), SPANNABLE);
         append(binding.viewAppend, getAppend());
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupDialogs(ActivityMainBinding binding) {
         binding.buttonAlertDialog.setOnClickListener(v -> {
-            MaterialAlertDialogBuilder b = new MaterialAlertDialogBuilder(this);
+            MaterialAlertDialogBuilder b = new MaterialAlertDialogBuilder(this, R.style.DialogTheme);
             AStringAlertDialogBuilder.setMessage(b, getMessage());
             AStringAlertDialogBuilder.setPositiveButton(b, getAction1(), null);
             AStringAlertDialogBuilder.setNeutralButton(b, getAction2(), null);
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
             Toast t = Toast.makeText(this, "", LENGTH_SHORT);
             t.setText(getDialog().invoke(this));
             t.show();
+        });
+        binding.buttonKotlinSupport.setOnClickListener(v -> {
+            makeText(this, getKotlin(), LENGTH_SHORT)
+                    .show();
         });
     }
 

@@ -45,6 +45,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
+            android:id="@+id/view_app_locale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/string_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_view_hint"
@@ -171,5 +180,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_toast_update" />
+
+        <Button
+            android:id="@+id/button_kotlin_support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_kotlin_support" />
     </LinearLayout>
 </ScrollView>
