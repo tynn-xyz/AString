@@ -9,7 +9,7 @@ import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
 import static xyz.tynn.astring.testing.mockk.MockKt.init;
 import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
 import static xyz.tynn.astring.testing.mockk.MockKt.verify;
-import static xyz.tynn.astring.testing.mockk.MockkCoreKt.mockkToastMakeText;
+import static xyz.tynn.astring.core.test.MockkCoreKt.mockkToastMakeText;
 
 import android.content.Context;
 import android.widget.Toast;

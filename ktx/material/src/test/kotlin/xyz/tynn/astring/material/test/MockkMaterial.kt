@@ -1,7 +1,7 @@
 //  Copyright 2021 Christian Schmitz
 //  SPDX-License-Identifier: Apache-2.0
 
-package xyz.tynn.astring.testing.mockk
+package xyz.tynn.astring.material.test
 
 import android.os.Looper.getMainLooper
 import com.google.android.material.snackbar.Snackbar

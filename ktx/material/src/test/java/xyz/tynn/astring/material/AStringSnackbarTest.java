@@ -9,9 +9,9 @@ import static xyz.tynn.astring.testing.mockk.MockKt.clearAll;
 import static xyz.tynn.astring.testing.mockk.MockKt.init;
 import static xyz.tynn.astring.testing.mockk.MockKt.prepare;
 import static xyz.tynn.astring.testing.mockk.MockKt.verify;
-import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkAStringInvoke;
-import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkGetMainLooper;
-import static xyz.tynn.astring.testing.mockk.MockkMaterialKt.mockkSnackbarMake;
+import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkAStringInvoke;
+import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkGetMainLooper;
+import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkSnackbarMake;
 
 import android.os.Looper;
 import android.view.View;
