@@ -6,15 +6,37 @@
 
 package xyz.tynn.astring
 
+import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.res.Resources.ID_NULL
 import android.os.Parcel
 import android.text.TextUtils
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
-import xyz.tynn.astring.ValueProvider.*
+import xyz.tynn.astring.ContextValueProvider.AppIdProvider
+import xyz.tynn.astring.ContextValueProvider.AppVersionProvider
 
+/**
+ * An `AString` always providing the application id
+ *
+ * @see Context.getPackageName
+ */
 @JvmField
-public val nullAsAString: AString = NullValueProvider
+public val appIdAString: AString = AppIdProvider
+
+/**
+ * An `AString` always providing the application version
+ *
+ * @see PackageInfo.versionName
+ */
+@JvmField
+public val appVersionAString: AString = AppVersionProvider
+
+/**
+ * An `AString` always providing `null`
+ */
+@JvmField
+public val nullAsAString: AString = CharSequenceWrapper(null)
 
 /**
  * Creates an `AString` from a `CharSequence?`
@@ -130,9 +152,3 @@ public fun TextResource(
 else ResourceDelegate.text(
     resId,
 )
-
-@JvmField
-public val appIdAString: AString = AppIdProvider
-
-@JvmField
-public val appVersionAString: AString = AppVersionProvider

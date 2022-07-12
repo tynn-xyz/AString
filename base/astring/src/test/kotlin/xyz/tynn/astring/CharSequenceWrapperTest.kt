@@ -42,7 +42,10 @@ internal class CharSequenceWrapperTest {
             CharSequenceWrapper("foo") == mockk<AString>()
         }
         assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<ValueProvider>())
+            CharSequenceWrapper("foo").equals(mockk<CharSequenceWrapper>())
+        }
+        assertFalse {
+            CharSequenceWrapper("foo").equals(mockk<ContextValueProvider>())
         }
         assertFalse {
             CharSequenceWrapper("foo").equals(mockk<ResourceDelegate>())

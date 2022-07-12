@@ -19,16 +19,16 @@ import java.util.Objects;
  */
 final class CharSequenceWrapper implements AString {
 
-    private final CharSequence string;
+    private final CharSequence value;
 
-    CharSequenceWrapper(@NonNull CharSequence string) {
-        this.string = string;
+    CharSequenceWrapper(@Nullable CharSequence value) {
+        this.value = value;
     }
 
-    @NonNull
+    @Nullable
     @Override
     public CharSequence invoke(@Nullable Context context) {
-        return string;
+        return value;
     }
 
     @Override
@@ -36,23 +36,23 @@ final class CharSequenceWrapper implements AString {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CharSequenceWrapper that = (CharSequenceWrapper) o;
-        return Objects.equals(string, that.string);
+        return Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return string.hashCode();
+        return Objects.hashCode(value);
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "AString(" + "CharSequence(" + string + "))";
+        return "AString(" + "CharSequence(" + value + "))";
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        TextUtils.writeToParcel(string, dest, flags);
+        TextUtils.writeToParcel(value, dest, flags);
     }
 
     public static final Creator<CharSequenceWrapper> CREATOR = new Creator<CharSequenceWrapper>() {

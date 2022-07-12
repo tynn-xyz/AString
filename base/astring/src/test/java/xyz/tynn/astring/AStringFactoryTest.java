@@ -12,18 +12,18 @@ public class AStringFactoryTest {
 
     @Test
     public void nullAsAString_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.nullAsAString);
+        assertSame(AStringFactory.nullAsAString, AStringFactory.nullAsAString);
     }
 
     @Test
     public void createFromCharSequence_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromCharSequence(null));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromCharSequence(null));
     }
 
     @Test
     public void createFromQuantityStringResource_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromQuantityStringResource(0, 1));
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromQuantityStringResource(0, 1, 2));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromQuantityStringResource(0, 1));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromQuantityStringResource(0, 1, 2));
     }
 
     @Test
@@ -34,13 +34,13 @@ public class AStringFactoryTest {
 
     @Test
     public void createFromQuantityTextResource_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromQuantityTextResource(0, 1));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromQuantityTextResource(0, 1));
     }
 
     @Test
     public void createFromStringResource_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromStringResource(0));
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromStringResource(0, 1));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromStringResource(0));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromStringResource(0, 1));
     }
 
     @Test
@@ -51,16 +51,16 @@ public class AStringFactoryTest {
 
     @Test
     public void createFromTextResource_should_return_NullValueProvider() {
-        assertSame(ValueProvider.NullValueProvider, AStringFactory.createFromTextResource(0));
+        assertSame(AStringFactory.nullAsAString, AStringFactory.createFromTextResource(0));
     }
 
     @Test
     public void appIdAString_should_return_AppIdProvider() {
-        assertSame(ValueProvider.AppIdProvider, AStringFactory.appIdAString);
+        assertSame(ContextValueProvider.AppIdProvider, AStringFactory.appIdAString);
     }
 
     @Test
     public void appVersionAString_should_return_AppVersionProvider() {
-        assertSame(ValueProvider.AppVersionProvider, AStringFactory.appVersionAString);
+        assertSame(ContextValueProvider.AppVersionProvider, AStringFactory.appVersionAString);
     }
 }

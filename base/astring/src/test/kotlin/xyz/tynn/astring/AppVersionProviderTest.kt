@@ -23,14 +23,14 @@ internal class AppVersionProviderTest {
 
         assertEquals(
             "foo",
-            ValueProvider.AppVersionProvider.invoke(context),
+            ContextValueProvider.AppVersionProvider.invoke(context),
         )
     }
 
     @Test
     fun `equals should be true for same type`() {
         assertTrue {
-            ValueProvider.AppVersionProvider == ValueProvider.AppVersionProvider
+            ContextValueProvider.AppVersionProvider == ContextValueProvider.AppVersionProvider
         }
     }
 
@@ -38,16 +38,16 @@ internal class AppVersionProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes")
     fun `equals should be false for non AppVersionProvider`() {
         assertFalse {
-            ValueProvider.AppVersionProvider.equals("foo")
+            ContextValueProvider.AppVersionProvider.equals("foo")
         }
         assertFalse {
-            ValueProvider.AppVersionProvider == mockk<AString>()
+            ContextValueProvider.AppVersionProvider == mockk<AString>()
         }
         assertFalse {
-            ValueProvider.AppVersionProvider == ValueProvider.AppIdProvider
+            ContextValueProvider.AppVersionProvider == ContextValueProvider.AppIdProvider
         }
         assertFalse {
-            ValueProvider.AppVersionProvider == mockk<ValueProvider>()
+            ContextValueProvider.AppVersionProvider == mockk<ContextValueProvider>()
         }
     }
 
@@ -55,7 +55,7 @@ internal class AppVersionProviderTest {
     fun `hashCode should not return 0`() {
         assertNotEquals(
             0,
-            ValueProvider.AppVersionProvider.hashCode(),
+            ContextValueProvider.AppVersionProvider.hashCode(),
         )
     }
 
@@ -63,7 +63,7 @@ internal class AppVersionProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(appVersion))",
-            ValueProvider.AppVersionProvider.toString(),
+            ContextValueProvider.AppVersionProvider.toString(),
         )
     }
 }

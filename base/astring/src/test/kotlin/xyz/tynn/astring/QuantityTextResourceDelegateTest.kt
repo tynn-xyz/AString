@@ -57,7 +57,7 @@ internal class QuantityTextResourceDelegateTest {
             ResourceDelegate.quantityText(1, 2).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            ResourceDelegate.quantityText(1, 2).equals(mockk<ValueProvider>())
+            ResourceDelegate.quantityText(1, 2).equals(mockk<ContextValueProvider>())
         }
         assertFalse {
             ResourceDelegate.quantityText(1, 2).equals(mockk<ResourceDelegate>())

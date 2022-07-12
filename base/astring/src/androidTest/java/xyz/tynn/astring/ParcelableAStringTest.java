@@ -22,7 +22,7 @@ public class ParcelableAStringTest {
 
     @Test
     public void NullValueProvider_should_implement_parcelable() {
-        assertParcelable(ValueProvider.NullValueProvider);
+        assertParcelable(new CharSequenceWrapper(null));
     }
 
     @Test
@@ -47,11 +47,11 @@ public class ParcelableAStringTest {
 
     @Test
     public void AppAStrings_AppIdProvider_should_implement_parcelable() {
-        assertParcelable(ValueProvider.AppIdProvider);
+        assertParcelable(ContextValueProvider.AppIdProvider);
     }
 
     @Test
     public void AppAStrings_AppVersionProvider_should_implement_parcelable() {
-        assertParcelable(ValueProvider.AppVersionProvider);
+        assertParcelable(ContextValueProvider.AppVersionProvider);
     }
 }

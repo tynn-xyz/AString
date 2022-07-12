@@ -89,7 +89,7 @@ internal class StringResourceDelegateTest {
             ResourceDelegate.string(1, arrayOf()).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            ResourceDelegate.string(1, arrayOf()).equals(mockk<ValueProvider>())
+            ResourceDelegate.string(1, arrayOf()).equals(mockk<ContextValueProvider>())
         }
         assertFalse {
             ResourceDelegate.string(1, arrayOf()).equals(mockk<ResourceDelegate>())

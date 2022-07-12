@@ -11,14 +11,14 @@ internal class NullValueProviderTest {
     @Test
     fun `invoke should return null`() {
         assertNull(
-            ValueProvider.NullValueProvider.invoke(mockk()),
+            CharSequenceWrapper(null).invoke(mockk()),
         )
     }
 
     @Test
     fun `equals should be true for same type`() {
         assertTrue {
-            ValueProvider.NullValueProvider == ValueProvider.NullValueProvider
+            CharSequenceWrapper(null) == CharSequenceWrapper(null)
         }
     }
 
@@ -26,27 +26,27 @@ internal class NullValueProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes")
     fun `equals should be false for non NullValueProvider`() {
         assertFalse {
-            ValueProvider.NullValueProvider.equals("foo")
+            CharSequenceWrapper(null).equals("foo")
         }
         assertFalse {
-            ValueProvider.NullValueProvider == mockk<AString>()
+            CharSequenceWrapper(null) == mockk<AString>()
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<CharSequenceWrapper>())
+            CharSequenceWrapper(null) == CharSequenceWrapper("")
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<ResourceDelegate>())
+            CharSequenceWrapper(null).equals(mockk<ResourceDelegate>())
         }
         assertFalse {
-            ValueProvider.NullValueProvider.equals(mockk<ValueProvider>())
+            CharSequenceWrapper(null).equals(mockk<ContextValueProvider>())
         }
     }
 
     @Test
-    fun `hashCode should not return 0`() {
-        assertNotEquals(
+    fun `hashCode should return 0`() {
+        assertEquals(
             0,
-            ValueProvider.NullValueProvider.hashCode(),
+            CharSequenceWrapper(null).hashCode(),
         )
     }
 
@@ -54,7 +54,7 @@ internal class NullValueProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(CharSequence(null))",
-            ValueProvider.NullValueProvider.toString(),
+            CharSequenceWrapper(null).toString(),
         )
     }
 }

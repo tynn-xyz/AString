@@ -97,7 +97,7 @@ internal class QuantityStringResourceDelegateTest {
             ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<ValueProvider>())
+            ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<ContextValueProvider>())
         }
         assertFalse {
             ResourceDelegate.quantityString(1, 2, arrayOf()).equals(mockk<ResourceDelegate>())

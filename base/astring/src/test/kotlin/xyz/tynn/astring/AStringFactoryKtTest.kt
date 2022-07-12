@@ -13,7 +13,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `nullAsAString should be the NullValueProvider singleton`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             nullAsAString,
         )
     }
@@ -21,7 +21,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `asAString should return NullValueProvider for null`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             null.asAString(),
         )
     }
@@ -37,11 +37,11 @@ internal class AStringFactoryKtTest {
     @Test
     fun `StringResource should return NullValueProvider for ID_NULL`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             StringResource(ID_NULL),
         )
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             StringResource(ID_NULL, 1),
         )
     }
@@ -65,7 +65,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `TextResource should return NullValueProvider for ID_NULL`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             TextResource(ID_NULL),
         )
     }
@@ -81,11 +81,11 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityStringResource should return NullValueProvider for ID_NULL`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             QuantityStringResource(ID_NULL, 1),
         )
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             QuantityStringResource(ID_NULL, 1, 2),
         )
     }
@@ -109,7 +109,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityTextResource should return NullValueProvider for ID_NULL`() {
         assertSame(
-            ValueProvider.NullValueProvider,
+            nullAsAString,
             QuantityTextResource(ID_NULL, 1),
         )
     }

@@ -51,7 +51,7 @@ internal class TextResourceDelegateTest {
             ResourceDelegate.text(1).equals(mockk<CharSequenceWrapper>())
         }
         assertFalse {
-            ResourceDelegate.text(1).equals(mockk<ValueProvider>())
+            ResourceDelegate.text(1).equals(mockk<ContextValueProvider>())
         }
         assertFalse {
             ResourceDelegate.text(1).equals(mockk<ResourceDelegate>())

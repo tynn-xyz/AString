@@ -9,15 +9,14 @@ import android.content.pm.PackageManager;
 import android.os.Parcel;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-enum ValueProvider implements AString {
+enum ContextValueProvider implements AString {
 
     /**
      * Implementation providing {@link Context#getPackageName()}
      */
     AppIdProvider {
-        @Nullable
+        @NonNull
         @Override
         public CharSequence invoke(@NonNull Context context) {
             return context.getPackageName();
@@ -34,7 +33,7 @@ enum ValueProvider implements AString {
      * Implementation providing {@link PackageInfo#versionName}
      */
     AppVersionProvider {
-        @Nullable
+        @NonNull
         @Override
         public CharSequence invoke(@NonNull Context context) {
             try {
@@ -53,23 +52,6 @@ enum ValueProvider implements AString {
         }
     },
 
-    /**
-     * Implementation wrapping {@code null}
-     */
-    NullValueProvider {
-        @Nullable
-        @Override
-        public CharSequence invoke(@Nullable Context context) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return "AString(" + "CharSequence(" + null + "))";
-        }
-    },
-
     ;
 
     @Override
@@ -77,16 +59,16 @@ enum ValueProvider implements AString {
         parcel.writeString(name());
     }
 
-    public static final Creator<ValueProvider> CREATOR = new Creator<ValueProvider>() {
+    public static final Creator<ContextValueProvider> CREATOR = new Creator<ContextValueProvider>() {
 
         @Override
-        public ValueProvider createFromParcel(Parcel source) {
-            return ValueProvider.valueOf(source.readString());
+        public ContextValueProvider createFromParcel(Parcel source) {
+            return ContextValueProvider.valueOf(source.readString());
         }
 
         @Override
-        public ValueProvider[] newArray(int size) {
-            return new ValueProvider[size];
+        public ContextValueProvider[] newArray(int size) {
+            return new ContextValueProvider[size];
         }
     };
 }
