@@ -10,7 +10,7 @@ android {
 dependencies {
     api project(':base:astring')
     api project(':ktx:core')
-    api 'androidx.appcompat:appcompat:1.4.2'
+    api libs.androidx.appcompat
 
     testImplementation project(':base:testing')
 }

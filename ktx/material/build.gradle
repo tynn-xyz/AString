@@ -10,7 +10,7 @@ android {
 dependencies {
     api project(':base:astring')
     api project(':ktx:appcompat')
-    api 'com.google.android.material:material:1.6.1'
+    api libs.google.material
 
     testImplementation project(':base:testing')
 }

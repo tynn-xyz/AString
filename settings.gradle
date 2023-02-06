@@ -12,6 +12,7 @@ dependencyResolutionManagement {
     }
 }
 
+
 include ':bom'
 
 include ':base:astring'

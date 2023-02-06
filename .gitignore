@@ -2,7 +2,7 @@
 .gradle
 .idea
 gradlew*
-/gradle
+/gradle/wrapper
 /local.properties
 /.idea/caches
 /.idea/libraries

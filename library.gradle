@@ -28,5 +28,5 @@ tasks.withType(GenerateModuleMetadata).configureEach {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation libs.kotlin.stdlib
 }

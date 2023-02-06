@@ -3,6 +3,8 @@
 
 package xyz.tynn.astring;
 
+import static androidx.core.os.ParcelCompat.readBoolean;
+import static androidx.core.os.ParcelCompat.writeBoolean;
 import static java.lang.Integer.MIN_VALUE;
 
 import android.content.Context;
@@ -21,8 +23,6 @@ import java.util.Objects;
  * Implementation delegating to a resource with or without format arguments
  */
 final class ResourceDelegate implements AString {
-
-    private static final int PLURAL = 1, TEXT = 2;
 
     private final boolean isPlural, isText;
     private final int resId, quantity;
@@ -92,7 +92,8 @@ final class ResourceDelegate implements AString {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt((isPlural ? PLURAL : 0) | (isText ? TEXT : 0));
+        writeBoolean(dest, isPlural);
+        writeBoolean(dest, isText);
         dest.writeInt(resId);
         dest.writeInt(quantity);
         dest.writeValue(formatArgs);
@@ -133,9 +134,8 @@ final class ResourceDelegate implements AString {
 
         @Override
         public ResourceDelegate createFromParcel(Parcel source) {
-            int flags = source.readInt();
             return new ResourceDelegate(
-                    (flags & PLURAL) != 0, (flags & TEXT) != 0,
+                    readBoolean(source), readBoolean(source),
                     source.readInt(), source.readInt(),
                     (Object[]) source.readValue(getClass().getClassLoader()));
         }

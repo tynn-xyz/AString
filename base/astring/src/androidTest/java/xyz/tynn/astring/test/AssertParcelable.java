@@ -4,6 +4,7 @@
 package xyz.tynn.astring.test;
 
 import static android.os.Parcel.obtain;
+import static androidx.core.os.ParcelCompat.readParcelable;
 import static org.junit.Assert.assertEquals;
 
 import android.os.Parcel;
@@ -20,7 +21,7 @@ public class AssertParcelable {
         try {
             parcel.writeParcelable(expected, 0);
             parcel.setDataPosition(0);
-            assertEquals(expected, parcel.readParcelable(getClassloader()));
+            assertEquals(expected, readParcelable(parcel, getClassloader(), expected.getClass()));
         } finally {
             parcel.recycle();
         }

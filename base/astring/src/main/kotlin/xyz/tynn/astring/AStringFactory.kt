@@ -46,10 +46,23 @@ public val nullAsAString: AString = CharSequenceWrapper(null)
  * **Note** that [TextUtils.writeToParcel] is used to parcel
  * the [CharSequence] which might lose some custom styles
  */
+@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
+public inline fun CharSequence?.asAString(): AString = AString(this)
+
+/**
+ * Creates an `AString` from a `CharSequence?`
+ *
+ * Returns [nullAsAString] for null
+ *
+ * **Note** that [TextUtils.writeToParcel] is used to parcel
+ * the [CharSequence] which might lose some custom styles
+ */
 @JvmName("createFromCharSequence")
-public fun CharSequence?.asAString(): AString = if (this == null)
+public fun AString(
+    value: CharSequence?,
+): AString = if (value == null)
     nullAsAString
-else CharSequenceWrapper(this)
+else CharSequenceWrapper(value)
 
 /**
  * Creates an `AString` from a plurals string resource
