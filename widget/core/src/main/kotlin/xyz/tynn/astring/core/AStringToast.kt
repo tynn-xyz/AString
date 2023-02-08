@@ -9,14 +9,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import android.widget.Toast.*
-import androidx.annotation.IntDef
 import xyz.tynn.astring.AString
 import java.util.Objects.requireNonNull
-import kotlin.annotation.AnnotationRetention.SOURCE
-
-@Retention(SOURCE)
-@IntDef(LENGTH_LONG, LENGTH_SHORT)
-private annotation class ToastDuration
 
 /**
  * Makes a standard toast that contains the text

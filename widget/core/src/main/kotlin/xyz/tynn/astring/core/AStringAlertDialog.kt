@@ -8,13 +8,7 @@ package xyz.tynn.astring.core
 import android.app.AlertDialog
 import android.content.DialogInterface.*
 import android.os.Message
-import androidx.annotation.IntDef
 import xyz.tynn.astring.AString
-import kotlin.annotation.AnnotationRetention.SOURCE
-
-@Retention(SOURCE)
-@IntDef(BUTTON_POSITIVE, BUTTON_NEGATIVE, BUTTON_NEUTRAL)
-private annotation class DialogInterfaceButton
 
 /**
  * Sets a listener to be invoked when the button is pressed
