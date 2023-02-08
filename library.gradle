@@ -23,10 +23,6 @@ pluginManager.withPlugin('org.jetbrains.kotlin.android') {
     }
 }
 
-tasks.withType(GenerateModuleMetadata).configureEach {
-    enabled = false
-}
-
 dependencies {
     implementation libs.kotlin.stdlib
     testImplementation libs.bundles.testing

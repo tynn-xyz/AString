@@ -3,13 +3,14 @@ plugins {
     id 'maven-publish'
 }
 
-dependencies {
-    constraints {
-        rootProject.subprojects.each { library ->
-            library.pluginManager.withPlugin('maven-publish') {
-                if (library != project) {
-                    api library
-                }
+rootProject.subprojects.each { library ->
+    if (library != project) {
+        library.pluginManager.withPlugin('maven-publish') {
+            dependencies.constraints {
+                api library
+            }
+            library.dependencies {
+                api platform(project)
             }
         }
     }
