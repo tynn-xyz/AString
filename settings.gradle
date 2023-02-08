@@ -12,16 +12,14 @@ dependencyResolutionManagement {
     }
 }
 
-
 include ':bom'
 
-include ':base:astring'
-include ':base:testing'
+include ':astring'
 
-include ':ktx:core'
-include ':ktx:appcompat'
-include ':ktx:material'
+include ':widget:core'
+include ':widget:appcompat'
+include ':widget:material'
 
-include ':app:java'
-include ':app:kotlin'
-include ':app:shared'
+include ':demo:java'
+include ':demo:kotlin'
+include ':demo:shared'

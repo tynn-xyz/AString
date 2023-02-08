@@ -7,7 +7,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lintOptions {
+    lint {
         abortOnError true
         warningsAsErrors true
     }
