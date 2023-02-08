@@ -26,6 +26,7 @@ import xyz.tynn.astring.getValue
 import xyz.tynn.astring.material.makeSnackbar
 import xyz.tynn.astring.material.setAction
 import xyz.tynn.astring.material.setText
+import xyz.tynn.astring.appcompat.setTooltipText as setTooltipCompatText
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         viewView.setAccessibilityPaneTitle(accessibilityPaneTitle)
         viewView.setContentDescription(contentDescription)
         viewView.setStateDescription(stateDescription)
-        viewView.setTooltipText(tooltipText)
+        viewView.setTooltipCompatText(tooltipText)
     }
 
     private fun ActivityMainBinding.setupDialogs() {

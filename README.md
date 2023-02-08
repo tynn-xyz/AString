@@ -101,7 +101,9 @@ Components provided by the _Android_ framework and _AndroidX_ core:
 
 Components provided by  _AndroidX_ appcompat:
 
+ `View`
  `Toobar`
+ `SwitchCompat`
  `AlertDialog`
  `AlertDialog.Builder`
 

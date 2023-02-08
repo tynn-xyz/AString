@@ -4,6 +4,8 @@
 package xyz.tynn.astring.appcompat.test
 
 import io.mockk.MockKAnnotations
+import io.mockk.mockkStatic
+import io.mockk.unmockkAll
 import io.mockk.verify
 
 internal fun init(
@@ -13,6 +15,12 @@ internal fun init(
     obj,
     relaxed = relaxed,
 )
+
+internal fun <T : Any> prepare(
+    type: Class<T>,
+) = mockkStatic(type.kotlin)
+
+internal fun clearAll() = unmockkAll()
 
 internal fun verify(
     verifyBlock: Runnable,
