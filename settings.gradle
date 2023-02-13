@@ -19,7 +19,3 @@ include ':astring'
 include ':widget:core'
 include ':widget:appcompat'
 include ':widget:material'
-
-include ':demo:java'
-include ':demo:kotlin'
-include ':demo:shared'

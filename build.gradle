@@ -12,11 +12,6 @@ allprojects {
 }
 
 subprojects {
-    pluginManager.withPlugin('com.android.application') {
-        apply from: "$rootDir/android.gradle"
-        android.defaultConfig.minSdk 21
-    }
-
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
         apply from: "$rootDir/android.gradle"
