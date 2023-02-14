@@ -3,29 +3,27 @@
 
 package xyz.tynn.astring.appcompat;
 
-import static xyz.tynn.astring.appcompat.test.MockKt.init;
 import static xyz.tynn.astring.appcompat.test.MockKt.verify;
 
 import androidx.appcompat.widget.Toolbar;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringToolbarTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     Toolbar view;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void setLogoDescription_should_delegate_to_view() {

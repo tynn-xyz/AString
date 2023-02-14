@@ -3,29 +3,27 @@
 
 package xyz.tynn.astring.core;
 
-import static xyz.tynn.astring.core.test.MockKt.init;
 import static xyz.tynn.astring.core.test.MockKt.verify;
 
 import android.app.Activity;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringActivityTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     Activity activity;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void setTitle_should_delegate_to_activity() {

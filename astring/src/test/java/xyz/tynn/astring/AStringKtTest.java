@@ -3,38 +3,37 @@
 
 package xyz.tynn.astring;
 
-import static xyz.tynn.astring.test.MockKt.init;
-import static xyz.tynn.astring.test.MockKt.verify;
+import static org.junit.Assert.assertEquals;
+import static io.mockk.MockKKt.every;
 
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 
 public class AStringKtTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     Fragment fragment;
-    @MockK
+    @RelaxedMockK
     View view;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void invoke_should_delegate_to_fragment() {
-        AStringKt.invoke(aString, fragment);
+        every(scope -> aString.invoke(fragment.requireContext())).returns("fragment");
 
-        verify(() -> aString.invoke(fragment.requireContext()));
+        assertEquals("fragment", AStringKt.invoke(aString, fragment));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -51,9 +50,9 @@ public class AStringKtTest {
 
     @Test
     public void invoke_should_delegate_to_view() {
-        AStringKt.invoke(aString, view);
+        every(scope -> aString.invoke(view.getContext())).returns("view");
 
-        verify(() -> aString.invoke(view.getContext()));
+        assertEquals("view", AStringKt.invoke(aString, view));
     }
 
     @SuppressWarnings("ConstantConditions")

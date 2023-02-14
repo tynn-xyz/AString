@@ -3,29 +3,27 @@
 
 package xyz.tynn.astring.material;
 
-import static xyz.tynn.astring.material.test.MockKt.init;
 import static xyz.tynn.astring.material.test.MockKt.verify;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringTextInputLayoutTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     TextInputLayout view;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void setEndIconContentDescription_should_delegate_to_view() {

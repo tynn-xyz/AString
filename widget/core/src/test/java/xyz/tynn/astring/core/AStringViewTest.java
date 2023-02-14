@@ -6,8 +6,6 @@ package xyz.tynn.astring.core;
 import static androidx.core.view.ViewCompat.setAccessibilityPaneTitle;
 import static androidx.core.view.ViewCompat.setStateDescription;
 import static androidx.core.view.ViewCompat.setTooltipText;
-import static xyz.tynn.astring.core.test.MockKt.clearAll;
-import static xyz.tynn.astring.core.test.MockKt.init;
 import static xyz.tynn.astring.core.test.MockKt.prepare;
 import static xyz.tynn.astring.core.test.MockKt.verify;
 
@@ -15,30 +13,28 @@ import android.view.View;
 
 import androidx.core.view.ViewCompat;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringViewTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     View view;
 
     @Before
     public void setup() {
-        init(this, true);
         prepare(ViewCompat.class);
-    }
-
-    @After
-    public void teardown() {
-        clearAll();
     }
 
     @Test

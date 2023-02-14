@@ -3,24 +3,19 @@
 
 package xyz.tynn.astring.appcompat.test
 
-import io.mockk.MockKAnnotations
+import io.mockk.justRun
 import io.mockk.mockkStatic
-import io.mockk.unmockkAll
 import io.mockk.verify
-
-internal fun init(
-    obj: Any,
-    relaxed: Boolean,
-) = MockKAnnotations.init(
-    obj,
-    relaxed = relaxed,
-)
 
 internal fun <T : Any> prepare(
     type: Class<T>,
 ) = mockkStatic(type.kotlin)
 
-internal fun clearAll() = unmockkAll()
+internal fun justRun(
+    stubBlock: Runnable,
+) = justRun {
+    stubBlock.run()
+}
 
 internal fun verify(
     verifyBlock: Runnable,

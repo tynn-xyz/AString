@@ -4,52 +4,44 @@
 package xyz.tynn.astring.core;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
 import static org.junit.Assert.assertEquals;
-import static xyz.tynn.astring.core.test.MockKt.clearAll;
-import static xyz.tynn.astring.core.test.MockKt.init;
+import static io.mockk.MockKKt.every;
 import static xyz.tynn.astring.core.test.MockKt.prepare;
 import static xyz.tynn.astring.core.test.MockKt.verify;
-import static xyz.tynn.astring.core.test.MockkCoreKt.mockkToastMakeText;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringToastTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     Toast toast;
 
     @MockK
     Context context;
 
-    @Before
-    public void setup() {
-        init(this, true);
-        prepare(Toast.class);
-        mockkToastMakeText(toast);
-    }
-
-    @After
-    public void teardown() {
-        clearAll();
-    }
-
     @Test
     public void makeText_should_delegate_to_toast() {
+        prepare(Toast.class);
+        every(scope -> makeText(context, aString.invoke(context), LENGTH_LONG)).returns(toast);
+
         assertEquals(toast,
                 AStringToast.makeText(context, aString, LENGTH_LONG));
-
-        verify(() -> Toast.makeText(context, aString.invoke(context), LENGTH_LONG));
     }
 
     @SuppressWarnings("ConstantConditions")

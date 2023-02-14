@@ -4,35 +4,34 @@
 package xyz.tynn.astring.material;
 
 import static org.junit.Assert.assertSame;
-import static xyz.tynn.astring.material.test.MockKt.init;
 import static xyz.tynn.astring.material.test.MockKt.verify;
 
 import android.content.DialogInterface.OnClickListener;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 import xyz.tynn.astring.appcompat.AStringAlertDialogBuilder;
 
 public class AStringMaterialAlertDialogBuilderTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     MaterialAlertDialogBuilder builder;
 
     @MockK
     OnClickListener listener;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void setNegativeButton_should_delegate_to_builder() {

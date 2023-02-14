@@ -4,7 +4,6 @@
 package xyz.tynn.astring.appcompat;
 
 import static android.content.DialogInterface.BUTTON_NEUTRAL;
-import static xyz.tynn.astring.appcompat.test.MockKt.init;
 import static xyz.tynn.astring.appcompat.test.MockKt.verify;
 
 import android.content.DialogInterface.OnClickListener;
@@ -12,29 +11,29 @@ import android.os.Message;
 
 import androidx.appcompat.app.AlertDialog;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringAlertDialogTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     AlertDialog dialog;
 
     @MockK
     OnClickListener listener;
     @MockK
     Message message;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void setButton_with_listener_should_delegate_to_dialog() {

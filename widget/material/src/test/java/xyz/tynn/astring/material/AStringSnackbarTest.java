@@ -3,15 +3,13 @@
 
 package xyz.tynn.astring.material;
 
+import static android.os.Looper.getMainLooper;
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+import static com.google.android.material.snackbar.Snackbar.make;
 import static org.junit.Assert.assertSame;
-import static xyz.tynn.astring.material.test.MockKt.clearAll;
-import static xyz.tynn.astring.material.test.MockKt.init;
+import static io.mockk.MockKKt.every;
 import static xyz.tynn.astring.material.test.MockKt.prepare;
 import static xyz.tynn.astring.material.test.MockKt.verify;
-import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkAStringInvoke;
-import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkGetMainLooper;
-import static xyz.tynn.astring.material.test.MockkMaterialKt.mockkSnackbarMake;
 
 import android.os.Looper;
 import android.view.View;
@@ -19,57 +17,57 @@ import android.view.View.OnClickListener;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringSnackbarTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     Snackbar snackbar;
 
-    @MockK
+    @RelaxedMockK
     View view;
     @MockK
     OnClickListener listener;
+    @MockK
+    Looper looper;
 
-    @Before
-    public void setup() {
+    @BeforeClass
+    public static void prepareMainLooper() {
         prepare(Looper.class);
-        mockkGetMainLooper();
-        init(this, true);
-        prepare(Snackbar.class);
-        mockkSnackbarMake(snackbar);
-    }
-
-    @After
-    public void teardown() {
-        clearAll();
+        every(scope -> getMainLooper()).returns(null);
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test
     public void make_should_delegate_to_snackbar() {
+        prepare(Snackbar.class);
+        every(scope -> make(view, aString.invoke(view.getContext()), LENGTH_LONG)).returns(snackbar);
+
         assertSame(snackbar,
                 AStringSnackbar.make(view, aString, LENGTH_LONG));
-
-        verify(() -> Snackbar.make(view, aString.invoke(view.getContext()), LENGTH_LONG));
     }
 
     @Test
     public void make_should_default_to_empty_string() {
-        mockkAStringInvoke(aString, null);
+        prepare(Snackbar.class);
+        every(scope -> make(view, "", LENGTH_LONG)).returns(snackbar);
+        every(scope -> aString.invoke(view.getContext())).returns(null);
 
         assertSame(snackbar,
                 AStringSnackbar.make(view, aString, LENGTH_LONG));
-
-        verify(() -> Snackbar.make(view, "", LENGTH_LONG));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -120,7 +118,7 @@ public class AStringSnackbarTest {
 
     @Test
     public void setText_should_default_to_empty_string() {
-        mockkAStringInvoke(aString, null);
+        every(scope -> aString.invoke(snackbar.getContext())).returns(null);
 
         AStringSnackbar.setText(snackbar, aString);
 

@@ -4,31 +4,29 @@
 package xyz.tynn.astring.core;
 
 import static android.widget.TextView.BufferType.SPANNABLE;
-import static xyz.tynn.astring.core.test.MockKt.init;
 import static xyz.tynn.astring.core.test.MockKt.verify;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import io.mockk.impl.annotations.MockK;
+import io.mockk.impl.annotations.RelaxedMockK;
+import io.mockk.junit4.MockKRule;
 import xyz.tynn.astring.AString;
 
 public class AStringTextViewTest {
 
-    @MockK
+    @Rule
+    public final MockKRule mockkRule = new MockKRule(this);
+
+    @RelaxedMockK
     AString aString;
 
-    @MockK
+    @RelaxedMockK
     TextView view;
-
-    @Before
-    public void setup() {
-        init(this, true);
-    }
 
     @Test
     public void append_should_delegate_to_view() {
