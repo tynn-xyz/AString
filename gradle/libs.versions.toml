@@ -5,7 +5,7 @@ publish = "io.github.gradle-nexus.publish-plugin:1.1.0"
 versions = "com.github.ben-manes.versions:0.45.0"
 
 [libraries]
-androidx-appcompat = "androidx.appcompat:appcompat:1.6.0"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-core = "androidx.core:core:1.9.0"
 androidx-fragment = "androidx.fragment:fragment:1.5.5"
 androidx-test-rules = "androidx.test:rules:1.5.0"
@@ -16,6 +16,7 @@ kotlin-test.module = "org.jetbrains.kotlin:kotlin-test-junit"
 
 test-junit = "junit:junit:4.13.2"
 test-mockk = "io.mockk:mockk:1.13.4"
+test-slf4j = "org.slf4j:slf4j-nop:2.0.6"
 
 [bundles]
-testing = ["kotlin-test", "test-junit", "test-mockk"]
+testing = ["kotlin-test", "test-junit", "test-mockk", "test-slf4j"]

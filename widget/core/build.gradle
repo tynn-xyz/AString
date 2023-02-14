@@ -5,6 +5,10 @@ plugins {
 
 android {
     namespace 'xyz.tynn.astring.core'
+
+    buildFeatures {
+        androidResources true
+    }
 }
 
 dependencies {
