@@ -19,3 +19,7 @@ include ':astring'
 include ':widget:core'
 include ':widget:appcompat'
 include ':widget:material'
+
+rootProject.name = 'AStrings'
+
+enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'

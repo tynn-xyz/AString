@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    api project(':astring')
-    api project(':widget:core')
+    api projects.astring
+    api projects.widget.core
     api libs.androidx.appcompat
 }
