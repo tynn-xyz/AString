@@ -12,9 +12,7 @@ dependencyResolutionManagement {
     }
 }
 
-include ':bom'
-
-include ':astring'
+include ':astring:bom'
 
 include ':widget:core'
 include ':widget:appcompat'
