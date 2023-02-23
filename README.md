@@ -1,7 +1,6 @@
 # AString
 [![Build][build-shield]][build]
 [![Download][download-shield]][download]
-[![API][api-shield]][api]
 ###### A context aware parcelable string abstraction for _Android_
 
 ```
@@ -133,9 +132,7 @@ Components provided by the _Material_ components by _Google_:
     limitations under the License.
 
 
-  [api]: https://asapi.herokuapp.com/xyz.tynn.astring/astring
-  [api-shield]: https://asapi.herokuapp.com/xyz.tynn.astring/astring@svg
   [build]: https://github.com/tynn-xyz/AString/actions
-  [build-shield]: https://img.shields.io/github/workflow/status/tynn-xyz/AString/Build
+  [build-shield]: https://img.shields.io/github/actions/workflow/status/tynn-xyz/AString/build.yml
   [download]: https://search.maven.org/search?q=xyz.tynn.astring
   [download-shield]: https://img.shields.io/maven-central/v/xyz.tynn.astring/core
