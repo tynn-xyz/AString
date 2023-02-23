@@ -15,3 +15,5 @@ rootProject.subprojects.each { library ->
         }
     }
 }
+
+components.ext.release = components.javaPlatform

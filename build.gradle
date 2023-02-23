@@ -1,25 +1,107 @@
 plugins {
-    alias(libs.plugins.android) apply false
-    alias(libs.plugins.kotlin) apply false
-    alias(libs.plugins.publish)
-    alias(libs.plugins.versions)
+    alias libs.plugins.android apply false
+    alias libs.plugins.kotlin apply false
+    alias libs.plugins.publish
+    alias libs.plugins.versions
 }
-
-apply from: 'publishing.gradle'
 
 allprojects {
     group = 'xyz.tynn.astring'
 }
 
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
+        }
+    }
+}
+
 subprojects {
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
-        apply from: "$rootDir/android.gradle"
-        apply from: "$rootDir/library.gradle"
+
+        android {
+            compileSdk 33
+
+            defaultConfig {
+                minSdk 19
+                targetSdk 33
+                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            }
+
+            lint {
+                abortOnError true
+                warningsAsErrors true
+            }
+
+            publishing {
+                singleVariant('release') {
+                    withSourcesJar()
+                }
+            }
+
+            kotlinOptions {
+                freeCompilerArgs += [
+                        '-Xno-call-assertions',
+                        '-Xno-param-assertions',
+                        '-Xno-receiver-assertions',
+                        '-Xexplicit-api=strict',
+                ]
+            }
+        }
+
+        dependencies {
+            implementation libs.kotlin.stdlib
+            testImplementation libs.bundles.testing
+        }
     }
 
     pluginManager.withPlugin('maven-publish') {
-        apply from: "$rootDir/publishing.gradle"
+        publishing {
+            apply plugin: 'signing'
+
+            publishing {
+                publications {
+                    release(MavenPublication) {
+                        afterEvaluate {
+                            from components.release
+                        }
+                    }
+                }
+            }
+
+            signing {
+                final signingKey = System.env.SIGNING_KEY
+                final signingPassword = System.env.SIGNING_PASSWORD
+                useInMemoryPgpKeys(signingKey, signingPassword)
+            }
+
+            publications.all {
+                signing.sign it
+                pom {
+                    name = 'AString'
+                    description = 'A context aware string abstraction for Android'
+                    url = System.env.PROJECT_URL
+                    developers {
+                        developer {
+                            id = 'tynn'
+                            name = 'Christian Schmitz'
+                            email = 'christian@tynn.xyz'
+                        }
+                    }
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    scm {
+                        url = System.env.PROJECT_URL
+                    }
+                }
+            }
+        }
     }
 
     tasks.withType(Test).configureEach {
