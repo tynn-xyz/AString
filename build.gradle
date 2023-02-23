@@ -45,6 +45,11 @@ dependencyUpdates {
     gradleReleaseChannel = 'current'
 }
 
+wrapper {
+    distributionType Wrapper.DistributionType.ALL
+    gradleVersion '7.6'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

@@ -19,7 +19,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 15
-      - run: gradle -b wrapper.gradle
+      - run: gradle wrapper
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: lint
@@ -33,7 +33,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 15
-      - run: gradle -b wrapper.gradle
+      - run: gradle wrapper
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: test
