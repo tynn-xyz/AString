@@ -12,5 +12,5 @@ android {
 }
 
 dependencies {
-    api projects.astring
+    api project(':astring')
 }

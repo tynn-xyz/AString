@@ -12,7 +12,7 @@ android {
 }
 
 dependencies {
-    api projects.astring
-    api projects.widget.appcompat
+    api project(':astring')
+    api project(':widget:appcompat')
     api libs.google.material
 }
