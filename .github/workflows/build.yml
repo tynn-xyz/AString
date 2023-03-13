@@ -1,13 +1,13 @@
 name: Build
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
       - dev
-  pull_request:
-    branches:
-      - main
 
 jobs:
 
@@ -15,25 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: adopt
-          java-version: 19
-      - run: gradle wrapper
+      - uses: ./.github/actions/gradle-wrapper
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: lint
           cache-read-only: true
 
-  test:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: adopt
-          java-version: 19
-      - run: gradle wrapper
+      - uses: ./.github/actions/gradle-wrapper
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: test
+          arguments: check -xlint
