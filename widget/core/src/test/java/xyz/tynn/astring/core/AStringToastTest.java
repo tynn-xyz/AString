@@ -8,7 +8,6 @@ import static android.widget.Toast.makeText;
 import static org.junit.Assert.assertEquals;
 import static io.mockk.MockKKt.every;
 import static xyz.tynn.astring.core.test.MockKt.prepare;
-import static xyz.tynn.astring.core.test.MockKt.verify;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -48,34 +47,5 @@ public class AStringToastTest {
     @Test(expected = NullPointerException.class)
     public void makeText_should_throw_on_null_string() {
         AStringToast.makeText(context, null, LENGTH_LONG);
-    }
-
-    @Deprecated
-    @Test
-    public void setText_should_delegate_to_toast() {
-        AStringToast.setText(toast, context, aString);
-
-        verify(() -> toast.setText(aString.invoke(context)));
-    }
-
-    @Deprecated
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_toast() {
-        AStringToast.setText(null, context, aString);
-    }
-
-    @Deprecated
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_context() {
-        AStringToast.setText(toast, null, aString);
-    }
-
-    @Deprecated
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_string() {
-        AStringToast.setText(toast, context, null);
     }
 }

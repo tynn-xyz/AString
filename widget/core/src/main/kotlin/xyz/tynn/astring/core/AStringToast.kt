@@ -28,24 +28,3 @@ public fun makeToast(
     text(context),
     duration,
 )
-
-/**
- * Updates the text in this [Toast]
- *
- * The [context] is required due to the private [Context] reference within the [Toast]
- *
- * @see Toast.setText
- */
-@Deprecated(
-    "Use AString directly",
-    ReplaceWith(
-        "setText(context.aString(text))",
-        "xyz.tynn.astring.aString"
-    ),
-)
-public fun Toast.setText(
-    context: Context,
-    text: AString,
-): Unit = setText(
-    text(requireNonNull(context, "context")),
-)
