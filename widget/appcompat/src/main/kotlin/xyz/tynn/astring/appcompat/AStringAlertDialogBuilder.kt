@@ -8,6 +8,7 @@ package xyz.tynn.astring.appcompat
 import android.content.DialogInterface.OnClickListener
 import androidx.appcompat.app.AlertDialog.Builder
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets a listener to be invoked when the negative button is pressed
@@ -15,11 +16,11 @@ import xyz.tynn.astring.AString
  * @see Builder.setNegativeButton
  */
 public fun <B : Builder> B.setNegativeButton(
-    text: AString,
+    text: AString?,
     listener: OnClickListener?,
 ): B = apply {
     setNegativeButton(
-        text(context),
+        context.aString(text),
         listener,
     )
 }
@@ -30,11 +31,11 @@ public fun <B : Builder> B.setNegativeButton(
  * @see Builder.setNeutralButton
  */
 public fun <B : Builder> B.setNeutralButton(
-    text: AString,
+    text: AString?,
     listener: OnClickListener?,
 ): B = apply {
     setNeutralButton(
-        text(context),
+        context.aString(text),
         listener,
     )
 }
@@ -45,11 +46,11 @@ public fun <B : Builder> B.setNeutralButton(
  * @see Builder.setPositiveButton
  */
 public fun <B : Builder> B.setPositiveButton(
-    text: AString,
+    text: AString?,
     listener: OnClickListener?,
 ): B = apply {
     setPositiveButton(
-        text(context),
+        context.aString(text),
         listener,
     )
 }
@@ -60,10 +61,10 @@ public fun <B : Builder> B.setPositiveButton(
  * @see Builder.setMessage
  */
 public fun <B : Builder> B.setMessage(
-    message: AString,
+    message: AString?,
 ): B = apply {
     setMessage(
-        message(context),
+        context.aString(message),
     )
 }
 
@@ -73,9 +74,9 @@ public fun <B : Builder> B.setMessage(
  * @see Builder.setTitle
  */
 public fun <B : Builder> B.setTitle(
-    title: AString,
+    title: AString?,
 ): B = apply {
     setTitle(
-        title(context),
+        context.aString(title),
     )
 }

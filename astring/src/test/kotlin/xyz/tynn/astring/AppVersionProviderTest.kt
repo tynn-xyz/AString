@@ -28,6 +28,7 @@ internal class AppVersionProviderTest {
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
             ContextValueProvider.AppVersionProvider == ContextValueProvider.AppVersionProvider
@@ -35,7 +36,7 @@ internal class AppVersionProviderTest {
     }
 
     @Test
-    @Suppress("EqualsBetweenInconvertibleTypes")
+    @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppVersionProvider`() {
         assertFalse {
             ContextValueProvider.AppVersionProvider.equals("foo")

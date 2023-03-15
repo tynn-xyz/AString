@@ -129,7 +129,7 @@ dependencyUpdates {
 
 wrapper {
     distributionType Wrapper.DistributionType.ALL
-    gradleVersion '7.6'
+    gradleVersion '7.6.1'
 }
 
 task clean(type: Delete) {

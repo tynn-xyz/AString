@@ -117,7 +117,7 @@ Components provided by the _Material_ components by _Google_:
 
 ## License
 
-    Copyright (C) 2020-2022 Christian Schmitz
+    Copyright (C) 2020-2023 Christian Schmitz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

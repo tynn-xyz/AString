@@ -23,6 +23,7 @@ internal class AppIdProviderTest {
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
             ContextValueProvider.AppIdProvider == ContextValueProvider.AppIdProvider
@@ -30,7 +31,7 @@ internal class AppIdProviderTest {
     }
 
     @Test
-    @Suppress("EqualsBetweenInconvertibleTypes")
+    @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppIdProvider`() {
         assertFalse {
             ContextValueProvider.AppIdProvider.equals("foo")

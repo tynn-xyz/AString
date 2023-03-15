@@ -11,13 +11,20 @@ import kotlin.test.Test
 
 internal class AStringActivityKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val activity = mockk<Activity>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val activity = mockk<Activity>(relaxed = true)
 
     @Test
     fun `setTitle should delegate to activity`() {
         activity.setTitle(aString)
 
         verify { activity.title = aString(activity) }
+    }
+
+    @Test
+    fun `setTitle should delegate null to activity`() {
+        activity.setTitle(null as AString?)
+
+        verify { activity.title = null }
     }
 }

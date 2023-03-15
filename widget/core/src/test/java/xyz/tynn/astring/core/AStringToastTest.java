@@ -43,9 +43,12 @@ public class AStringToastTest {
                 AStringToast.makeText(context, aString, LENGTH_LONG));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void makeText_should_throw_on_null_string() {
-        AStringToast.makeText(context, null, LENGTH_LONG);
+    @Test
+    public void makeText_should_delegate_null_to_toast() {
+        prepare(Toast.class);
+        every(scope -> makeText(context, null, LENGTH_LONG)).returns(toast);
+
+        assertEquals(toast,
+                AStringToast.makeText(context, null, LENGTH_LONG));
     }
 }

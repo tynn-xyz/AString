@@ -10,7 +10,7 @@ import android.content.Context
 import android.widget.Toast
 import android.widget.Toast.*
 import xyz.tynn.astring.AString
-import java.util.Objects.requireNonNull
+import xyz.tynn.astring.aString
 
 /**
  * Makes a standard toast that contains the text
@@ -21,10 +21,10 @@ import java.util.Objects.requireNonNull
 @JvmName("makeText")
 public fun makeToast(
     context: Context,
-    text: AString,
+    text: AString?,
     @ToastDuration duration: Int,
 ): Toast = makeText(
     context,
-    text(context),
+    context.aString(text),
     duration,
 )

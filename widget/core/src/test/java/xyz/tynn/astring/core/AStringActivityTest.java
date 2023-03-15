@@ -32,15 +32,16 @@ public class AStringActivityTest {
         verify(() -> activity.setTitle(aString.invoke(activity)));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_dialog() {
-        AStringActivity.setTitle(null, aString);
+    @Test
+    public void setTitle_should_delegate_null_to_activity() {
+        AStringActivity.setTitle(activity, null);
+
+        verify(() -> activity.setTitle(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_string() {
-        AStringActivity.setTitle(activity, null);
+    public void setTitle_should_throw_on_null_dialog() {
+        AStringActivity.setTitle(null, aString);
     }
 }

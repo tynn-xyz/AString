@@ -7,15 +7,16 @@ package xyz.tynn.astring.material
 
 import com.google.android.material.textfield.TextInputLayout
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets a content description for the end icon
  * @see TextInputLayout.setEndIconContentDescription
  */
 public fun TextInputLayout.setEndIconContentDescription(
-    endIconContentDescription: AString,
+    endIconContentDescription: AString?,
 ): Unit = setEndIconContentDescription(
-    endIconContentDescription(context),
+    aString(endIconContentDescription),
 )
 
 /**
@@ -23,9 +24,9 @@ public fun TextInputLayout.setEndIconContentDescription(
  * @see TextInputLayout.setErrorContentDescription
  */
 public fun TextInputLayout.setErrorContentDescription(
-    errorContentDescription: AString,
+    errorContentDescription: AString?,
 ): Unit = setErrorContentDescription(
-    errorContentDescription(context),
+    aString(errorContentDescription),
 )
 
 /**
@@ -33,9 +34,9 @@ public fun TextInputLayout.setErrorContentDescription(
  * @see TextInputLayout.setError
  */
 public fun TextInputLayout.setError(
-    error: AString,
+    error: AString?,
 ): Unit = setError(
-    error(context),
+    aString(error),
 )
 
 /**
@@ -43,9 +44,9 @@ public fun TextInputLayout.setError(
  * @see TextInputLayout.setHelperText
  */
 public fun TextInputLayout.setHelperText(
-    helperText: AString,
+    helperText: AString?,
 ): Unit = setHelperText(
-    helperText(context),
+    aString(helperText),
 )
 
 /**
@@ -53,9 +54,9 @@ public fun TextInputLayout.setHelperText(
  * @see TextInputLayout.setHint
  */
 public fun TextInputLayout.setHint(
-    hint: AString,
+    hint: AString?,
 ): Unit = setHint(
-    hint(context),
+    aString(hint),
 )
 
 /**
@@ -63,9 +64,9 @@ public fun TextInputLayout.setHint(
  * @see TextInputLayout.setPlaceholderText
  */
 public fun TextInputLayout.setPlaceholderText(
-    placeholderText: AString,
+    placeholderText: AString?,
 ): Unit = setPlaceholderText(
-    placeholderText(context),
+    aString(placeholderText),
 )
 
 /**
@@ -73,9 +74,9 @@ public fun TextInputLayout.setPlaceholderText(
  * @see TextInputLayout.setPrefixText
  */
 public fun TextInputLayout.setPrefixText(
-    prefixText: AString,
+    prefixText: AString?,
 ): Unit = setPrefixText(
-    prefixText(context),
+    aString(prefixText),
 )
 
 /**
@@ -83,9 +84,9 @@ public fun TextInputLayout.setPrefixText(
  * @see TextInputLayout.setStartIconContentDescription
  */
 public fun TextInputLayout.setStartIconContentDescription(
-    startIconContentDescription: AString,
+    startIconContentDescription: AString?,
 ): Unit = setStartIconContentDescription(
-    startIconContentDescription(context),
+    aString(startIconContentDescription),
 )
 
 /**
@@ -93,7 +94,7 @@ public fun TextInputLayout.setStartIconContentDescription(
  * @see TextInputLayout.setSuffixText
  */
 public fun TextInputLayout.setSuffixText(
-    suffixText: AString,
+    suffixText: AString?,
 ): Unit = setSuffixText(
-    suffixText(context),
+    aString(suffixText),
 )

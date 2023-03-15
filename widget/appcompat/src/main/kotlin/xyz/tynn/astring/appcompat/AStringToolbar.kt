@@ -7,6 +7,7 @@ package xyz.tynn.astring.appcompat
 
 import androidx.appcompat.widget.Toolbar
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets a description of the toolbar's logo
@@ -14,9 +15,9 @@ import xyz.tynn.astring.AString
  */
 @Suppress("UsePropertyAccessSyntax")
 public fun Toolbar.setLogoDescription(
-    description: AString,
+    description: AString?,
 ): Unit = setLogoDescription(
-    description(context),
+    aString(description),
 )
 
 /**
@@ -24,9 +25,9 @@ public fun Toolbar.setLogoDescription(
  * @see Toolbar.setSubtitle
  */
 public fun Toolbar.setSubtitle(
-    subtitle: AString,
+    subtitle: AString?,
 ): Unit = setSubtitle(
-    subtitle(context),
+    aString(subtitle),
 )
 
 /**
@@ -34,7 +35,7 @@ public fun Toolbar.setSubtitle(
  * @see Toolbar.setTitle
  */
 public fun Toolbar.setTitle(
-    title: AString,
+    title: AString?,
 ): Unit = setTitle(
-    title(context),
+    aString(title),
 )

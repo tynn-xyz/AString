@@ -8,14 +8,15 @@ package xyz.tynn.astring.appcompat
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat.setTooltipText
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets the tooltip for the view
  * @see View.setTooltipText
  */
 public fun View.setTooltipText(
-    tooltipText: AString,
+    tooltipText: AString?,
 ): Unit = setTooltipText(
     this,
-    tooltipText(context),
+    aString(tooltipText),
 )

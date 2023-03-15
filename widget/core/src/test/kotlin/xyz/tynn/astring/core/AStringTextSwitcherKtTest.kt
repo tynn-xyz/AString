@@ -11,8 +11,8 @@ import kotlin.test.Test
 
 internal class AStringTextSwitcherKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val view = mockk<TextSwitcher>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val view = mockk<TextSwitcher>(relaxed = true)
 
     @Test
     fun `setCurrentText should delegate to view`() {
@@ -22,9 +22,23 @@ internal class AStringTextSwitcherKtTest {
     }
 
     @Test
+    fun `setCurrentText should delegate null to view`() {
+        view.setCurrentText(null as AString?)
+
+        verify { view.setCurrentText(null) }
+    }
+
+    @Test
     fun `setText should delegate to view`() {
         view.setText(aString)
 
         verify { view.setText(aString(view.context)) }
+    }
+
+    @Test
+    fun `setText should delegate null to view`() {
+        view.setText(null as AString?)
+
+        verify { view.setText(null) }
     }
 }

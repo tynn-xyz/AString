@@ -12,8 +12,8 @@ import kotlin.test.Test
 
 internal class AStringViewKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val view = mockk<View>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val view = mockk<View>(relaxed = true)
 
     @Test
     fun `setTooltipText should delegate to ViewCompat`() {
@@ -23,6 +23,17 @@ internal class AStringViewKtTest {
             view.setTooltipText(aString)
 
             verify { setTooltipText(view, aString(view.context)) }
+        }
+    }
+
+    @Test
+    fun `setTooltipText should delegate null to ViewCompat`() {
+        withTooltipCompat {
+            every { setTooltipText(any(), any()) } just runs
+
+            view.setTooltipText(null as AString?)
+
+            verify { setTooltipText(view, null) }
         }
     }
 

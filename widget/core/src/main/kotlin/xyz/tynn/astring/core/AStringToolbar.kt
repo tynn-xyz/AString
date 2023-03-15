@@ -9,6 +9,7 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets a description of the toolbar's logo
@@ -17,9 +18,9 @@ import xyz.tynn.astring.AString
 @RequiresApi(LOLLIPOP)
 @Suppress("UsePropertyAccessSyntax")
 public fun Toolbar.setLogoDescription(
-    description: AString,
+    description: AString?,
 ): Unit = setLogoDescription(
-    description(context),
+    aString(description),
 )
 
 /**
@@ -28,9 +29,9 @@ public fun Toolbar.setLogoDescription(
  */
 @RequiresApi(LOLLIPOP)
 public fun Toolbar.setSubtitle(
-    subtitle: AString,
+    subtitle: AString?,
 ): Unit = setSubtitle(
-    subtitle(context),
+    aString(subtitle),
 )
 
 /**
@@ -39,7 +40,7 @@ public fun Toolbar.setSubtitle(
  */
 @RequiresApi(LOLLIPOP)
 public fun Toolbar.setTitle(
-    title: AString,
+    title: AString?,
 ): Unit = setTitle(
-    title(context),
+    aString(title),
 )

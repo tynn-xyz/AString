@@ -7,15 +7,16 @@ package xyz.tynn.astring.core
 
 import android.widget.TextSwitcher
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  *  Sets the text of the text view that is currently showing
  * @see TextSwitcher.setCurrentText
  */
 public fun TextSwitcher.setCurrentText(
-    text: AString,
+    text: AString?,
 ): Unit = setCurrentText(
-    text(context),
+    aString(text),
 )
 
 /**
@@ -23,7 +24,7 @@ public fun TextSwitcher.setCurrentText(
  * @see TextSwitcher.setText
  */
 public fun TextSwitcher.setText(
-    text: AString,
+    text: AString?,
 ): Unit = setText(
-    text(context),
+    aString(text),
 )

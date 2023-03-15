@@ -6,20 +6,19 @@
 package xyz.tynn.astring.core
 
 import android.view.View
-import androidx.core.view.ViewCompat.setAccessibilityPaneTitle
-import androidx.core.view.ViewCompat.setTooltipText
+import androidx.core.view.ViewCompat.*
 import xyz.tynn.astring.AString
-import androidx.core.view.ViewCompat.setStateDescription as setStateDescriptionCompat
+import xyz.tynn.astring.aString
 
 /**
  * Sets the accessibility pane title
  * @see View.setAccessibilityPaneTitle
  */
 public fun View.setAccessibilityPaneTitle(
-    accessibilityPaneTitle: AString,
+    accessibilityPaneTitle: AString?,
 ): Unit = setAccessibilityPaneTitle(
     this,
-    accessibilityPaneTitle(context),
+    aString(accessibilityPaneTitle),
 )
 
 /**
@@ -27,9 +26,9 @@ public fun View.setAccessibilityPaneTitle(
  * @see View.setContentDescription
  */
 public fun View.setContentDescription(
-    contentDescription: AString,
+    contentDescription: AString?,
 ): Unit = setContentDescription(
-    contentDescription(context),
+    aString(contentDescription),
 )
 
 /**
@@ -37,10 +36,10 @@ public fun View.setContentDescription(
  * @see View.setStateDescription
  */
 public fun View.setStateDescription(
-    stateDescription: AString,
-): Unit = setStateDescriptionCompat(
+    stateDescription: AString?,
+): Unit = setStateDescription(
     this,
-    stateDescription(context),
+    aString(stateDescription),
 )
 
 /**
@@ -48,8 +47,8 @@ public fun View.setStateDescription(
  * @see View.setTooltipText
  */
 public fun View.setTooltipText(
-    tooltipText: AString,
+    tooltipText: AString?,
 ): Unit = setTooltipText(
     this,
-    tooltipText(context),
+    aString(tooltipText),
 )

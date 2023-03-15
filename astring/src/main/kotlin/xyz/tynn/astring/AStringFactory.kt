@@ -17,22 +17,6 @@ import xyz.tynn.astring.ContextValueProvider.AppIdProvider
 import xyz.tynn.astring.ContextValueProvider.AppVersionProvider
 
 /**
- * An `AString` always providing the application id
- *
- * @see Context.getPackageName
- */
-@JvmField
-public val appIdAString: AString = AppIdProvider
-
-/**
- * An `AString` always providing the application version
- *
- * @see PackageInfo.versionName
- */
-@JvmField
-public val appVersionAString: AString = AppVersionProvider
-
-/**
  * An `AString` always providing `null`
  */
 @JvmField
@@ -165,3 +149,19 @@ public fun TextResource(
 else ResourceDelegate.text(
     resId,
 )
+
+/**
+ * An `AString` always providing the application id
+ *
+ * @see Context.getPackageName
+ */
+@JvmField
+public val appIdAString: AString = AppIdProvider
+
+/**
+ * An `AString` always providing the application version
+ *
+ * @see PackageInfo.versionName
+ */
+@JvmField
+public val appVersionAString: AString = AppVersionProvider

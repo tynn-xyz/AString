@@ -8,15 +8,16 @@ package xyz.tynn.astring.core
 import android.graphics.drawable.Drawable
 import android.widget.TextView
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Appends the text to the display buffer
  * @see TextView.append
  */
 public fun TextView.append(
-    text: AString,
+    text: AString?,
 ): Unit = append(
-    text(context),
+    aString(text),
 )
 
 /**
@@ -24,11 +25,11 @@ public fun TextView.append(
  * @see TextView.append
  */
 public fun TextView.append(
-    text: AString,
+    text: AString?,
     start: Int,
     end: Int,
 ): Unit = append(
-    text(context),
+    aString(text),
     start,
     end,
 )
@@ -38,9 +39,9 @@ public fun TextView.append(
  * @see TextView.setError
  */
 public fun TextView.setError(
-    error: AString,
+    error: AString?,
 ): Unit = setError(
-    error(context),
+    aString(error),
 )
 
 /**
@@ -48,10 +49,10 @@ public fun TextView.setError(
  * @see TextView.setError
  */
 public fun TextView.setError(
-    error: AString,
+    error: AString?,
     icon: Drawable?,
 ): Unit = setError(
-    error(context),
+    aString(error),
     icon,
 )
 
@@ -60,9 +61,9 @@ public fun TextView.setError(
  * @see TextView.setHint
  */
 public fun TextView.setHint(
-    hint: AString,
+    hint: AString?,
 ): Unit = setHint(
-    hint(context),
+    aString(hint),
 )
 
 /**
@@ -70,9 +71,9 @@ public fun TextView.setHint(
  * @see TextView.setText
  */
 public fun TextView.setText(
-    text: AString,
+    text: AString?,
 ): Unit = setText(
-    text(context),
+    aString(text),
 )
 
 /**
@@ -80,9 +81,9 @@ public fun TextView.setText(
  * @see TextView.setText
  */
 public fun TextView.setText(
-    text: AString,
+    text: AString?,
     type: TextView.BufferType,
 ): Unit = setText(
-    text(context),
+    aString(text),
     type,
 )

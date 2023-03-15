@@ -9,6 +9,7 @@ import android.content.DialogInterface.*
 import android.os.Message
 import androidx.appcompat.app.AlertDialog
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 import xyz.tynn.astring.core.DialogInterfaceButton
 
 /**
@@ -20,11 +21,11 @@ import xyz.tynn.astring.core.DialogInterfaceButton
  */
 public fun AlertDialog.setButton(
     @DialogInterfaceButton whichButton: Int,
-    text: AString,
+    text: AString?,
     listener: OnClickListener?,
 ): Unit = setButton(
     whichButton,
-    text(context),
+    context.aString(text),
     listener,
 )
 
@@ -37,11 +38,11 @@ public fun AlertDialog.setButton(
  */
 public fun AlertDialog.setButton(
     @DialogInterfaceButton whichButton: Int,
-    text: AString,
+    text: AString?,
     msg: Message?,
 ): Unit = setButton(
     whichButton,
-    text(context),
+    context.aString(text),
     msg,
 )
 
@@ -51,9 +52,9 @@ public fun AlertDialog.setButton(
  * @see AlertDialog.setMessage
  */
 public fun AlertDialog.setMessage(
-    message: AString,
+    message: AString?,
 ): Unit = setMessage(
-    message(context),
+    context.aString(message),
 )
 
 /**
@@ -62,7 +63,7 @@ public fun AlertDialog.setMessage(
  * @see AlertDialog.setTitle
  */
 public fun AlertDialog.setTitle(
-    title: AString,
+    title: AString?,
 ): Unit = setTitle(
-    title(context),
+    context.aString(title),
 )

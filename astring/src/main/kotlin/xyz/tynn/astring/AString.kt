@@ -6,11 +6,80 @@ package xyz.tynn.astring
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
+import java.util.Objects.requireNonNull
 import kotlin.reflect.KProperty
+
+/**
+ * Invokes the [aString] with [Context]
+ */
+@JvmName("invoke")
+public fun Context.aString(
+    aString: AString?,
+): CharSequence? = aString?.invoke(
+    requireNonNull(this, "context"),
+)
+
+/**
+ * Invokes the [aString] with [Fragment.requireContext]
+ */
+@JvmName("invoke")
+public fun Fragment.aString(
+    aString: AString?,
+): CharSequence? = aString?.invoke(
+    requireContext(),
+)
+
+/**
+ * Invokes the [aString] with [View.getContext]
+ */
+@JvmName("invoke")
+public fun View.aString(
+    aString: AString?,
+): CharSequence? = aString?.invoke(
+    context,
+)
+
+/**
+ * Delegates a `CharSequence?` property within a [Context] to the `AString`
+ */
+@JvmSynthetic
+public operator fun AString?.getValue(
+    thisRef: Context,
+    property: KProperty<*>,
+): CharSequence? = thisRef.aString(
+    this,
+)
+
+/**
+ * Delegates a `CharSequence?` property within a [Fragment] to the `AString`
+ */
+@JvmSynthetic
+public operator fun AString?.getValue(
+    thisRef: Fragment,
+    property: KProperty<*>,
+): CharSequence? = thisRef.aString(
+    this,
+)
+
+/**
+ * Delegates a `CharSequence?` property within a [View] to the `AString`
+ */
+@JvmSynthetic
+public operator fun AString?.getValue(
+    thisRef: View,
+    property: KProperty<*>,
+): CharSequence? = thisRef.aString(
+    this,
+)
 
 /**
  * Invokes the `AString` with [Fragment.requireContext]
  */
+@Deprecated(
+    "Replace with null-safe variant",
+    ReplaceWith("fragment.aString(this)"),
+    DeprecationLevel.ERROR,
+)
 public operator fun AString.invoke(
     fragment: Fragment,
 ): CharSequence? = invoke(
@@ -20,71 +89,13 @@ public operator fun AString.invoke(
 /**
  * Invokes the `AString` with [View.getContext]
  */
+@Deprecated(
+    "Replace with null-safe variant",
+    ReplaceWith("view.aString(this)"),
+    DeprecationLevel.ERROR,
+)
 public operator fun AString.invoke(
     view: View,
 ): CharSequence? = invoke(
     view.context,
-)
-
-/**
- * Delegates a `CharSequence?` property within a [Context] to the `AString`
- */
-@JvmSynthetic
-public operator fun AString.getValue(
-    thisRef: Context,
-    property: KProperty<*>,
-): CharSequence? = invoke(
-    thisRef,
-)
-
-/**
- * Delegates a `CharSequence?` property within a [Fragment] to the `AString`
- */
-@JvmSynthetic
-public operator fun AString.getValue(
-    thisRef: Fragment,
-    property: KProperty<*>,
-): CharSequence? = invoke(
-    thisRef.requireContext(),
-)
-
-/**
- * Delegates a `CharSequence?` property within a [View] to the `AString`
- */
-@JvmSynthetic
-public operator fun AString.getValue(
-    thisRef: View,
-    property: KProperty<*>,
-): CharSequence? = invoke(
-    thisRef.context,
-)
-
-/**
- * Invokes the [aString] with [Context]
- */
-@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
-public inline fun Context.aString(
-    aString: AString,
-): CharSequence? = aString(
-    this,
-)
-
-/**
- * Invokes the [aString] with [Fragment.requireContext]
- */
-@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
-public inline fun Fragment.aString(
-    aString: AString,
-): CharSequence? = aString(
-    requireContext(),
-)
-
-/**
- * Invokes the [aString] with [View.getContext]
- */
-@[JvmSynthetic Suppress("NOTHING_TO_INLINE")]
-public inline fun View.aString(
-    aString: AString,
-): CharSequence? = aString(
-    context,
 )

@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Makes a Snackbar to display a message
@@ -22,11 +23,11 @@ import xyz.tynn.astring.AString
 @JvmName("make")
 public fun makeSnackbar(
     view: View,
-    text: AString,
+    text: AString?,
     @Duration duration: Int,
 ): Snackbar = make(
     view,
-    text(view.context) ?: "",
+    view.aString(text) ?: "",
     duration,
 )
 
@@ -36,10 +37,10 @@ public fun makeSnackbar(
  * @see Snackbar.setAction
  */
 public fun Snackbar.setAction(
-    text: AString,
+    text: AString?,
     listener: OnClickListener?,
 ): Snackbar = setAction(
-    text(context),
+    context.aString(text),
     listener,
 )
 
@@ -51,7 +52,7 @@ public fun Snackbar.setAction(
  * @see Snackbar.setText
  */
 public fun Snackbar.setText(
-    text: AString,
+    text: AString?,
 ): Snackbar = setText(
-    text(context) ?: "",
+    context.aString(text) ?: "",
 )

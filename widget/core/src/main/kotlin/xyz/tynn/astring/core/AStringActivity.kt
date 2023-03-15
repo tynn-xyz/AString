@@ -15,7 +15,7 @@ import xyz.tynn.astring.aString
  * @see Activity.setTitle
  */
 public fun Activity.setTitle(
-    title: AString,
+    title: AString?,
 ): Unit = setTitle(
     aString(title),
 )

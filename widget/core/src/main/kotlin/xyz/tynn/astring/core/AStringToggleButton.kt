@@ -7,15 +7,16 @@ package xyz.tynn.astring.core
 
 import android.widget.ToggleButton
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets the text displayed when the button is not in the checked state
  * @see ToggleButton.setTextOff
  */
 public fun ToggleButton.setTextOff(
-    textOff: AString,
+    textOff: AString?,
 ): Unit = setTextOff(
-    textOff(context),
+    aString(textOff),
 )
 
 /**
@@ -23,7 +24,7 @@ public fun ToggleButton.setTextOff(
  * @see ToggleButton.setTextOn
  */
 public fun ToggleButton.setTextOn(
-    textOn: AString,
+    textOn: AString?,
 ): Unit = setTextOn(
-    textOn(context),
+    aString(textOn),
 )

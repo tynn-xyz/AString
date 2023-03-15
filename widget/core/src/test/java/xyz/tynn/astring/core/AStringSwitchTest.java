@@ -32,16 +32,17 @@ public class AStringSwitchTest {
         verify(() -> view.setTextOff(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTextOff_should_throw_on_null_view() {
-        AStringSwitch.setTextOff(null, aString);
+    @Test
+    public void setTextOff_should_delegate_null_to_view() {
+        AStringSwitch.setTextOff(view, null);
+
+        verify(() -> view.setTextOff(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTextOff_should_throw_on_null_string() {
-        AStringSwitch.setTextOff(view, null);
+    public void setTextOff_should_throw_on_null_view() {
+        AStringSwitch.setTextOff(null, aString);
     }
 
     @Test
@@ -51,15 +52,16 @@ public class AStringSwitchTest {
         verify(() -> view.setTextOn(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTextOn_should_throw_on_null_view() {
-        AStringSwitch.setTextOn(null, aString);
+    @Test
+    public void setTextOn_should_delegate_null_to_view() {
+        AStringSwitch.setTextOn(view, null);
+
+        verify(() -> view.setTextOn(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTextOn_should_throw_on_null_string() {
-        AStringSwitch.setTextOn(view, null);
+    public void setTextOn_should_throw_on_null_view() {
+        AStringSwitch.setTextOn(null, aString);
     }
 }

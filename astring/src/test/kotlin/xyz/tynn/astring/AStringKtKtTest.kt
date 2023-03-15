@@ -15,23 +15,30 @@ import kotlin.test.Test
 
 internal class AStringKtKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val aContext = mockk<Context>()
+    private val aString = mockk<AString>(relaxed = true)
+    private val aContext = mockk<Context>()
 
     @Test
-    fun `invoke with fragment delegates to context`() {
-        aString(mockk<Fragment> {
-            every { requireContext() } returns aContext
-        })
+    fun `aString with context delegates to this`() {
+        aContext.aString(aString)
 
         verify { aString(aContext) }
     }
 
     @Test
-    fun `invoke with view delegates to context`() {
-        aString(mockk<View> {
+    fun `aString with fragment delegates to context`() {
+        mockk<Fragment> {
+            every { requireContext() } returns aContext
+        }.aString(aString)
+
+        verify { aString(aContext) }
+    }
+
+    @Test
+    fun `aString with view delegates to context`() {
+        mockk<View> {
             every { context } returns aContext
-        })
+        }.aString(aString)
 
         verify { aString(aContext) }
     }

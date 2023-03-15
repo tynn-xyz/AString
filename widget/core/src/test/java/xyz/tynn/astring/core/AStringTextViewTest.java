@@ -35,16 +35,17 @@ public class AStringTextViewTest {
         verify(() -> view.append(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void append_should_throw_on_null_view() {
-        AStringTextView.append(null, aString);
+    @Test
+    public void append_should_delegate_null_to_view() {
+        AStringTextView.append(view, null);
+
+        verify(() -> view.append(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void append_should_throw_on_null_string() {
-        AStringTextView.append(view, null);
+    public void append_should_throw_on_null_view() {
+        AStringTextView.append(null, aString);
     }
 
     @Test
@@ -54,16 +55,17 @@ public class AStringTextViewTest {
         verify(() -> view.append(aString.invoke(view.getContext()), 1, 2));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void append_with_range_should_throw_on_null_view() {
-        AStringTextView.append(null, aString, 1, 2);
+    @Test
+    public void append_with_range_should_delegate_null_to_view() {
+        AStringTextView.append(view, null, 1, 2);
+
+        verify(() -> view.append(null, 1, 2));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void append_with_range_should_throw_on_null_string() {
-        AStringTextView.append(view, null, 1, 2);
+    public void append_with_range_should_throw_on_null_view() {
+        AStringTextView.append(null, aString, 1, 2);
     }
 
     @Test
@@ -73,16 +75,17 @@ public class AStringTextViewTest {
         verify(() -> view.setText(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_view() {
-        AStringTextView.setText(null, aString);
+    @Test
+    public void setText_should_delegate_null_to_view() {
+        AStringTextView.setText(view, null);
+
+        verify(() -> view.setText(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_string() {
-        AStringTextView.setText(view, null);
+    public void setText_should_throw_on_null_view() {
+        AStringTextView.setText(null, aString);
     }
 
     @Test
@@ -92,16 +95,17 @@ public class AStringTextViewTest {
         verify(() -> view.setText(aString.invoke(view.getContext()), SPANNABLE));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_with_type_should_throw_on_null_view() {
-        AStringTextView.setText(null, aString, SPANNABLE);
+    @Test
+    public void setText_with_type_should_delegate_null_to_view() {
+        AStringTextView.setText(view, null, SPANNABLE);
+
+        verify(() -> view.setText(null, SPANNABLE));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setText_with_type_should_throw_on_null_string() {
-        AStringTextView.setText(view, null, SPANNABLE);
+    public void setText_with_type_should_throw_on_null_view() {
+        AStringTextView.setText(null, aString, SPANNABLE);
     }
 
     @Test
@@ -111,37 +115,39 @@ public class AStringTextViewTest {
         verify(() -> view.setError(aString.invoke(view.getContext())));
     }
 
+    @Test
+    public void setError_should_delegate_null_to_view() {
+        AStringTextView.setError(view, null);
+
+        verify(() -> view.setError(null));
+    }
+
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
     public void setError_should_throw_on_null_view() {
         AStringTextView.setError(null, aString);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setError_should_throw_on_null_string() {
-        AStringTextView.setError(view, null);
+    @Test
+    public void setError_with_icon_should_delegate_to_view() {
+        AStringTextView.setError(view, aString, null);
+
+        verify(() -> view.setError(aString.invoke(view.getContext()), null));
     }
 
     @Test
-    public void setError_with_icon_should_delegate_to_view() {
+    public void setError_with_icon_should_delegate_null_to_view() {
         Drawable icon = new ColorDrawable();
 
-        AStringTextView.setError(view, aString, icon);
+        AStringTextView.setError(view, null, icon);
 
-        verify(() -> view.setError(aString.invoke(view.getContext()), icon));
+        verify(() -> view.setError(null, icon));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
     public void setError_with_icon_should_throw_on_null_view() {
         AStringTextView.setError(null, aString, new ColorDrawable());
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setError_with_icon_should_throw_on_null_string() {
-        AStringTextView.setError(view, null, new ColorDrawable());
     }
 
     @Test
@@ -151,15 +157,16 @@ public class AStringTextViewTest {
         verify(() -> view.setHint(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setHint_should_throw_on_null_view() {
-        AStringTextView.setHint(null, aString);
+    @Test
+    public void setHint_should_delegate_null_to_view() {
+        AStringTextView.setHint(view, null);
+
+        verify(() -> view.setHint(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setHint_should_throw_on_null_string() {
-        AStringTextView.setHint(view, null);
+    public void setHint_should_throw_on_null_view() {
+        AStringTextView.setHint(null, aString);
     }
 }

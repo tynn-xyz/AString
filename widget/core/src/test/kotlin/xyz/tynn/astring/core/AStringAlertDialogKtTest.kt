@@ -14,12 +14,12 @@ import kotlin.test.Test
 
 internal class AStringAlertDialogKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val dialog = mockk<AlertDialog>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val dialog = mockk<AlertDialog>(relaxed = true)
 
     @Test
     fun `setNegativeButton with listener should delegate to dialog`() {
-        val listener = mockk<OnClickListener>()
+        val listener: OnClickListener? = null
 
         dialog.setButton(BUTTON_NEUTRAL, aString, listener)
 
@@ -27,12 +27,30 @@ internal class AStringAlertDialogKtTest {
     }
 
     @Test
+    fun `setNegativeButton with listener should delegate null to dialog`() {
+        val listener = mockk<OnClickListener>()
+
+        dialog.setButton(BUTTON_NEUTRAL, null as AString?, listener)
+
+        verify { dialog.setButton(BUTTON_NEUTRAL, null, listener) }
+    }
+
+    @Test
     fun `setNegativeButton with message should delegate to dialog`() {
-        val message = mockk<Message>()
+        val message: Message? = null
 
         dialog.setButton(BUTTON_NEUTRAL, aString, message)
 
         verify { dialog.setButton(BUTTON_NEUTRAL, aString(dialog.context), message) }
+    }
+
+    @Test
+    fun `setNegativeButton with message should delegate null to dialog`() {
+        val message = mockk<Message>()
+
+        dialog.setButton(BUTTON_NEUTRAL, null as AString?, message)
+
+        verify { dialog.setButton(BUTTON_NEUTRAL, null, message) }
     }
 
     @Test
@@ -43,9 +61,23 @@ internal class AStringAlertDialogKtTest {
     }
 
     @Test
+    fun `setMessage should delegate null to dialog`() {
+        dialog.setMessage(null as AString?)
+
+        verify { dialog.setMessage(null) }
+    }
+
+    @Test
     fun `setTitle should delegate to dialog`() {
         dialog.setTitle(aString)
 
         verify { dialog.setTitle(aString(dialog.context)) }
+    }
+
+    @Test
+    fun `setTitle should delegate null to dialog`() {
+        dialog.setTitle(null as AString?)
+
+        verify { dialog.setTitle(null) }
     }
 }

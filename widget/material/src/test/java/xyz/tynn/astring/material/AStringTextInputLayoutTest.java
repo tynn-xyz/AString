@@ -32,16 +32,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setEndIconContentDescription(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setEndIconContentDescription_should_throw_on_null_view() {
-        AStringTextInputLayout.setEndIconContentDescription(null, aString);
+    @Test
+    public void setEndIconContentDescription_should_delegate_null_to_view() {
+        AStringTextInputLayout.setEndIconContentDescription(view, null);
+
+        verify(() -> view.setEndIconContentDescription(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setEndIconContentDescription_should_throw_on_null_string() {
-        AStringTextInputLayout.setEndIconContentDescription(view, null);
+    public void setEndIconContentDescription_should_throw_on_null_view() {
+        AStringTextInputLayout.setEndIconContentDescription(null, aString);
     }
 
     @Test
@@ -51,16 +52,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setErrorContentDescription(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setErrorContentDescription_should_throw_on_null_view() {
-        AStringTextInputLayout.setErrorContentDescription(null, aString);
+    @Test
+    public void setErrorContentDescription_should_delegate_null_to_view() {
+        AStringTextInputLayout.setErrorContentDescription(view, null);
+
+        verify(() -> view.setErrorContentDescription(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setErrorContentDescription_should_throw_on_null_string() {
-        AStringTextInputLayout.setErrorContentDescription(view, null);
+    public void setErrorContentDescription_should_throw_on_null_view() {
+        AStringTextInputLayout.setErrorContentDescription(null, aString);
     }
 
     @Test
@@ -70,16 +72,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setError(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setError_should_throw_on_null_view() {
-        AStringTextInputLayout.setError(null, aString);
+    @Test
+    public void setError_should_delegate_null_to_view() {
+        AStringTextInputLayout.setError(view, null);
+
+        verify(() -> view.setError(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setError_should_throw_on_null_string() {
-        AStringTextInputLayout.setError(view, null);
+    public void setError_should_throw_on_null_view() {
+        AStringTextInputLayout.setError(null, aString);
     }
 
     @Test
@@ -89,16 +92,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setHelperText(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setHelperText_should_throw_on_null_view() {
-        AStringTextInputLayout.setHelperText(null, aString);
+    @Test
+    public void setHelperText_should_delegate_null_to_view() {
+        AStringTextInputLayout.setHelperText(view, null);
+
+        verify(() -> view.setHelperText(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setHelperText_should_throw_on_null_string() {
-        AStringTextInputLayout.setHelperText(view, null);
+    public void setHelperText_should_throw_on_null_view() {
+        AStringTextInputLayout.setHelperText(null, aString);
     }
 
     @Test
@@ -108,16 +112,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setHint(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setHint_should_throw_on_null_view() {
-        AStringTextInputLayout.setHint(null, aString);
+    @Test
+    public void setHint_should_delegate_null_to_view() {
+        AStringTextInputLayout.setHint(view, null);
+
+        verify(() -> view.setHint(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setHint_should_throw_on_null_string() {
-        AStringTextInputLayout.setHint(view, null);
+    public void setHint_should_throw_on_null_view() {
+        AStringTextInputLayout.setHint(null, aString);
     }
 
     @Test
@@ -127,16 +132,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setPlaceholderText(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setPlaceholderText_should_throw_on_null_view() {
-        AStringTextInputLayout.setPlaceholderText(null, aString);
+    @Test
+    public void setPlaceholderText_should_delegate_null_to_view() {
+        AStringTextInputLayout.setPlaceholderText(view, null);
+
+        verify(() -> view.setPlaceholderText(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setPlaceholderText_should_throw_on_null_string() {
-        AStringTextInputLayout.setPlaceholderText(view, null);
+    public void setPlaceholderText_should_throw_on_null_view() {
+        AStringTextInputLayout.setPlaceholderText(null, aString);
     }
 
     @Test
@@ -146,16 +152,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setPrefixText(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setPrefixText_should_throw_on_null_view() {
-        AStringTextInputLayout.setPrefixText(null, aString);
+    @Test
+    public void setPrefixText_should_delegate_null_to_view() {
+        AStringTextInputLayout.setPrefixText(view, null);
+
+        verify(() -> view.setPrefixText(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setPrefixText_should_throw_on_null_string() {
-        AStringTextInputLayout.setPrefixText(view, null);
+    public void setPrefixText_should_throw_on_null_view() {
+        AStringTextInputLayout.setPrefixText(null, aString);
     }
 
     @Test
@@ -165,16 +172,17 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setStartIconContentDescription(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setStartIconContentDescription_should_throw_on_null_view() {
-        AStringTextInputLayout.setStartIconContentDescription(null, aString);
+    @Test
+    public void setStartIconContentDescription_should_delegate_null_to_view() {
+        AStringTextInputLayout.setStartIconContentDescription(view, null);
+
+        verify(() -> view.setStartIconContentDescription(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setStartIconContentDescription_should_throw_on_null_string() {
-        AStringTextInputLayout.setStartIconContentDescription(view, null);
+    public void setStartIconContentDescription_should_throw_on_null_view() {
+        AStringTextInputLayout.setStartIconContentDescription(null, aString);
     }
 
     @Test
@@ -184,15 +192,16 @@ public class AStringTextInputLayoutTest {
         verify(() -> view.setSuffixText(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setSuffixText_should_throw_on_null_view() {
-        AStringTextInputLayout.setSuffixText(null, aString);
+    @Test
+    public void setSuffixText_should_delegate_null_to_view() {
+        AStringTextInputLayout.setSuffixText(view, null);
+
+        verify(() -> view.setSuffixText(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setSuffixText_should_throw_on_null_string() {
-        AStringTextInputLayout.setSuffixText(view, null);
+    public void setSuffixText_should_throw_on_null_view() {
+        AStringTextInputLayout.setSuffixText(null, aString);
     }
 }

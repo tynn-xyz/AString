@@ -48,16 +48,17 @@ public class AStringAlertDialogTest {
         verify(() -> dialog.setButton(BUTTON_NEUTRAL, aString.invoke(dialog.getContext()), (OnClickListener) null));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setButton_with_listener_should_throw_on_null_dialog() {
-        AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, listener);
+    @Test
+    public void setButton_with_null_listener_should_delegate_null_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, listener);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, null, listener));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setButton_with_listener_should_throw_on_null_string() {
-        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, listener);
+    public void setButton_with_listener_should_throw_on_null_dialog() {
+        AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, listener);
     }
 
     @Test
@@ -74,16 +75,17 @@ public class AStringAlertDialogTest {
         verify(() -> dialog.setButton(BUTTON_NEUTRAL, aString.invoke(dialog.getContext()), (Message) null));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setButton_with_message_should_throw_on_null_dialog() {
-        AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, message);
+    @Test
+    public void setButton_with_null_message_should_delegate_null_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, message);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, null, message));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setButton_with_message_should_throw_on_null_string() {
-        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, message);
+    public void setButton_with_message_should_throw_on_null_dialog() {
+        AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, message);
     }
 
     @Test
@@ -93,16 +95,17 @@ public class AStringAlertDialogTest {
         verify(() -> dialog.setMessage(aString.invoke(dialog.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setMessage_should_throw_on_null_dialog() {
-        AStringAlertDialog.setMessage(null, aString);
+    @Test
+    public void setMessage_should_delegate_null_to_dialog() {
+        AStringAlertDialog.setMessage(dialog, null);
+
+        verify(() -> dialog.setMessage(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setMessage_should_throw_on_null_string() {
-        AStringAlertDialog.setMessage(dialog, null);
+    public void setMessage_should_throw_on_null_dialog() {
+        AStringAlertDialog.setMessage(null, aString);
     }
 
     @Test
@@ -112,15 +115,16 @@ public class AStringAlertDialogTest {
         verify(() -> dialog.setTitle(aString.invoke(dialog.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_dialog() {
-        AStringAlertDialog.setTitle(null, aString);
+    @Test
+    public void setTitle_should_delegate_null_to_dialog() {
+        AStringAlertDialog.setTitle(dialog, null);
+
+        verify(() -> dialog.setTitle(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_string() {
-        AStringAlertDialog.setTitle(dialog, null);
+    public void setTitle_should_throw_on_null_dialog() {
+        AStringAlertDialog.setTitle(null, aString);
     }
 }

@@ -11,14 +11,21 @@ import kotlin.test.Test
 
 internal class AStringTextInputLayoutKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val view = mockk<TextInputLayout>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val view = mockk<TextInputLayout>(relaxed = true)
 
     @Test
     fun `setEndIconContentDescription should delegate to view`() {
         view.setEndIconContentDescription(aString)
 
         verify { view.endIconContentDescription = aString(view.context) }
+    }
+
+    @Test
+    fun `setEndIconContentDescription should delegate null to view`() {
+        view.setEndIconContentDescription(null as AString?)
+
+        verify { view.endIconContentDescription = null }
     }
 
     @Test
@@ -29,10 +36,24 @@ internal class AStringTextInputLayoutKtTest {
     }
 
     @Test
+    fun `setErrorContentDescription should delegate null to view`() {
+        view.setErrorContentDescription(null as AString?)
+
+        verify { view.errorContentDescription = null }
+    }
+
+    @Test
     fun `setError should delegate to view`() {
         view.setError(aString)
 
         verify { view.error = aString(view.context) }
+    }
+
+    @Test
+    fun `setError should delegate null to view`() {
+        view.setError(null as AString?)
+
+        verify { view.error = null }
     }
 
     @Test
@@ -43,10 +64,24 @@ internal class AStringTextInputLayoutKtTest {
     }
 
     @Test
+    fun `setHelperText should delegate null to view`() {
+        view.setHelperText(null as AString?)
+
+        verify { view.helperText = null }
+    }
+
+    @Test
     fun `setHint should delegate to view`() {
         view.setHint(aString)
 
         verify { view.hint = aString(view.context) }
+    }
+
+    @Test
+    fun `setHint should delegate null to view`() {
+        view.setHint(null as AString?)
+
+        verify { view.hint = null }
     }
 
     @Test
@@ -57,10 +92,24 @@ internal class AStringTextInputLayoutKtTest {
     }
 
     @Test
+    fun `setPlaceholderText should delegate null to view`() {
+        view.setPlaceholderText(null as AString?)
+
+        verify { view.placeholderText = null }
+    }
+
+    @Test
     fun `setPrefixText should delegate to view`() {
         view.setPrefixText(aString)
 
         verify { view.prefixText = aString(view.context) }
+    }
+
+    @Test
+    fun `setPrefixText should delegate null to view`() {
+        view.setPrefixText(null as AString?)
+
+        verify { view.prefixText = null }
     }
 
     @Test
@@ -71,9 +120,23 @@ internal class AStringTextInputLayoutKtTest {
     }
 
     @Test
+    fun `setStartIconContentDescription should delegate null to view`() {
+        view.setStartIconContentDescription(null as AString?)
+
+        verify { view.startIconContentDescription = null }
+    }
+
+    @Test
     fun `setSuffixText should delegate to view`() {
         view.setSuffixText(aString)
 
         verify { view.suffixText = aString(view.context) }
+    }
+
+    @Test
+    fun `setSuffixText should delegate null to view`() {
+        view.setSuffixText(null as AString?)
+
+        verify { view.suffixText = null }
     }
 }

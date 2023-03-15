@@ -32,16 +32,17 @@ public class AStringToggleButtonTest {
         verify(() -> view.setTextOff(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTextOff_should_throw_on_null_view() {
-        AStringToggleButton.setTextOff(null, aString);
+    @Test
+    public void setTextOff_should_delegate_null_to_view() {
+        AStringToggleButton.setTextOff(view, null);
+
+        verify(() -> view.setTextOff(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTextOff_should_throw_on_null_string() {
-        AStringToggleButton.setTextOff(view, null);
+    public void setTextOff_should_throw_on_null_view() {
+        AStringToggleButton.setTextOff(null, aString);
     }
 
     @Test
@@ -51,15 +52,16 @@ public class AStringToggleButtonTest {
         verify(() -> view.setTextOn(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTextOn_should_throw_on_null_view() {
-        AStringToggleButton.setTextOn(null, aString);
+    @Test
+    public void setTextOn_should_delegate_null_to_view() {
+        AStringToggleButton.setTextOn(view, null);
+
+        verify(() -> view.setTextOn(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTextOn_should_throw_on_null_string() {
-        AStringToggleButton.setTextOn(view, null);
+    public void setTextOn_should_throw_on_null_view() {
+        AStringToggleButton.setTextOn(null, aString);
     }
 }

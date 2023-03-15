@@ -12,8 +12,8 @@ import kotlin.test.Test
 
 internal class AStringViewKtTest {
 
-    val aString = mockk<AString>(relaxed = true)
-    val view = mockk<View>(relaxed = true)
+    private val aString = mockk<AString>(relaxed = true)
+    private val view = mockk<View>(relaxed = true)
 
     @Test
     fun `setAccessibilityPaneTitle should delegate to ViewCompat`() {
@@ -27,10 +27,28 @@ internal class AStringViewKtTest {
     }
 
     @Test
+    fun `setAccessibilityPaneTitle should delegate null to ViewCompat`() {
+        withViewCompat {
+            every { setAccessibilityPaneTitle(any(), any()) } just runs
+
+            view.setAccessibilityPaneTitle(null as AString?)
+
+            verify { setAccessibilityPaneTitle(view, null) }
+        }
+    }
+
+    @Test
     fun `setContentDescription should delegate to view`() {
         view.setContentDescription(aString)
 
         verify { view.contentDescription = aString(view.context) }
+    }
+
+    @Test
+    fun `setContentDescription should delegate null to view`() {
+        view.setContentDescription(null as AString?)
+
+        verify { view.contentDescription = null }
     }
 
     @Test
@@ -45,6 +63,17 @@ internal class AStringViewKtTest {
     }
 
     @Test
+    fun `setStateDescription should delegate null to ViewCompat`() {
+        withViewCompat {
+            every { setStateDescription(any(), any()) } just runs
+
+            view.setStateDescription(null as AString?)
+
+            verify { setStateDescription(view, null) }
+        }
+    }
+
+    @Test
     fun `setTooltipText should delegate to ViewCompat`() {
         withViewCompat {
             every { setTooltipText(any(), any()) } just runs
@@ -52,6 +81,17 @@ internal class AStringViewKtTest {
             view.setTooltipText(aString)
 
             verify { setTooltipText(view, aString(view.context)) }
+        }
+    }
+
+    @Test
+    fun `setTooltipText should delegate null to ViewCompat`() {
+        withViewCompat {
+            every { setTooltipText(any(), any()) } just runs
+
+            view.setTooltipText(null as AString?)
+
+            verify { setTooltipText(view, null) }
         }
     }
 

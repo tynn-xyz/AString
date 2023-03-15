@@ -7,15 +7,16 @@ package xyz.tynn.astring.core
 
 import android.widget.Switch
 import xyz.tynn.astring.AString
+import xyz.tynn.astring.aString
 
 /**
  * Sets the text displayed when the button is not in the checked state
  * @see Switch.setTextOff
  */
 public fun Switch.setTextOff(
-    textOff: AString,
+    textOff: AString?,
 ): Unit = setTextOff(
-    textOff(context),
+    aString(textOff),
 )
 
 /**
@@ -23,7 +24,7 @@ public fun Switch.setTextOff(
  * @see Switch.setTextOn
  */
 public fun Switch.setTextOn(
-    textOn: AString,
+    textOn: AString?,
 ): Unit = setTextOn(
-    textOn(context),
+    aString(textOn),
 )

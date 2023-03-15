@@ -41,8 +41,6 @@ public class AStringSnackbarTest {
     View view;
     @MockK
     OnClickListener listener;
-    @MockK
-    Looper looper;
 
     @BeforeClass
     public static void prepareMainLooper() {
@@ -70,16 +68,19 @@ public class AStringSnackbarTest {
                 AStringSnackbar.make(view, aString, LENGTH_LONG));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void make_should_throw_on_null_view() {
-        AStringSnackbar.make(null, aString, LENGTH_LONG);
+    @Test
+    public void make_should_default_null_to_empty_string() {
+        prepare(Snackbar.class);
+        every(scope -> make(view, "", LENGTH_LONG)).returns(snackbar);
+
+        assertSame(snackbar,
+                AStringSnackbar.make(view, null, LENGTH_LONG));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void make_should_throw_on_null_string() {
-        AStringSnackbar.make(view, null, LENGTH_LONG);
+    public void make_should_throw_on_null_view() {
+        AStringSnackbar.make(null, aString, LENGTH_LONG);
     }
 
     @Test
@@ -96,16 +97,17 @@ public class AStringSnackbarTest {
         verify(() -> snackbar.setAction(aString.invoke(snackbar.getContext()), null));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setAction_should_throw_on_null_snackbar() {
-        AStringSnackbar.setAction(null, aString, listener);
+    @Test
+    public void setAction_with_null_listener_should_delegate_null_to_snackbar() {
+        AStringSnackbar.setAction(snackbar, null, listener);
+
+        verify(() -> snackbar.setAction(null, listener));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setAction_should_throw_on_null_string() {
-        AStringSnackbar.setAction(snackbar, null, listener);
+    public void setAction_should_throw_on_null_snackbar() {
+        AStringSnackbar.setAction(null, aString, listener);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -125,15 +127,16 @@ public class AStringSnackbarTest {
         verify(() -> snackbar.setText(""));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_snackbar() {
-        AStringSnackbar.setText(null, aString);
+    @Test
+    public void setText_should_default_null_to_empty_string() {
+        AStringSnackbar.setText(snackbar, null);
+
+        verify(() -> snackbar.setText(""));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setText_should_throw_on_null_string() {
-        AStringSnackbar.setText(snackbar, null);
+    public void setText_should_throw_on_null_snackbar() {
+        AStringSnackbar.setText(null, aString);
     }
 }

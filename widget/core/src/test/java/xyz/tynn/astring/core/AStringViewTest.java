@@ -45,22 +45,30 @@ public class AStringViewTest {
     }
 
     @Test
+    public void setAccessibilityPaneTitle_should_delegate_null_to_ViewCompat() {
+        AStringView.setAccessibilityPaneTitle(view, null);
+
+        verify(() -> setAccessibilityPaneTitle(view, null));
+    }
+
+    @Test
     public void setContentDescription_should_delegate_to_view() {
         AStringView.setContentDescription(view, aString);
 
         verify(() -> view.setContentDescription(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setContentDescription_should_throw_on_null_view() {
-        AStringView.setContentDescription(null, aString);
+    @Test
+    public void setContentDescription_should_delegate_null_to_view() {
+        AStringView.setContentDescription(view, null);
+
+        verify(() -> view.setContentDescription(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setContentDescription_should_throw_on_null_string() {
-        AStringView.setContentDescription(view, null);
+    public void setContentDescription_should_throw_on_null_view() {
+        AStringView.setContentDescription(null, aString);
     }
 
     @Test
@@ -71,9 +79,23 @@ public class AStringViewTest {
     }
 
     @Test
+    public void setStateDescription_should_delegate_null_to_ViewCompat() {
+        AStringView.setStateDescription(view, null);
+
+        verify(() -> setStateDescription(view, null));
+    }
+
+    @Test
     public void setTooltipText_should_delegate_to_ViewCompat() {
         AStringView.setTooltipText(view, aString);
 
         verify(() -> setTooltipText(view, aString.invoke(view.getContext())));
+    }
+
+    @Test
+    public void setTooltipText_should_delegate_null_to_ViewCompat() {
+        AStringView.setTooltipText(view, null);
+
+        verify(() -> setTooltipText(view, null));
     }
 }

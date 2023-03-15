@@ -32,16 +32,17 @@ public class AStringToolbarTest {
         verify(() -> view.setLogoDescription(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setLogoDescription_should_throw_on_null_view() {
-        AStringToolbar.setLogoDescription(null, aString);
+    @Test
+    public void setLogoDescription_should_delegate_null_to_view() {
+        AStringToolbar.setLogoDescription(view, null);
+
+        verify(() -> view.setLogoDescription(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setLogoDescription_should_throw_on_null_string() {
-        AStringToolbar.setLogoDescription(view, null);
+    public void setLogoDescription_should_throw_on_null_view() {
+        AStringToolbar.setLogoDescription(null, aString);
     }
 
     @Test
@@ -51,16 +52,17 @@ public class AStringToolbarTest {
         verify(() -> view.setSubtitle(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setSubtitle_should_throw_on_null_view() {
-        AStringToolbar.setSubtitle(null, aString);
+    @Test
+    public void setSubtitle_should_delegate_null_to_view() {
+        AStringToolbar.setSubtitle(view, null);
+
+        verify(() -> view.setSubtitle(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setSubtitle_should_throw_on_null_string() {
-        AStringToolbar.setSubtitle(view, null);
+    public void setSubtitle_should_throw_on_null_view() {
+        AStringToolbar.setSubtitle(null, aString);
     }
 
     @Test
@@ -70,15 +72,16 @@ public class AStringToolbarTest {
         verify(() -> view.setTitle(aString.invoke(view.getContext())));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_view() {
-        AStringToolbar.setTitle(null, aString);
+    @Test
+    public void setTitle_should_delegate_null_to_view() {
+        AStringToolbar.setTitle(view, null);
+
+        verify(() -> view.setTitle(null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void setTitle_should_throw_on_null_string() {
-        AStringToolbar.setTitle(view, null);
+    public void setTitle_should_throw_on_null_view() {
+        AStringToolbar.setTitle(null, aString);
     }
 }
