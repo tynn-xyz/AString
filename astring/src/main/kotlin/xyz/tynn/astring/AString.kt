@@ -71,31 +71,3 @@ public operator fun AString?.getValue(
 ): CharSequence? = thisRef.aString(
     this,
 )
-
-/**
- * Invokes the `AString` with [Fragment.requireContext]
- */
-@Deprecated(
-    "Replace with null-safe variant",
-    ReplaceWith("fragment.aString(this)"),
-    DeprecationLevel.ERROR,
-)
-public operator fun AString.invoke(
-    fragment: Fragment,
-): CharSequence? = invoke(
-    fragment.requireContext(),
-)
-
-/**
- * Invokes the `AString` with [View.getContext]
- */
-@Deprecated(
-    "Replace with null-safe variant",
-    ReplaceWith("view.aString(this)"),
-    DeprecationLevel.ERROR,
-)
-public operator fun AString.invoke(
-    view: View,
-): CharSequence? = invoke(
-    view.context,
-)

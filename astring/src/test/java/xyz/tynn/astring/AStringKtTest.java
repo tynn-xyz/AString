@@ -87,44 +87,4 @@ public class AStringKtTest {
     public void invoke_should_throw_on_null_view() {
         AStringKt.invoke((View) null, aString);
     }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void deprecated_invoke_should_delegate_to_fragment() {
-        every(scope -> aString.invoke(fragment.requireContext())).returns("fragment");
-
-        assertEquals("fragment", AStringKt.invoke(aString, fragment));
-    }
-
-    @SuppressWarnings({"ConstantConditions", "deprecation"})
-    @Test(expected = NullPointerException.class)
-    public void deprecated_invoke_fragment_should_throw_on_null_string_with() {
-        AStringKt.invoke(null, fragment);
-    }
-
-    @SuppressWarnings({"ConstantConditions", "deprecation"})
-    @Test(expected = NullPointerException.class)
-    public void deprecated_invoke_should_throw_on_null_fragment() {
-        AStringKt.invoke(aString, (Fragment) null);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void deprecated_invoke_should_delegate_to_view() {
-        every(scope -> aString.invoke(view.getContext())).returns("view");
-
-        assertEquals("view", AStringKt.invoke(aString, view));
-    }
-
-    @SuppressWarnings({"ConstantConditions", "deprecation"})
-    @Test(expected = NullPointerException.class)
-    public void deprecated_invoke_with_view_should_throw_on_null_string() {
-        AStringKt.invoke(null, view);
-    }
-
-    @SuppressWarnings({"ConstantConditions", "deprecation"})
-    @Test(expected = NullPointerException.class)
-    public void deprecated_invoke_should_throw_on_null_view() {
-        AStringKt.invoke(aString, (View) null);
-    }
 }
