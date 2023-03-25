@@ -8,6 +8,7 @@ package xyz.tynn.astring.core
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.widget.Toolbar
 import androidx.annotation.RequiresApi
+import androidx.databinding.BindingAdapter
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.aString
 
@@ -28,6 +29,7 @@ public fun Toolbar.setLogoDescription(
  * @see Toolbar.setSubtitle
  */
 @RequiresApi(LOLLIPOP)
+@BindingAdapter("android:subtitle")
 public fun Toolbar.setSubtitle(
     subtitle: AString?,
 ): Unit = setSubtitle(
@@ -39,6 +41,7 @@ public fun Toolbar.setSubtitle(
  * @see Toolbar.setTitle
  */
 @RequiresApi(LOLLIPOP)
+@BindingAdapter("android:title")
 public fun Toolbar.setTitle(
     title: AString?,
 ): Unit = setTitle(

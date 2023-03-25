@@ -3,116 +3,100 @@
 [![Download][download-shield]][download]
 ###### A context aware parcelable string abstraction for _Android_
 
-```
-public interface AString extends Parcelable {
-    @Nullable
-    CharSequence invoke(@NonNull Context context);
-}
-```
+    public interface AString extends Parcelable {
+        @Nullable
+        CharSequence invoke(@NonNull Context context);
+    }
 
-The library is implemented with _Kotlin_ for _Java_.
-The _Kotlin Standard Library_ is not required to use _AString_.
+The library is implemented with _Kotlin_ for _Java_, thus
+the _Kotlin Standard Library_ is not required to use _AString_.
+
 
 ## Installation
+
+All packages are available in _Maven Central_.
+Once a dependency was declared with a specific version,
+every other dependency version is provided implicitly with a BOM.
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        implementation platform("xyz.tynn.astring:bom:$astringVersion")
+        implementation "xyz.tynn.astring:astring:$astringVersion"
+    }
 
+
+## Usage
+
+The `AStringFactory` provides functions to create all basic `AString`
+implementations.
+
+    nullAsAString
+    "aString".asAString()
+    StringResource(R.string.app_name)
+
+    AStringFactory.createFromCharSequence("aString")
+
+If `null`, `ID_NULL` or `0` is used to create an `AString`,
+the `nullAsAString` singleton is returned.
+
+The `AString` itself should be used in place of a `CharSequence`,
+just like string resource would be used.
+In _Kotlin_ this is simplified with extension functions.
+
+    textView.setText(aString)
+
+    textView.setText(aString.invoke(textView.context))
+    AStringTextView.setText(textView, aString)
+
+
+### `AString` wrappers and delegates
+
+There are several _standard_ implementations of `AString` for:
+
+ * `CharSequence?` wrapper
+
+ * `getString()` and `getQuantityString()` delegates
+ * `getText()` and `getQuantityText()` delegates
+
+ * the `getPackageName()` delegate
+ * the `versionName` resolver
+
+
+### _Kotlin_ extension functions
+
+There are several extension functions for widget methods taking a
+`CharSequence?` as an argument.
+_Core_, _AppCompat_ and _Material_ components should be fully covered.
+
+#### Artifacts
+
+    dependencies {
         implementation 'xyz.tynn.astring:core'
         implementation 'xyz.tynn.astring:appcompat'
         implementation 'xyz.tynn.astring:material'
     }
 
 
-## Usage
+### _Android_ Data Binding
 
-To create a equatable `AString` instance use the `AStringFactory` methods in _Java_.
+Some of the extension functions are annotated with `@BindingAdapter` and
+therefore provide simple setters for one-way data binding.
 
-    AStringFactory.createFromCharSequence("aString")
-    AStringFactory.createFromStringResource(R.string.app_name)
+    android:text="@{aString}"
 
-In Kotlin these methods are top level or extension functions.
+Since `AString` is not directly intended as input method, these functions
+are not optimized for two-way data binding and should not used in that context. 
+To support two-way data binding use the `AStringBinding` utility instead.
 
-    "aString".asAString()
-     StringResource(R.string.app_name)
+    android:text="@={AStringBinding.load(context, aString)}"
 
-If `null`, `ID_NULL` or `0` is used to create an `AString`, an instance providing `null`
-constantly is created.
+#### Artifacts
 
-    AStringFactory.nullAsAString
-
-The `AString` itself should be used in place of a `CharSequence` or string resource.
-
-    textView.setText(aString.invoke(textView.context))
-    AStringTextView.setText(textView, aString)
-
-In _Kotlin_ this is simplified with extension functions.
-
-    textView.setText(aString)
-
-### Supported `CharSequence` types
-
-There are several _standard_ implementations of `AString` for:
-
- * `null` wrapping
- * `CharSequence` wrapping
-
- * text resources delegation
- * string resources delegation
- * formatted string resources delegation
-
- * quantity text resources delegation
- * quantity string resources delegation
- * formatted quantity string resources delegation
-
-In addition there are a few _delegated_ implementations of `AString` for:
-
- * the application id from `Context.getPackageName()`
- * the application version from `PackageInfo.versionName`
-
-### Supported _Android_ types
-
-There are several (_Kotlin_) extension overloads for methods taking
-a `CharSequence` as an argument.
-
-_Feel free to provide a PR for missing methods._
-
-#### Core module
-
-Components provided by the _Android_ framework and _AndroidX_ core:
-
- `Activity`
- `View`
- `TextView`
- `Toobar`
- `Switch`
- `ToggleButton`
- `TextSwitcher`
- `Toast`
- `AlertDialog`
- `AlertDialog.Builder`
-
-#### AppCompat module
-
-Components provided by  _AndroidX_ appcompat:
-
- `View`
- `Toobar`
- `SwitchCompat`
- `AlertDialog`
- `AlertDialog.Builder`
-
-#### Material module
-
-Components provided by the _Material_ components by _Google_:
-
- `TextInputLayout`
- `Snackbar`
- `MaterialAlertDialogBuilder`
+    dependencies {
+        implementation 'xyz.tynn.astring:binding'
+    }
 
 
 ## License

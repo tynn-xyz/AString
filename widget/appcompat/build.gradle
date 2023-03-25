@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'xyz.tynn.astring.appcompat'
+    namespace "${group}.appcompat"
 }
 
 dependencies {
-    api project(':astring')
     api project(':widget:core')
     api libs.androidx.appcompat
+
+    compileOnly libs.androidx.databinding.common
 }

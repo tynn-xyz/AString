@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'xyz.tynn.astring.material'
+    namespace "${group}.material"
 
     buildFeatures {
         androidResources true
@@ -12,7 +12,8 @@ android {
 }
 
 dependencies {
-    api project(':astring')
     api project(':widget:appcompat')
     api libs.google.material
+
+    compileOnly libs.androidx.databinding.common
 }

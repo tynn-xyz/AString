@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'xyz.tynn.astring'
+    namespace group
 }
 
 dependencies {
-    api libs.androidx.core
-    api libs.androidx.fragment
+    implementation libs.androidx.fragment
+    implementation libs.androidx.core
 
     androidTestImplementation libs.androidx.test.rules
 }

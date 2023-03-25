@@ -1,19 +1,18 @@
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.kapt'
     id 'maven-publish'
 }
 
 android {
-    namespace "${group}.core"
+    namespace "${group}.binding"
 
     buildFeatures {
         androidResources true
+        dataBinding true
     }
 }
 
 dependencies {
     api project(':astring')
-    api libs.androidx.core
-
-    compileOnly libs.androidx.databinding.common
 }

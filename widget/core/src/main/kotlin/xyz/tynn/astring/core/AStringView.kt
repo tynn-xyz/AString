@@ -7,6 +7,7 @@ package xyz.tynn.astring.core
 
 import android.view.View
 import androidx.core.view.ViewCompat.*
+import androidx.databinding.BindingAdapter
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.aString
 
@@ -14,6 +15,7 @@ import xyz.tynn.astring.aString
  * Sets the accessibility pane title
  * @see View.setAccessibilityPaneTitle
  */
+@BindingAdapter("android:accessibilityPaneTitle")
 public fun View.setAccessibilityPaneTitle(
     accessibilityPaneTitle: AString?,
 ): Unit = setAccessibilityPaneTitle(
@@ -25,6 +27,7 @@ public fun View.setAccessibilityPaneTitle(
  * Sets the content description
  * @see View.setContentDescription
  */
+@BindingAdapter("android:contentDescription")
 public fun View.setContentDescription(
     contentDescription: AString?,
 ): Unit = setContentDescription(

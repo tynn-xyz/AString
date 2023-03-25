@@ -5,6 +5,7 @@
 
 package xyz.tynn.astring.material
 
+import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.aString
@@ -53,6 +54,7 @@ public fun TextInputLayout.setHelperText(
  * Sets a hint
  * @see TextInputLayout.setHint
  */
+@BindingAdapter("android:hint")
 public fun TextInputLayout.setHint(
     hint: AString?,
 ): Unit = setHint(

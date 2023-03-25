@@ -14,6 +14,8 @@ dependencyResolutionManagement {
 
 include ':astring:bom'
 
+include ':binding:adapters'
+
 include ':widget:core'
 include ':widget:appcompat'
 include ':widget:material'

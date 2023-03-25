@@ -7,6 +7,7 @@ package xyz.tynn.astring.core
 
 import android.graphics.drawable.Drawable
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.aString
 
@@ -60,6 +61,7 @@ public fun TextView.setError(
  * Sets the text to be displayed when the text of the TextView is empty
  * @see TextView.setHint
  */
+@BindingAdapter("android:hint")
 public fun TextView.setHint(
     hint: AString?,
 ): Unit = setHint(
@@ -70,6 +72,7 @@ public fun TextView.setHint(
  * Sets the text to be displayed
  * @see TextView.setText
  */
+@BindingAdapter("android:text")
 public fun TextView.setText(
     text: AString?,
 ): Unit = setText(

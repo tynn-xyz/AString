@@ -9,14 +9,6 @@ allprojects {
     group = 'xyz.tynn.astring'
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
-        }
-    }
-}
-
 subprojects {
     pluginManager.withPlugin('com.android.library') {
         apply plugin: 'org.jetbrains.kotlin.android'
@@ -111,6 +103,14 @@ subprojects {
             showCauses true
             showExceptions true
             showStackTraces true
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
         }
     }
 }
