@@ -92,10 +92,31 @@ To support two-way data binding use the `AStringBinding` utility instead.
 
     android:text="@={AStringBinding.load(context, aString)}"
 
-#### Artifacts
+#### Artifact
 
     dependencies {
         implementation 'xyz.tynn.astring:binding'
+    }
+
+
+### Testing
+
+Custom `AString` implementations require an efficient `Parcelable`
+implementation. To simplify testing these, the `AStringAssert` provides
+static assertions for different levels of efficients.
+
+    assertParcelableAStringIdentity(aString)
+    assertParcelableAStringEquality(aString)
+    assertParcelableAStringInvocation(aString)
+
+While testing for equality or identity ensures that both instances are equal or
+the same, `assertParcelableAStringInvocation()` ensures that at least the
+result of the recovered `AString` is equal to the original result.
+
+#### Artifact
+
+    dependencies {
+        androidTestImplementation textFixtures('xyz.tynn.astring:astring')
     }
 
 

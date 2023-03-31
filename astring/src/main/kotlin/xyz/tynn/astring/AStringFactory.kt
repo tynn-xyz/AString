@@ -20,7 +20,7 @@ import xyz.tynn.astring.ContextValueProvider.AppVersionProvider
  * An `AString` always providing `null`
  */
 @JvmField
-public val nullAsAString: AString = CharSequenceWrapper(null)
+public val nullAsAString: AString = CharSequenceWrapper.NULL
 
 /**
  * Creates an `AString` from a `CharSequence?`

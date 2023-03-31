@@ -5,11 +5,19 @@ plugins {
 
 android {
     namespace group
+
+    testFixtures {
+        enable = true
+    }
 }
 
 dependencies {
     implementation libs.androidx.fragment
     implementation libs.androidx.core
 
-    androidTestImplementation libs.androidx.test.rules
+    testFixturesImplementation libs.junit
+    testFixturesImplementation libs.androidx.core
+    testFixturesImplementation libs.androidx.test.core
+
+    androidTestImplementation libs.androidx.test.runner
 }

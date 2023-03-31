@@ -12,7 +12,8 @@ androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }
 androidx-core = "androidx.core:core:1.9.0"
 androidx-fragment = "androidx.fragment:fragment:1.5.6"
-androidx-test-rules = "androidx.test:rules:1.5.0"
+androidx-test-core = "androidx.test:core:1.5.0"
+androidx-test-runner = "androidx.test:runner:1.5.2"
 google-material = "com.google.android.material:material:1.8.0"
 
 kotlin-stdlib.module = "org.jetbrains.kotlin:kotlin-stdlib"

@@ -19,6 +19,8 @@ import java.util.Objects;
  */
 final class CharSequenceWrapper implements AString {
 
+    static final CharSequenceWrapper NULL = new CharSequenceWrapper(null);
+
     private final CharSequence value;
 
     CharSequenceWrapper(@Nullable CharSequence value) {
@@ -59,7 +61,8 @@ final class CharSequenceWrapper implements AString {
 
         @Override
         public CharSequenceWrapper createFromParcel(Parcel source) {
-            return new CharSequenceWrapper(CHAR_SEQUENCE_CREATOR.createFromParcel(source));
+            CharSequence value = CHAR_SEQUENCE_CREATOR.createFromParcel(source);
+            return value == null ? NULL : new CharSequenceWrapper(value);
         }
 
         @Override
