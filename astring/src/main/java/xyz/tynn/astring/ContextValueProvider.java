@@ -16,7 +16,6 @@ enum ContextValueProvider implements AString {
      * Implementation providing {@link Context#getPackageName()}
      */
     AppIdProvider {
-        @NonNull
         @Override
         public CharSequence invoke(@NonNull Context context) {
             return context.getPackageName();
@@ -33,7 +32,6 @@ enum ContextValueProvider implements AString {
      * Implementation providing {@link PackageInfo#versionName}
      */
     AppVersionProvider {
-        @NonNull
         @Override
         public CharSequence invoke(@NonNull Context context) {
             try {

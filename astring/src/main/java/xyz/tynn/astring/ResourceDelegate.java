@@ -35,11 +35,10 @@ final class ResourceDelegate implements AString {
         this.isText = isText;
         this.resId = resId;
         this.quantity = quantity;
-        this.formatArgs = formatArgs == null || formatArgs.length == 0 ? null
-                : formatArgs;
+        this.formatArgs = formatArgs != null && formatArgs.length > 0
+                ? formatArgs : null;
     }
 
-    @Nullable
     @Override
     public CharSequence invoke(@NonNull Context context) {
         return isPlural ? invokeWithQuantity(context)
@@ -48,15 +47,15 @@ final class ResourceDelegate implements AString {
 
     private CharSequence invokeWithQuantity(Context context) {
         Resources resources = context.getResources();
-        return isText ? resources.getQuantityText(resId, quantity) : formatArgs == null
-                ? resources.getQuantityString(resId, quantity)
-                : resources.getQuantityString(resId, quantity, formatArgs);
+        return isText ? resources.getQuantityText(resId, quantity) : formatArgs != null
+                ? resources.getQuantityString(resId, quantity, formatArgs)
+                : resources.getQuantityString(resId, quantity);
     }
 
     private CharSequence invokeWithoutQuantity(Context context) {
-        return isText ? context.getText(resId) : formatArgs == null
-                ? context.getString(resId)
-                : context.getString(resId, formatArgs);
+        return isText ? context.getText(resId) : formatArgs != null
+                ? context.getString(resId, formatArgs)
+                : context.getString(resId);
     }
 
     @Override

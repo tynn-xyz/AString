@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+ext.isKotlinOnly = true
+
+android {
+    namespace "${group}.compose"
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+}
+
+dependencies {
+    api project(':astring')
+    api libs.androidx.compose.ui
+
+    compileOnly libs.androidx.core.ktx
+}

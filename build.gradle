@@ -1,8 +1,8 @@
 plugins {
     alias libs.plugins.android apply false
     alias libs.plugins.kotlin apply false
-    alias libs.plugins.publish
     alias libs.plugins.versions
+    alias libs.plugins.publish
 }
 
 allprojects {
@@ -34,13 +34,17 @@ subprojects {
             }
 
             kotlinOptions {
-                freeCompilerArgs += [
-                        '-Xno-call-assertions',
-                        '-Xno-param-assertions',
-                        '-Xno-receiver-assertions',
-                        '-Xexplicit-api=strict',
-                ]
+                freeCompilerArgs += ['-Xexplicit-api=strict']
+                afterEvaluate {
+                    if (!findProperty('isKotlinOnly')) freeCompilerArgs += [
+                            '-Xno-call-assertions',
+                            '-Xno-param-assertions',
+                            '-Xno-receiver-assertions',
+                    ]
+                }
             }
+
+            jacoco.version "0.8.8"
         }
 
         dependencies {

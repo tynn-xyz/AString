@@ -27,7 +27,6 @@ final class CharSequenceWrapper implements AString {
         this.value = value;
     }
 
-    @Nullable
     @Override
     public CharSequence invoke(@Nullable Context context) {
         return value;

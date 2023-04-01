@@ -64,6 +64,26 @@ There are several _standard_ implementations of `AString` for:
  * the `versionName` resolver
 
 
+### _Jetpack_ Compose
+
+Within a `@Composable` function the `asString()` extension functions
+automatically converts an `AString` to a `String`.
+
+    Text(text = aString.asString())
+
+The `@ExperimentalTextApi asAnnotatedString()` extension functions converts
+an `AString` to an `AnnotatedString`, including as many built-in spans as
+possible.
+
+    Text(text = aString.asAnnotatedString())
+
+#### Artifact
+
+    dependencies {
+        implementation 'xyz.tynn.astring:compose'
+    }
+
+
 ### _Kotlin_ extension functions
 
 There are several extension functions for widget methods taking a
