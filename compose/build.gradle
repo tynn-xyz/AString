@@ -1,13 +1,11 @@
 plugins {
-    id 'com.android.library'
+    alias libs.plugins.android
     id 'maven-publish'
 }
 
 ext.isKotlinOnly = true
 
 android {
-    namespace "${group}.compose"
-
     defaultConfig {
         minSdk 21
     }
@@ -18,6 +16,13 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+
+    kotlinOptions {
+        freeCompilerArgs += [
+                '-P', 'plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=' +
+                libs.versions.kotlin.get()
+        ]
     }
 }
 

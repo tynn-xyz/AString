@@ -1,11 +1,13 @@
 import com.android.build.api.attributes.ProductFlavorAttr
 
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.kapt'
+    alias libs.plugins.android
+    alias libs.plugins.kotlin.kapt
 }
 
 android {
+    namespace "${group}.widget.binding"
+
     buildFeatures {
         androidResources true
         dataBinding true
@@ -27,21 +29,12 @@ android {
 final adapters = project
 project(':widget').subprojects {
     adapters.android {
-        productFlavors {
-            register name, {
-                namespace "${group}.${name}.binding"
-            }
-        }
-
-        sourceSets {
-            named name, {
-                root = "${project.projectDir}/src/main"
-            }
-        }
+        productFlavors.register name
+        sourceSets.getByName(name).root "${project.projectDir}/src/main"
     }
 
     final adaptersApi = "${name}Api"
-    pluginManager.withPlugin('com.android.library') {
+    pluginManager.withPlugin(libs.plugins.android.get().pluginId) {
         configurations {
             api.dependencies.all {
                 try {
@@ -98,10 +91,12 @@ project(':widget').subprojects {
     }
 }
 
-gradle.startParameter.excludedTaskNames += [
-        path + ':assemble',
-        path + ':build',
-        path + ':check',
-        path + ':lint',
-        path + ':test',
-]
+afterEvaluate {
+    final emptyTasks = ['assemble', 'build', 'check', 'lint', 'test']
+    tasks.matching {
+        it.name in emptyTasks
+    }.configureEach {
+        enabled false
+        dependsOn.clear()
+    }
+}

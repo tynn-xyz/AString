@@ -1,6 +1,7 @@
 # AString
 [![Build][build-shield]][build]
 [![Download][download-shield]][download]
+[![API][api-shield]][api]
 ###### A context aware parcelable string abstraction for _Android_
 
     public interface AString extends Parcelable {
@@ -15,7 +16,7 @@ the _Kotlin Standard Library_ is not required to use _AString_.
 ## Installation
 
 All packages are available in _Maven Central_.
-Once a dependency was declared with a specific version,
+Once a dependency is declared with a specific version,
 every other dependency version is provided implicitly with a BOM.
 
     repositories {
@@ -65,6 +66,7 @@ There are several _standard_ implementations of `AString` for:
 
 
 ### _Jetpack_ Compose
+[![API][compose-shield]][compose]
 
 Within a `@Composable` function the `asString()` extension functions
 automatically converts an `AString` to a `String`.
@@ -157,7 +159,11 @@ result of the recovered `AString` is equal to the original result.
     limitations under the License.
 
 
+  [api]: https://asapi.gigalixirapp.com/xyz.tynn.astring/astring
+  [api-shield]: https://img.shields.io/endpoint?url=https://asapi.gigalixirapp.com/xyz.tynn.astring/astring@json
   [build]: https://github.com/tynn-xyz/AString/actions
   [build-shield]: https://img.shields.io/github/actions/workflow/status/tynn-xyz/AString/build.yml
+  [compose]: https://asapi.gigalixirapp.com/xyz.tynn.astring/compose
+  [compose-shield]: https://img.shields.io/endpoint?url=https://asapi.gigalixirapp.com/xyz.tynn.astring/compose@json
   [download]: https://search.maven.org/search?q=xyz.tynn.astring
   [download-shield]: https://img.shields.io/maven-central/v/xyz.tynn.astring/core

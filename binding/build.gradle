@@ -1,12 +1,10 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.kapt'
+    alias libs.plugins.android
+    alias libs.plugins.kotlin.kapt
     id 'maven-publish'
 }
 
 android {
-    namespace "${group}.binding"
-
     buildFeatures {
         androidResources true
         dataBinding true

@@ -1,10 +1,6 @@
 plugins {
-    id 'com.android.library'
+    alias libs.plugins.android
     id 'maven-publish'
-}
-
-android {
-    namespace "${group}.appcompat"
 }
 
 dependencies {

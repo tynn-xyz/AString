@@ -1,9 +1,12 @@
+name: Gradle wrapper
+description: Create and setup a Gradle wrapper
+
 runs:
   using: composite
   steps:
     - uses: actions/setup-java@v3
       with:
         distribution: adopt
-        java-version: 19
+        java-version: 17
     - run: gradle wrapper
       shell: sh

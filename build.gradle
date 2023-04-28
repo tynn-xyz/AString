@@ -1,6 +1,8 @@
 plugins {
     alias libs.plugins.android apply false
     alias libs.plugins.kotlin apply false
+    alias libs.plugins.kotlin.kapt apply false
+    alias libs.plugins.project.convention
     alias libs.plugins.versions
     alias libs.plugins.publish
 }
@@ -10,31 +12,24 @@ allprojects {
 }
 
 subprojects {
-    pluginManager.withPlugin('com.android.library') {
-        apply plugin: 'org.jetbrains.kotlin.android'
+    pluginManager.withPlugin('xyz.tynn.convention.android') {
+        apply plugin: libs.plugins.kotlin.asProvider().get().pluginId
+
+        java.toolchain {
+            languageVersion.set JavaLanguageVersion.of(11)
+        }
+
+        kotlin {
+            explicitApi()
+        }
 
         android {
-            compileSdk 33
-
-            defaultConfig {
-                minSdk 19
-                targetSdk 33
-                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-            }
-
-            lint {
-                abortOnError true
-                warningsAsErrors true
-            }
-
-            publishing {
-                singleVariant('release') {
-                    withSourcesJar()
-                }
+            compileOptions {
+                sourceCompatibility 11
+                targetCompatibility 11
             }
 
             kotlinOptions {
-                freeCompilerArgs += ['-Xexplicit-api=strict']
                 afterEvaluate {
                     if (!findProperty('isKotlinOnly')) freeCompilerArgs += [
                             '-Xno-call-assertions',
@@ -43,8 +38,6 @@ subprojects {
                     ]
                 }
             }
-
-            jacoco.version "0.8.8"
         }
 
         dependencies {
@@ -54,88 +47,31 @@ subprojects {
     }
 
     pluginManager.withPlugin('maven-publish') {
-        publishing {
-            apply plugin: 'signing'
-
-            publishing {
-                publications {
-                    release(MavenPublication) {
-                        afterEvaluate {
-                            from components.release
-                        }
+        publishing.publications.all {
+            pom {
+                description = 'A context aware string abstraction for Android'
+                developers {
+                    developer {
+                        id = 'tynn'
+                        name = 'Christian Schmitz'
+                        email = 'christian@tynn.xyz'
                     }
                 }
-            }
-
-            signing {
-                final signingKey = System.env.SIGNING_KEY
-                final signingPassword = System.env.SIGNING_PASSWORD
-                useInMemoryPgpKeys(signingKey, signingPassword)
-            }
-
-            publications.all {
-                signing.sign it
-                pom {
-                    name = 'AString'
-                    description = 'A context aware string abstraction for Android'
-                    url = System.env.PROJECT_URL
-                    developers {
-                        developer {
-                            id = 'tynn'
-                            name = 'Christian Schmitz'
-                            email = 'christian@tynn.xyz'
-                        }
-                    }
-                    licenses {
-                        license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    scm {
-                        url = System.env.PROJECT_URL
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
             }
         }
     }
-
-    tasks.withType(Test).configureEach {
-        testLogging {
-            events "failed"
-            exceptionFormat "full"
-            showCauses true
-            showExceptions true
-            showStackTraces true
-        }
-    }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
-        }
-    }
+nexusPublishing.repositories.sonatype {
+    nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
 }
 
-dependencyUpdates {
-    def isNonStable = { version ->
-        ['alpha', 'beta', 'dev', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'eap'].any {
-            version ==~ /(?i).*[.-]${it}[.\d-+]*.*/
-        }
-    }
-    rejectVersionIf {
-        isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
-    }
-    gradleReleaseChannel = 'current'
-}
-
-wrapper {
-    distributionType Wrapper.DistributionType.ALL
-    gradleVersion '7.6.1'
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.named('wrapper') {
+    gradleVersion '8.1.1'
 }

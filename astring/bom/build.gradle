@@ -1,19 +1,4 @@
 plugins {
-    id 'java-platform'
+    id 'xyz.tynn.convention.bom'
     id 'maven-publish'
 }
-
-rootProject.subprojects.each { library ->
-    if (library != project) {
-        library.pluginManager.withPlugin('maven-publish') {
-            dependencies.constraints {
-                api library
-            }
-            library.dependencies {
-                api platform(project)
-            }
-        }
-    }
-}
-
-components.ext.release = components.javaPlatform
