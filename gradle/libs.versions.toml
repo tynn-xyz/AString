@@ -1,6 +1,6 @@
 [versions]
-android = "8.0.0"
-compose-compiler = "1.4.6"
+android = "8.0.1"
+compose-compiler = "1.4.7"
 kotlin = "1.8.21"
 
 [plugins]
@@ -13,7 +13,8 @@ versions = "com.github.ben-manes.versions:0.46.0"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-compose-ui = "androidx.compose.ui:ui:1.4.2"
+androidx-compose-ui = "androidx.compose.ui:ui:1.4.3"
+androidx-compose-ui-test = "androidx.compose.ui:ui-test-junit4:1.4.3"
 androidx-core = "androidx.core:core:1.9.0"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }
@@ -25,6 +26,7 @@ junit = "junit:junit:4.13.2"
 kotlin-stdlib.module = "org.jetbrains.kotlin:kotlin-stdlib"
 kotlin-test.module = "org.jetbrains.kotlin:kotlin-test-junit"
 mockk = "io.mockk:mockk:1.13.5"
+robolectric = "org.robolectric:robolectric:4.9.2"
 slf4j = "org.slf4j:slf4j-nop:2.0.7"
 
 [bundles]

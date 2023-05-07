@@ -40,21 +40,28 @@ public inline fun aString(
 /**
  * Loads an `AString` value as an [AnnotatedString]
  *
- * **Note** that only some build-in spans are supported
+ * **Note** that only some build-in spans are supported.
+ *
+ * @param addSpan fallback when a span is unknown,
+ * defaults to logging a warning
  *
  * @see AnnotatedString.spanStyles
  * @see AnnotatedString.paragraphStyles
+ * @see AnnotatedString.getStringAnnotations
  * @see AnnotatedString.getTtsAnnotations
+ * @see AnnotatedString.getUrlAnnotations
  * @see LocalConfiguration
  * @see LocalContext
  */
 @ExperimentalTextApi
 @[Composable ReadOnlyComposable]
-public fun AString.asAnnotatedString(): AnnotatedString = this(
+public fun AString.asAnnotatedString(
+    addSpan: AddSpan = warn,
+): AnnotatedString = this(
     context(),
-)?.let {
-    spannedString(it)
-} ?: AnnotatedString("")
+)?.toAnnotatedString(
+    addSpan,
+) ?: AnnotatedString("")
 
 @[Composable ReadOnlyComposable]
 private fun context(): Context {

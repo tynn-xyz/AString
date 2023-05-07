@@ -18,11 +18,17 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
-    kotlinOptions {
-        freeCompilerArgs += [
-                '-P', 'plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=' +
-                libs.versions.kotlin.get()
-        ]
+//    kotlinOptions {
+//        freeCompilerArgs += [
+//                '-P', 'plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=' +
+//                libs.versions.kotlin.get()
+//        ]
+//    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -31,4 +37,7 @@ dependencies {
     api libs.androidx.compose.ui
 
     compileOnly libs.androidx.core.ktx
+
+    testImplementation libs.robolectric
+    testImplementation libs.androidx.compose.ui.test
 }
