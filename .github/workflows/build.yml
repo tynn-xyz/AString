@@ -3,14 +3,13 @@ name: Build
 on:
   pull_request:
     branches:
-      - main
+      - dev
+      - int
   push:
     branches:
-      - main
       - dev
 
 jobs:
-
   lint:
     runs-on: ubuntu-latest
     steps:
