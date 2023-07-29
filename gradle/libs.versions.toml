@@ -7,9 +7,8 @@ kotlin = "1.9.0"
 android = { id = "com.android.library", version.ref = "android" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-project-convention = "xyz.tynn.convention.project:0.0.2"
+project-convention = "xyz.tynn.convention.project:0.0.3"
 publish = "io.github.gradle-nexus.publish-plugin:1.3.0"
-versions = "com.github.ben-manes.versions:0.47.0"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
