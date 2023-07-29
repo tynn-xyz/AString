@@ -35,56 +35,64 @@ public class AStringKtTest {
     View view;
 
     @Test
-    public void invoke_should_delegate_to_context() {
+    public void invokeWithContext_should_delegate_to_context() {
         every(scope -> aString.invoke(context)).returns("context");
 
-        assertEquals("context", AStringKt.invoke(context, aString));
+        assertEquals("context", AStringKt.invokeWithContext(context, aString));
     }
 
     @Test
-    public void invoke_should_delegate_null_to_context() {
-        assertNull(AStringKt.invoke(context, null));
+    public void invokeWithContext_should_delegate_null_to_context() {
+        assertNull(AStringKt.invokeWithContext(context, null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void invoke_should_throw_on_null_context() {
-        AStringKt.invoke((Context) null, aString);
+    public void invokeWithContext_should_throw_on_null_context() {
+        AStringKt.invokeWithContext((Context) null, aString);
     }
 
     @Test
-    public void invoke_should_delegate_to_fragment() {
+    public void invokeWithFragment_should_delegate_to_fragment() {
         every(scope -> aString.invoke(fragment.requireContext())).returns("fragment");
 
-        assertEquals("fragment", AStringKt.invoke(fragment, aString));
+        assertEquals("fragment", AStringKt.invokeWithFragment(fragment, aString));
     }
 
     @Test
-    public void invoke_should_delegate_null_to_fragment() {
-        assertNull(AStringKt.invoke(fragment, null));
+    public void invokeWithFragment_should_delegate_null_to_fragment() {
+        assertNull(AStringKt.invokeWithFragment(fragment, null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void invoke_should_throw_on_null_fragment() {
-        AStringKt.invoke((Fragment) null, aString);
+    public void invokeWithFragment_should_throw_on_null_fragment() {
+        AStringKt.invokeWithFragment(null, aString);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void invokeWithFragment_should_throw_on_null_context() {
+        every(scope -> fragment.requireContext()).answers((scope, $) -> scope.callOriginal());
+        every(scope -> fragment.getContext()).returns(null);
+
+        AStringKt.invokeWithFragment(fragment, aString);
     }
 
     @Test
-    public void invoke_should_delegate_to_view() {
+    public void invokeWithView_should_delegate_to_view() {
         every(scope -> aString.invoke(view.getContext())).returns("view");
 
-        assertEquals("view", AStringKt.invoke(view, aString));
+        assertEquals("view", AStringKt.invokeWithView(view, aString));
     }
 
     @Test
-    public void invoke_should_delegate_null_to_view() {
-        assertNull(AStringKt.invoke(view, null));
+    public void invokeWithView_should_delegate_null_to_view() {
+        assertNull(AStringKt.invokeWithView(view, null));
     }
 
     @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
-    public void invoke_should_throw_on_null_view() {
-        AStringKt.invoke((View) null, aString);
+    public void invokeWithView_should_throw_on_null_view() {
+        AStringKt.invokeWithView((View) null, aString);
     }
 }

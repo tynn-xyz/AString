@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty
 /**
  * Invokes the [aString] with [Context]
  */
-@JvmName("invoke")
+@JvmName("invokeWithContext")
 public fun Context.aString(
     aString: AString?,
 ): CharSequence? = aString?.invoke(
@@ -21,8 +21,10 @@ public fun Context.aString(
 
 /**
  * Invokes the [aString] with [Fragment.requireContext]
+ *
+ * @throws IllegalStateException if not currently associated with a context
  */
-@JvmName("invoke")
+@JvmName("invokeWithFragment")
 public fun Fragment.aString(
     aString: AString?,
 ): CharSequence? = aString?.invoke(
@@ -32,7 +34,7 @@ public fun Fragment.aString(
 /**
  * Invokes the [aString] with [View.getContext]
  */
-@JvmName("invoke")
+@JvmName("invokeWithView")
 public fun View.aString(
     aString: AString?,
 ): CharSequence? = aString?.invoke(

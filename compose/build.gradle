@@ -35,6 +35,7 @@ android {
 dependencies {
     api project(':astring')
     api libs.androidx.compose.ui
+    api platform(libs.androidx.compose.bom)
 
     compileOnly libs.androidx.core.ktx
 

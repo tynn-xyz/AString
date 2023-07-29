@@ -13,8 +13,9 @@ versions = "com.github.ben-manes.versions:0.47.0"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-compose-ui = "androidx.compose.ui:ui:1.4.3"
-androidx-compose-ui-test = "androidx.compose.ui:ui-test-junit4:1.4.3"
+androidx-compose-bom = "androidx.compose:compose-bom:2023.06.01"
+androidx-compose-ui.module = "androidx.compose.ui:ui"
+androidx-compose-ui-test.module = "androidx.compose.ui:ui-test-junit4"
 androidx-core = "androidx.core:core:1.10.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.10.1"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }

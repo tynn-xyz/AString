@@ -30,7 +30,6 @@ subprojects {
         }
 
         dependencies {
-            implementation libs.kotlin.stdlib
             testImplementation libs.bundles.testing
         }
     }
