@@ -1,7 +1,7 @@
 [versions]
 android = "8.1.0"
-compose-compiler = "1.4.7"
-kotlin = "1.8.22"
+compose-compiler = "1.5.1"
+kotlin = "1.9.0"
 
 [plugins]
 android = { id = "com.android.library", version.ref = "android" }
@@ -18,7 +18,7 @@ androidx-compose-ui-test = "androidx.compose.ui:ui-test-junit4:1.4.3"
 androidx-core = "androidx.core:core:1.10.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.10.1"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }
-androidx-fragment = "androidx.fragment:fragment:1.6.0"
+androidx-fragment = "androidx.fragment:fragment:1.6.1"
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-runner = "androidx.test:runner:1.5.2"
 google-material = "com.google.android.material:material:1.9.0"
