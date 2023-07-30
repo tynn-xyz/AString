@@ -56,7 +56,7 @@ final class CharSequenceWrapper implements AString {
         TextUtils.writeToParcel(value, dest, flags);
     }
 
-    public static final Creator<CharSequenceWrapper> CREATOR = new Creator<CharSequenceWrapper>() {
+    public static final Creator<CharSequenceWrapper> CREATOR = new Creator<>() {
 
         @Override
         public CharSequenceWrapper createFromParcel(Parcel source) {

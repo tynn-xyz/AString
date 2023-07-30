@@ -129,7 +129,7 @@ final class ResourceDelegate implements AString {
         return new ResourceDelegate(false, true, resId, MIN_VALUE, null);
     }
 
-    public static final Creator<ResourceDelegate> CREATOR = new Creator<ResourceDelegate>() {
+    public static final Creator<ResourceDelegate> CREATOR = new Creator<>() {
 
         @Override
         public ResourceDelegate createFromParcel(Parcel source) {
