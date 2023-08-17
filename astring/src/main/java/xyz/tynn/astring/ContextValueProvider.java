@@ -60,7 +60,7 @@ enum ContextValueProvider implements AString {
     ;
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(name());
     }
 
