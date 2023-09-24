@@ -35,8 +35,7 @@ final class ResourceDelegate implements AString {
         this.isText = isText;
         this.resId = resId;
         this.quantity = quantity;
-        this.formatArgs = formatArgs != null && formatArgs.length > 0
-                ? formatArgs : null;
+        this.formatArgs = formatArgs == null || formatArgs.length == 0 ? null : formatArgs;
     }
 
     @Override
@@ -90,7 +89,7 @@ final class ResourceDelegate implements AString {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         writeBoolean(dest, isPlural);
         writeBoolean(dest, isText);
         dest.writeInt(resId);

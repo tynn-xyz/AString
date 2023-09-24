@@ -14,12 +14,11 @@ dependencyResolutionManagement {
 
 include ':astring:bom'
 
-include ':binding:adapters'
-
 include ':compose'
 
 include ':widget:core'
 include ':widget:appcompat'
 include ':widget:material'
+include ':widget:binding:adapters'
 
 rootProject.name = 'AString'

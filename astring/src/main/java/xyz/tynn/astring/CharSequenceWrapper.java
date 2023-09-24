@@ -52,7 +52,7 @@ final class CharSequenceWrapper implements AString {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         TextUtils.writeToParcel(value, dest, flags);
     }
 

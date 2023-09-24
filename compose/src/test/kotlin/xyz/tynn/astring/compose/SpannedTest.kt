@@ -82,6 +82,7 @@ import kotlin.test.assertSame
 import android.os.LocaleList as AndroidLocaleList
 
 @ExperimentalTextApi
+@Config(sdk = [33])
 @RunWith(RobolectricTestRunner::class)
 internal class SpannedTest {
 

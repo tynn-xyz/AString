@@ -31,6 +31,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.model.Statement
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Config
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.asAString
 import xyz.tynn.astring.nullAsAString
@@ -39,6 +40,7 @@ import java.util.Locale.FRENCH
 import java.util.Locale.GERMANY
 import java.util.Locale.UK
 
+@Config(sdk = [33])
 @RunWith(RobolectricTestRunner::class)
 internal class AStringTest {
 

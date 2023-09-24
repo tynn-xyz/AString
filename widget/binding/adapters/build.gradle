@@ -28,6 +28,8 @@ android {
 
 final adapters = project
 project(':widget').subprojects {
+    if (android.buildFeatures.dataBinding) return
+
     adapters.android {
         productFlavors.register name
         sourceSets.getByName(name).root "${project.projectDir}/src/main"
