@@ -6,6 +6,10 @@ plugins {
 android {
     namespace group
 
+    kotlinOptions {
+        freeCompilerArgs += '-Xjvm-default=all'
+    }
+
     testFixtures {
         enable = true
     }

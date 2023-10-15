@@ -4,10 +4,35 @@
 package xyz.tynn.astring
 
 import android.content.Context
+import android.os.Parcelable
+import android.text.Spannable
 import android.view.View
 import androidx.fragment.app.Fragment
 import java.util.Objects.requireNonNull
 import kotlin.reflect.KProperty
+
+/**
+ * A [String] abstraction for *Android*.
+ *
+ * The purpose of this type is to provide context sensitive strings.
+ * This could be a plain [CharSequence] or a [Spannable],
+ * a string resource, a formatted quantity string or something completely different.
+ *
+ * **Note**: `AString` is almost always used from the main thread,
+ * therefore all implementations must be non-blocking.
+ */
+public interface AString : Parcelable {
+
+    /**
+     * Provides a context sensitive string
+     *
+     * @param context to access resources
+     * @return string value from context; might be null
+     */
+    public operator fun invoke(context: Context): CharSequence?
+
+    override fun describeContents(): Int = 0
+}
 
 /**
  * Invokes the [aString] with [Context]

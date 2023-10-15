@@ -22,7 +22,7 @@ public fun Context.load(
     requireNonNull(this, "context"),
 )?.toString()
 
-@Suppress("unused")
+@Suppress("UnusedReceiverParameter")
 public fun Context.wrap(
     value: String?,
 ): AString = AString(value)

@@ -4,9 +4,8 @@
 [![API][api-shield]][api]
 ###### A context aware parcelable string abstraction for _Android_
 
-    public interface AString extends Parcelable {
-        @Nullable
-        CharSequence invoke(@NonNull Context context);
+    interface AString extends Parcelable {
+        fun invoke(context: Context): CharSequence?
     }
 
 The library is implemented with _Kotlin_ for _Java_, thus
