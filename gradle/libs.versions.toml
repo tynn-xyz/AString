@@ -11,14 +11,14 @@ project-convention = "xyz.tynn.convention.project:0.0.4"
 publish = "io.github.gradle-nexus.publish-plugin:1.3.0"
 
 [libraries]
-androidx-appcompat = "androidx.appcompat:appcompat:1.6.2"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-compose-bom = "androidx.compose:compose-bom:2023.10.01"
 androidx-compose-ui.module = "androidx.compose.ui:ui"
 androidx-compose-ui-test.module = "androidx.compose.ui:ui-test-junit4"
 androidx-core = "androidx.core:core:1.12.0"
 androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }
-androidx-fragment = "androidx.fragment:fragment:1.6.1"
+androidx-fragment = "androidx.fragment:fragment:1.6.2"
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-runner = "androidx.test:runner:1.5.2"
 google-material = "com.google.android.material:material:1.10.0"
