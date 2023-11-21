@@ -6,6 +6,7 @@ package xyz.tynn.astring
 import android.content.Context
 import io.mockk.every
 import io.mockk.mockk
+import java.util.Locale
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -16,7 +17,7 @@ internal class QuantityStringResourceDelegateTest {
     @Test
     fun `invoke should return string without format args`() {
         val context = mockk<Context> {
-            every { resources.getQuantityString(1, 2) } returns "foo"
+            every { resources.getQuantityText(1, 2) } returns "foo"
         }
 
         assertEquals(
@@ -28,11 +29,15 @@ internal class QuantityStringResourceDelegateTest {
     @Test
     fun `invoke should return string with format args`() {
         val context = mockk<Context> {
-            every { resources.getQuantityString(1, 2, 3, "4") } returns "foo"
+            every { resources.getQuantityText(1, 2) } returns "foo%d%s"
+            every { resources.configuration } returns mockk {
+                @Suppress("DEPRECATION")
+                locale = Locale.getDefault()
+            }
         }
 
         assertEquals(
-            "foo",
+            "foo34",
             ResourceDelegate.quantityString(1, 2, arrayOf(3, "4")).invoke(context),
         )
     }

@@ -1,7 +1,7 @@
 [versions]
-android = "8.1.2"
-compose-compiler = "1.5.3"
-kotlin = "1.9.10"
+android = "8.1.4"
+compose-compiler = "1.5.4"
+kotlin = "1.9.20"
 
 [plugins]
 android = { id = "com.android.library", version.ref = "android" }
@@ -12,13 +12,13 @@ publish = "io.github.gradle-nexus.publish-plugin:1.3.0"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-compose-bom = "androidx.compose:compose-bom:2023.10.00"
+androidx-compose-bom = "androidx.compose:compose-bom:2023.10.01"
 androidx-compose-ui.module = "androidx.compose.ui:ui"
 androidx-compose-ui-test.module = "androidx.compose.ui:ui-test-junit4"
 androidx-core = "androidx.core:core:1.12.0"
 androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "android" }
-androidx-fragment = "androidx.fragment:fragment:1.6.1"
+androidx-fragment = "androidx.fragment:fragment:1.6.2"
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-runner = "androidx.test:runner:1.5.2"
 google-material = "com.google.android.material:material:1.10.0"
@@ -26,7 +26,7 @@ junit = "junit:junit:4.13.2"
 kotlin-stdlib.module = "org.jetbrains.kotlin:kotlin-stdlib"
 kotlin-test.module = "org.jetbrains.kotlin:kotlin-test-junit"
 mockk = "io.mockk:mockk:1.13.8"
-robolectric = "org.robolectric:robolectric:4.10.3"
+robolectric = "org.robolectric:robolectric:4.11.1"
 slf4j = "org.slf4j:slf4j-nop:2.0.9"
 
 [bundles]

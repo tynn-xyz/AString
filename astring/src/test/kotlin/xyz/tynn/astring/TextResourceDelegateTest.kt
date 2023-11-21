@@ -16,7 +16,7 @@ internal class TextResourceDelegateTest {
     @Test
     fun `invoke should return text`() {
         val context = mockk<Context> {
-            every { getText(1) } returns "foo"
+            every { resources.getText(1) } returns "foo"
         }
 
         assertEquals(

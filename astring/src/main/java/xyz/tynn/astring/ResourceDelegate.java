@@ -3,9 +3,11 @@
 
 package xyz.tynn.astring;
 
+import static androidx.core.os.ConfigurationCompat.getLocales;
 import static androidx.core.os.ParcelCompat.readBoolean;
 import static androidx.core.os.ParcelCompat.writeBoolean;
 import static java.lang.Integer.MIN_VALUE;
+import static java.lang.String.format;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,6 +19,7 @@ import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -40,21 +43,16 @@ final class ResourceDelegate implements AString {
 
     @Override
     public CharSequence invoke(@NonNull Context context) {
-        return isPlural ? invokeWithQuantity(context)
-                : invokeWithoutQuantity(context);
-    }
-
-    private CharSequence invokeWithQuantity(Context context) {
         Resources resources = context.getResources();
-        return isText ? resources.getQuantityText(resId, quantity) : formatArgs != null
-                ? resources.getQuantityString(resId, quantity, formatArgs)
-                : resources.getQuantityString(resId, quantity);
+        CharSequence value = isPlural
+                ? resources.getQuantityText(resId, quantity)
+                : resources.getText(resId);
+        return isText ? value : formatArgs == null ? value.toString()
+                : format(getLocale(resources), value.toString(), formatArgs);
     }
 
-    private CharSequence invokeWithoutQuantity(Context context) {
-        return isText ? context.getText(resId) : formatArgs != null
-                ? context.getString(resId, formatArgs)
-                : context.getString(resId);
+    private static Locale getLocale(Resources resources) {
+        return getLocales(resources.getConfiguration()).get(0);
     }
 
     @Override
