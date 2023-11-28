@@ -61,7 +61,21 @@ There are several _standard_ implementations of `AString` for:
  * `getText()` and `getQuantityText()` delegates
 
  * the `getPackageName()` delegate
- * the `versionName` resolver
+ * the `PackageInfo.versionName` resolver
+
+
+### `AString` string format and `toString()` wrapper
+
+While `AString` represent any generic `CharSequence`, it might be useful to use
+it as a `String` only or even use it as a format string.
+
+    aString.format(1, "2")
+    aString.format(Locale.UK, 1, "2")
+
+    aString.wrapToString()
+
+This behavior is similar to the approaches taken for `getText(int)`,
+`getString(int)` and `getString(int, Object...)` string resource accessors.
 
 
 ### _Jetpack_ Compose

@@ -7,73 +7,142 @@ import static xyz.tynn.astring.test.AStringAssert.assertParcelableAStringEqualit
 import static xyz.tynn.astring.test.AStringAssert.assertParcelableAStringIdentity;
 import static xyz.tynn.astring.test.AStringAssert.assertParcelableAStringInvocation;
 
+import android.content.Context;
+import android.os.Parcel;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.Locale;
 
 public class ParcelableAStringTest {
 
-    public static final int RES_ID = 123;
-    public static final int QUANTITY = 456;
-    public static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date()};
+    private static final Locale LOCALE = Locale.UK;
+    private static final int RES_ID = 123;
+    private static final int QUANTITY = 456;
+    private static final AString FORMAT = new Format();
+    private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date()};
 
     @Test
-    public void CharSequenceWrapper_should_implement_parcelable() {
-        assertParcelableAStringEquality(new CharSequenceWrapper("test-string"));
-        assertParcelableAStringInvocation(new CharSequenceWrapper("test-string"));
+    public void Wrapper_should_implement_parcelable() {
+        assertParcelableAStringEquality(Wrapper.wrap("test-string"));
+        assertParcelableAStringInvocation(Wrapper.wrap("test-string"));
     }
 
     @Test
-    public void CharSequenceWrapper_of_null_should_implement_parcelable() {
-        assertParcelableAStringEquality(new CharSequenceWrapper(null));
-        assertParcelableAStringInvocation(new CharSequenceWrapper(null));
+    public void Wrapper_of_null_should_implement_parcelable() {
+        assertParcelableAStringEquality(Wrapper.wrap(null));
+        assertParcelableAStringInvocation(Wrapper.wrap(null));
     }
 
     @Test
-    public void CharSequenceWrapper_NULL_should_implement_parcelable() {
-        assertParcelableAStringIdentity(CharSequenceWrapper.NULL);
-        assertParcelableAStringInvocation(CharSequenceWrapper.NULL);
+    public void Wrapper_NULL_should_implement_parcelable() {
+        assertParcelableAStringIdentity(Wrapper.NULL);
+        assertParcelableAStringInvocation(Wrapper.NULL);
     }
 
     @Test
-    public void ResourceDelegate_quantityString_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.quantityString(RES_ID, QUANTITY, FORMAT_ARGS));
+    public void ToString_should_implement_parcelable() {
+        assertParcelableAStringEquality(ToString.wrap(FORMAT, LOCALE, FORMAT_ARGS));
+        assertParcelableAStringInvocation(ToString.wrap(FORMAT, LOCALE, FORMAT_ARGS));
     }
 
     @Test
-    public void ResourceDelegate_quantityString_without_args_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.quantityString(RES_ID, QUANTITY, null));
+    public void ToString_without_locale_should_implement_parcelable() {
+        assertParcelableAStringEquality(ToString.wrap(FORMAT, null, FORMAT_ARGS));
+        assertParcelableAStringInvocation(ToString.wrap(FORMAT, null, FORMAT_ARGS));
     }
 
     @Test
-    public void ResourceDelegate_quantityText_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.quantityText(RES_ID, QUANTITY));
+    public void ToString_without_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(ToString.wrap(FORMAT, LOCALE, null));
+        assertParcelableAStringInvocation(ToString.wrap(FORMAT, LOCALE, null));
     }
 
     @Test
-    public void ResourceDelegate_string_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.string(RES_ID, FORMAT_ARGS));
+    public void ToString_without_args_and_locale_should_implement_parcelable() {
+        assertParcelableAStringEquality(ToString.wrap(FORMAT, null, null));
+        assertParcelableAStringInvocation(ToString.wrap(FORMAT, null, null));
     }
 
     @Test
-    public void ResourceDelegate_string_without_args_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.string(RES_ID, null));
+    public void Resource_quantity_text_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY));
     }
 
     @Test
-    public void ResourceDelegate_text_should_implement_parcelable() {
-        assertParcelableAStringEquality(ResourceDelegate.text(RES_ID));
+    public void Resource_quantity_string_with_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY, FORMAT_ARGS));
     }
 
     @Test
-    public void ContextValueProvider_AppIdProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(ContextValueProvider.AppIdProvider);
-        assertParcelableAStringInvocation(ContextValueProvider.AppIdProvider);
+    public void Resource_quantity_string_without_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY, null));
     }
 
     @Test
-    public void ContextValueProvider_AppVersionProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(ContextValueProvider.AppVersionProvider);
-        assertParcelableAStringInvocation(ContextValueProvider.AppVersionProvider);
+    public void Resource_text_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null));
+    }
+
+    @Test
+    public void Resource_string_with_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, FORMAT_ARGS));
+    }
+
+    @Test
+    public void Resource_string_without_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, null));
+    }
+
+    @Test
+    public void AppIdProvider_should_implement_parcelable() {
+        assertParcelableAStringIdentity(Provider.AppIdProvider);
+        assertParcelableAStringInvocation(Provider.AppIdProvider);
+    }
+
+    @Test
+    public void AppVersionProvider_should_implement_parcelable() {
+        assertParcelableAStringIdentity(Provider.AppVersionProvider);
+        assertParcelableAStringInvocation(Provider.AppVersionProvider);
+    }
+
+    private static class Format implements AString {
+
+        @Nullable
+        @Override
+        public String invoke(@NonNull Context context) {
+            return "%s%d%d%f%f%s";
+        }
+
+        @Override
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            return obj instanceof Format;
+        }
+
+        @Override
+        public int hashCode() {
+            return 43;
+        }
+
+        public static final Creator<Format> CREATOR = new Creator<>() {
+
+            @Override
+            public Format createFromParcel(Parcel source) {
+                return new Format();
+            }
+
+            @Override
+            public Format[] newArray(int size) {
+                return new Format[size];
+            }
+        };
     }
 }

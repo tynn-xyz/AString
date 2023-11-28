@@ -18,7 +18,7 @@ internal class AppIdProviderTest {
 
         assertEquals(
             "foo",
-            ContextValueProvider.AppIdProvider.invoke(context),
+            Provider.AppIdProvider.invoke(context),
         )
     }
 
@@ -26,7 +26,7 @@ internal class AppIdProviderTest {
     @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            ContextValueProvider.AppIdProvider == ContextValueProvider.AppIdProvider
+            Provider.AppIdProvider == Provider.AppIdProvider
         }
     }
 
@@ -34,16 +34,16 @@ internal class AppIdProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppIdProvider`() {
         assertFalse {
-            ContextValueProvider.AppIdProvider.equals("foo")
+            Provider.AppIdProvider.equals("foo")
         }
         assertFalse {
-            ContextValueProvider.AppIdProvider == mockk<AString>()
+            Provider.AppIdProvider == mockk<AString>()
         }
         assertFalse {
-            ContextValueProvider.AppIdProvider == ContextValueProvider.AppVersionProvider
+            Provider.AppIdProvider == Provider.AppVersionProvider
         }
         assertFalse {
-            ContextValueProvider.AppIdProvider == mockk<ContextValueProvider>()
+            Provider.AppIdProvider == mockk<Provider>()
         }
     }
 
@@ -51,7 +51,7 @@ internal class AppIdProviderTest {
     fun `hashCode should return 0`() {
         assertNotEquals(
             0,
-            ContextValueProvider.AppIdProvider.hashCode(),
+            Provider.AppIdProvider.hashCode(),
         )
     }
 
@@ -59,7 +59,7 @@ internal class AppIdProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(appId))",
-            ContextValueProvider.AppIdProvider.toString(),
+            Provider.AppIdProvider.toString(),
         )
     }
 }

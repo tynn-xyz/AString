@@ -17,14 +17,18 @@ import java.util.Objects;
 /**
  * Implementation wrapping a {@link CharSequence}
  */
-final class CharSequenceWrapper implements AString {
+final class Wrapper implements AString {
 
-    static final CharSequenceWrapper NULL = new CharSequenceWrapper(null);
+    static final Wrapper NULL = new Wrapper(null);
 
     private final CharSequence value;
 
-    CharSequenceWrapper(@Nullable CharSequence value) {
+    private Wrapper(@Nullable CharSequence value) {
         this.value = value;
+    }
+
+    static Wrapper wrap(CharSequence value) {
+        return value == null ? NULL : new Wrapper(value);
     }
 
     @Override
@@ -36,7 +40,7 @@ final class CharSequenceWrapper implements AString {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CharSequenceWrapper that = (CharSequenceWrapper) o;
+        Wrapper that = (Wrapper) o;
         return Objects.equals(value, that.value);
     }
 
@@ -56,17 +60,21 @@ final class CharSequenceWrapper implements AString {
         TextUtils.writeToParcel(value, dest, flags);
     }
 
-    public static final Creator<CharSequenceWrapper> CREATOR = new Creator<>() {
+    Wrapper wrapToString() {
+        CharSequence value = this.value;
+        return value == null || value instanceof String ? this : new Wrapper(value.toString());
+    }
+
+    public static final Creator<Wrapper> CREATOR = new Creator<>() {
 
         @Override
-        public CharSequenceWrapper createFromParcel(Parcel source) {
-            CharSequence value = CHAR_SEQUENCE_CREATOR.createFromParcel(source);
-            return value == null ? NULL : new CharSequenceWrapper(value);
+        public Wrapper createFromParcel(Parcel source) {
+            return wrap(CHAR_SEQUENCE_CREATOR.createFromParcel(source));
         }
 
         @Override
-        public CharSequenceWrapper[] newArray(int size) {
-            return new CharSequenceWrapper[size];
+        public Wrapper[] newArray(int size) {
+            return new Wrapper[size];
         }
     };
 }

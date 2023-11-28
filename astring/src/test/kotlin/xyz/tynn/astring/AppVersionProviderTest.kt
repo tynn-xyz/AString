@@ -23,7 +23,7 @@ internal class AppVersionProviderTest {
 
         assertEquals(
             "foo",
-            ContextValueProvider.AppVersionProvider.invoke(context),
+            Provider.AppVersionProvider.invoke(context),
         )
     }
 
@@ -31,7 +31,7 @@ internal class AppVersionProviderTest {
     @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            ContextValueProvider.AppVersionProvider == ContextValueProvider.AppVersionProvider
+            Provider.AppVersionProvider == Provider.AppVersionProvider
         }
     }
 
@@ -39,16 +39,16 @@ internal class AppVersionProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppVersionProvider`() {
         assertFalse {
-            ContextValueProvider.AppVersionProvider.equals("foo")
+            Provider.AppVersionProvider.equals("foo")
         }
         assertFalse {
-            ContextValueProvider.AppVersionProvider == mockk<AString>()
+            Provider.AppVersionProvider == mockk<AString>()
         }
         assertFalse {
-            ContextValueProvider.AppVersionProvider == ContextValueProvider.AppIdProvider
+            Provider.AppVersionProvider == Provider.AppIdProvider
         }
         assertFalse {
-            ContextValueProvider.AppVersionProvider == mockk<ContextValueProvider>()
+            Provider.AppVersionProvider == mockk<Provider>()
         }
     }
 
@@ -56,7 +56,7 @@ internal class AppVersionProviderTest {
     fun `hashCode should not return 0`() {
         assertNotEquals(
             0,
-            ContextValueProvider.AppVersionProvider.hashCode(),
+            Provider.AppVersionProvider.hashCode(),
         )
     }
 
@@ -64,7 +64,7 @@ internal class AppVersionProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(appVersion))",
-            ContextValueProvider.AppVersionProvider.toString(),
+            Provider.AppVersionProvider.toString(),
         )
     }
 }

@@ -4,41 +4,51 @@
 package xyz.tynn.astring
 
 import io.mockk.mockk
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
-internal class NullValueProviderTest {
+internal class NullTest {
 
     @Test
     fun `invoke should return null`() {
         assertNull(
-            CharSequenceWrapper(null).invoke(mockk()),
+            Wrapper.NULL.invoke(mockk()),
         )
+    }
+
+    @Test
+    fun `identity should be true for same type`() {
+        assertTrue {
+            Wrapper.NULL === Wrapper.wrap(null)
+        }
     }
 
     @Test
     fun `equals should be true for same type`() {
         assertTrue {
-            CharSequenceWrapper(null) == CharSequenceWrapper(null)
+            Wrapper.NULL == Wrapper.NULL
         }
     }
 
     @Test
-    @Suppress("EqualsBetweenInconvertibleTypes")
     fun `equals should be false for non NullValueProvider`() {
         assertFalse {
-            CharSequenceWrapper(null).equals("foo")
+            Wrapper.NULL.equals("foo")
         }
         assertFalse {
-            CharSequenceWrapper(null) == mockk<AString>()
+            Wrapper.NULL == mockk<AString>()
         }
         assertFalse {
-            CharSequenceWrapper(null) == CharSequenceWrapper("")
+            Wrapper.NULL == Wrapper.wrap("")
         }
         assertFalse {
-            CharSequenceWrapper(null).equals(mockk<ResourceDelegate>())
+            Wrapper.NULL.equals(mockk<Resource>())
         }
         assertFalse {
-            CharSequenceWrapper(null).equals(mockk<ContextValueProvider>())
+            Wrapper.NULL.equals(mockk<Provider>())
         }
     }
 
@@ -46,7 +56,7 @@ internal class NullValueProviderTest {
     fun `hashCode should return 0`() {
         assertEquals(
             0,
-            CharSequenceWrapper(null).hashCode(),
+            Wrapper.NULL.hashCode(),
         )
     }
 
@@ -54,7 +64,7 @@ internal class NullValueProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(CharSequence(null))",
-            CharSequenceWrapper(null).toString(),
+            Wrapper.NULL.toString(),
         )
     }
 }

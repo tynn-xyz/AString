@@ -11,62 +11,64 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-internal class TextResourceDelegateTest {
+internal class TextResourceTest {
 
     @Test
     fun `invoke should return text`() {
         val context = mockk<Context> {
-            every { resources.getText(1) } returns "foo"
+            every { getText(1) } returns "foo"
         }
 
         assertEquals(
             "foo",
-            ResourceDelegate.text(1).invoke(context),
+            Resource.wrap(1, null).invoke(context),
         )
     }
 
     @Test
     fun `equals should be true for matching text resources`() {
         assertTrue {
-            ResourceDelegate.text(1) == ResourceDelegate.text(1)
+            Resource.wrap(1, null) ==
+                    Resource.wrap(1, null)
         }
     }
 
     @Test
     fun `equals should be false for non matching text resources`() {
         assertFalse {
-            ResourceDelegate.text(1) == ResourceDelegate.text(2)
+            Resource.wrap(1, null) ==
+                    Resource.wrap(2, null)
         }
     }
 
     @Test
     fun `equals should be false for non TextResourceDelegate`() {
         assertFalse {
-            ResourceDelegate.text(1).equals("foo")
+            Resource.wrap(1, null).equals("foo")
         }
         assertFalse {
-            ResourceDelegate.text(1) == mockk<AString>()
+            Resource.wrap(1, null) == mockk<AString>()
         }
         assertFalse {
-            ResourceDelegate.text(1).equals(mockk<CharSequenceWrapper>())
+            Resource.wrap(1, null).equals(mockk<Wrapper>())
         }
         assertFalse {
-            ResourceDelegate.text(1).equals(mockk<ContextValueProvider>())
+            Resource.wrap(1, null).equals(mockk<Provider>())
         }
         assertFalse {
-            ResourceDelegate.text(1).equals(mockk<ResourceDelegate>())
+            Resource.wrap(1, null).equals(mockk<Resource>())
         }
     }
 
     @Test
     fun `hashCode should return delegate to text resource`() {
         assertEquals(
-            -939785338,
-            ResourceDelegate.text(1).hashCode(),
+            992,
+            Resource.wrap(1, null).hashCode(),
         )
         assertEquals(
-            -939784377,
-            ResourceDelegate.text(2).hashCode(),
+            1023,
+            Resource.wrap(2, null).hashCode(),
         )
     }
 
@@ -74,7 +76,7 @@ internal class TextResourceDelegateTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(TextResource(1))",
-            ResourceDelegate.text(1).toString(),
+            Resource.wrap(1, null).toString(),
         )
     }
 }

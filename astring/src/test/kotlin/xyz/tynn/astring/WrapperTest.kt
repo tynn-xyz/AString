@@ -9,46 +9,46 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-internal class CharSequenceWrapperTest {
+internal class WrapperTest {
 
     @Test
     fun `invoke should return the string`() {
         assertEquals(
             "foo",
-            CharSequenceWrapper("foo").invoke(null),
+            Wrapper.wrap("foo").invoke(null),
         )
     }
 
     @Test
     fun `equals should be true for matching strings`() {
         assertTrue {
-            CharSequenceWrapper("foo") == CharSequenceWrapper("foo")
+            Wrapper.wrap("foo") == Wrapper.wrap("foo")
         }
     }
 
     @Test
     fun `equals should be false for non matching strings`() {
         assertFalse {
-            CharSequenceWrapper("foo") == CharSequenceWrapper("bar")
+            Wrapper.wrap("foo") == Wrapper.wrap("bar")
         }
     }
 
     @Test
     fun `equals should be false for non CharSequenceWrapper`() {
         assertFalse {
-            CharSequenceWrapper("foo").equals("foo")
+            Wrapper.wrap("foo").equals("foo")
         }
         assertFalse {
-            CharSequenceWrapper("foo") == mockk<AString>()
+            Wrapper.wrap("foo") == mockk<AString>()
         }
         assertFalse {
-            CharSequenceWrapper("foo") == mockk<CharSequenceWrapper>()
+            Wrapper.wrap("foo") == mockk<Wrapper>()
         }
         assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<ContextValueProvider>())
+            Wrapper.wrap("foo").equals(mockk<Provider>())
         }
         assertFalse {
-            CharSequenceWrapper("foo").equals(mockk<ResourceDelegate>())
+            Wrapper.wrap("foo").equals(mockk<Resource>())
         }
     }
 
@@ -56,11 +56,11 @@ internal class CharSequenceWrapperTest {
     fun `hashCode should return delegate to string`() {
         assertEquals(
             "foo".hashCode(),
-            CharSequenceWrapper("foo").hashCode(),
+            Wrapper.wrap("foo").hashCode(),
         )
         assertEquals(
             "bar".hashCode(),
-            CharSequenceWrapper("bar").hashCode(),
+            Wrapper.wrap("bar").hashCode(),
         )
     }
 
@@ -68,7 +68,7 @@ internal class CharSequenceWrapperTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(CharSequence(foo))",
-            CharSequenceWrapper("foo").toString(),
+            Wrapper.wrap("foo").toString(),
         )
     }
 }

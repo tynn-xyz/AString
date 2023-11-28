@@ -46,7 +46,7 @@ public class AStringKtTest {
         assertNull(AStringKt.invokeWithContext(context, null));
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "RedundantCast"})
     @Test(expected = NullPointerException.class)
     public void invokeWithContext_should_throw_on_null_context() {
         AStringKt.invokeWithContext((Context) null, aString);
@@ -90,7 +90,7 @@ public class AStringKtTest {
         assertNull(AStringKt.invokeWithView(view, null));
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "RedundantCast"})
     @Test(expected = NullPointerException.class)
     public void invokeWithView_should_throw_on_null_view() {
         AStringKt.invokeWithView((View) null, aString);
