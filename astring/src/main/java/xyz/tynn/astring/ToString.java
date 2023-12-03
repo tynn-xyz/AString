@@ -8,6 +8,7 @@ import static android.os.Build.VERSION_CODES.N;
 import static androidx.core.os.ParcelCompat.readParcelable;
 import static androidx.core.os.ParcelCompat.readSerializable;
 import static java.lang.String.format;
+import static java.util.Arrays.copyOf;
 import static xyz.tynn.astring.Wrapper.NULL;
 
 import android.content.Context;
@@ -28,12 +29,20 @@ final class ToString implements AString {
 
     private final AString delegate;
     private final Locale locale;
-    private final Object[] formatArgs;
+    private final Object[] formatArgs, aStringArgs;
 
     private ToString(AString delegate, Locale locale, Object[] formatArgs) {
         this.delegate = delegate;
         this.locale = locale;
         this.formatArgs = formatArgs;
+        this.aStringArgs = maybeCopyFormatArgs(formatArgs);
+    }
+
+    private static Object[] maybeCopyFormatArgs(Object[] formatArgs) {
+        if (formatArgs != null) for (Object arg : formatArgs)
+            if (arg instanceof AString)
+                return copyOf(formatArgs, formatArgs.length, Object[].class);
+        return null;
     }
 
     static AString wrap(AString delegate, Locale locale, Object[] formatArgs) {
@@ -53,8 +62,21 @@ final class ToString implements AString {
     @Override
     public String invoke(@NonNull Context context) {
         CharSequence formatString = delegate.invoke(context);
-        return formatString == null ? null : formatArgs == null ? formatString.toString()
-                : format(getLocale(context), formatString.toString(), formatArgs);
+        if (formatString == null) return null;
+        Object[] formatArgs = getFormatArgs(context);
+        if (formatArgs == null) return formatString.toString();
+        return format(getLocale(context), formatString.toString(), formatArgs);
+    }
+
+    private Object[] getFormatArgs(Context context) {
+        Object[] formatArgs = this.formatArgs;
+        if (formatArgs == null) return null;
+        Object[] aStringArgs = this.aStringArgs;
+        if (aStringArgs == null) return formatArgs;
+        for (int i = 0; i < formatArgs.length; i++)
+            if (formatArgs[i] instanceof AString)
+                aStringArgs[i] = ((AString) formatArgs[i]).invoke(context);
+        return aStringArgs;
     }
 
     @SuppressWarnings("deprecation")

@@ -24,7 +24,7 @@ public class ParcelableAStringTest {
     private static final int RES_ID = 123;
     private static final int QUANTITY = 456;
     private static final AString FORMAT = new Format();
-    private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date()};
+    private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date(), Wrapper.wrap("test-string")};
 
     @Test
     public void Wrapper_should_implement_parcelable() {
@@ -115,7 +115,7 @@ public class ParcelableAStringTest {
         @Nullable
         @Override
         public String invoke(@NonNull Context context) {
-            return "%s%d%d%f%f%s";
+            return "%s%d%d%f%f%s%s";
         }
 
         @Override

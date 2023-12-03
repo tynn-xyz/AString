@@ -17,6 +17,7 @@ internal class ToStringTest {
 
     private val locale = Locale.CANADA
     private val format = Format()
+    private val formatArgs = arrayOf('1', 2, "3")
 
     @Test
     fun `invoke should return string without locale`() {
@@ -28,17 +29,24 @@ internal class ToStringTest {
         }
 
         assertEquals(
-            "23",
-            ToString.wrap(format, null, arrayOf(2, "3")).invoke(context),
+            "123",
+            ToString.wrap(format, null, formatArgs).invoke(context),
         )
     }
 
     @Test
     fun `invoke should return string with locale`() {
         assertEquals(
-            "23",
-            ToString.wrap(format, locale, arrayOf(2, "3"))
-                .invoke(mockk()),
+            "123",
+            ToString.wrap(format, locale, formatArgs).invoke(mockk()),
+        )
+    }
+
+    @Test
+    fun `invoke should invoke AString args`() {
+        assertEquals(
+            "123",
+            ToString.wrap(format, locale, arrayOf("1".asAString(), 2, "3")).invoke(mockk()),
         )
     }
 
@@ -65,20 +73,20 @@ internal class ToStringTest {
                     ToString.wrap(format, locale, arrayOf())
         }
         assertTrue {
-            ToString.wrap(format, null, arrayOf(2, "3")) ==
-                    ToString.wrap(format, null, arrayOf(2, "3"))
+            ToString.wrap(format, null, formatArgs) ==
+                    ToString.wrap(format, null, formatArgs)
         }
         assertTrue {
-            ToString.wrap(format, locale, arrayOf(2, "3")) ==
-                    ToString.wrap(format, locale, arrayOf(2, "3"))
+            ToString.wrap(format, locale, formatArgs) ==
+                    ToString.wrap(format, locale, formatArgs)
         }
     }
 
     @Test
     fun `equals should be false for non matching locales`() {
         assertFalse {
-            ToString.wrap(format, Locale.GERMAN, arrayOf(2, "3")) ==
-                    ToString.wrap(format, locale, arrayOf(2, "3"))
+            ToString.wrap(format, Locale.GERMAN, formatArgs) ==
+                    ToString.wrap(format, locale, formatArgs)
         }
     }
 
@@ -89,28 +97,28 @@ internal class ToStringTest {
                     ToString.wrap(TextResource(1), null, arrayOf())
         }
         assertFalse {
-            ToString.wrap(format, null, arrayOf(2, "3")) ==
-                    ToString.wrap(TextResource(1), null, arrayOf(2, "3"))
+            ToString.wrap(format, null, formatArgs) ==
+                    ToString.wrap(TextResource(1), null, formatArgs)
         }
     }
 
     @Test
     fun `equals should be false for non matching format args`() {
         assertFalse {
-            ToString.wrap(format, null, arrayOf(2, 3)) ==
-                    ToString.wrap(format, null, arrayOf("2", "3"))
+            ToString.wrap(format, null, arrayOf(1, 2, 3)) ==
+                    ToString.wrap(format, null, formatArgs)
         }
         assertFalse {
-            ToString.wrap(format, locale, arrayOf(2, 3)) ==
-                    ToString.wrap(format, locale, arrayOf("2", "3"))
+            ToString.wrap(format, locale, arrayOf(1, 2, 3)) ==
+                    ToString.wrap(format, locale, formatArgs)
         }
         assertFalse {
             ToString.wrap(format, null, arrayOf()) ==
-                    ToString.wrap(format, null, arrayOf(2, "3"))
+                    ToString.wrap(format, null, formatArgs)
         }
         assertFalse {
             ToString.wrap(format, locale, arrayOf()) ==
-                    ToString.wrap(format, locale, arrayOf(2, "3"))
+                    ToString.wrap(format, locale, formatArgs)
         }
     }
 
@@ -152,13 +160,12 @@ internal class ToStringTest {
             ToString.wrap(format, locale, arrayOf()).hashCode(),
         )
         assertEquals(
-            41436,
-            ToString.wrap(format, null, arrayOf(2, "3")).hashCode(),
+            117355,
+            ToString.wrap(format, null, formatArgs).hashCode(),
         )
         assertEquals(
-            -1299735837,
-            ToString.wrap(format, locale, arrayOf(2, "3"))
-                .hashCode(),
+            -1299659918,
+            ToString.wrap(format, locale, formatArgs).hashCode(),
         )
     }
 
@@ -169,18 +176,21 @@ internal class ToStringTest {
             ToString.wrap(format, null, arrayOf()).toString(),
         )
         assertEquals(
-            "AString(Format($format,2,3))",
-            ToString.wrap(format, null, arrayOf(2, "3")).toString(),
+            "AString(Format($format,AString(CharSequence(1))))",
+            ToString.wrap(format, null, arrayOf("1".asAString())).toString(),
         )
         assertEquals(
-            "AString(Format($locale,$format,2,3))",
-            ToString.wrap(format, locale, arrayOf(2, "3"))
-                .toString(),
+            "AString(Format($format,1,2,3))",
+            ToString.wrap(format, null, formatArgs).toString(),
+        )
+        assertEquals(
+            "AString(Format($locale,$format,1,2,3))",
+            ToString.wrap(format, locale, formatArgs).toString(),
         )
     }
 
     private class Format : AString {
-        override fun invoke(context: Context) = "%d%s"
+        override fun invoke(context: Context) = "%s%d%s"
         override fun writeToParcel(dest: Parcel, flags: Int) = Unit
         override fun equals(other: Any?) = other is Format
         override fun hashCode() = 11
