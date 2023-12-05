@@ -32,14 +32,14 @@ every other dependency version is provided implicitly with a BOM.
 The `AStringFactory` provides functions to create all basic `AString`
 implementations.
 
-    nullAsAString
+    AString.Null
     "aString".asAString()
     StringResource(R.string.app_name)
 
     AStringFactory.createFromCharSequence("aString")
 
 If `null`, `ID_NULL` or `0` is used to create an `AString`,
-the `nullAsAString` singleton is returned.
+the `AString.Null` singleton is returned.
 
 The `AString` itself should be used in place of a `CharSequence`,
 just like string resource would be used.
@@ -72,7 +72,7 @@ it as a `String` only or even use it as a format string.
     aString.format(1, "2")
     aString.format(Locale.UK, 1, "2")
 
-    aString.wrapToString()
+    aString.mapToString()
 
 This behavior is similar to the approaches taken for `getText(int)`,
 `getString(int)` and `getString(int, Object...)` string resource accessors.

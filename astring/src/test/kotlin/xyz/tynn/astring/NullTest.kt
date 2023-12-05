@@ -3,6 +3,7 @@
 
 package xyz.tynn.astring
 
+import android.content.Context
 import io.mockk.mockk
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,56 +16,50 @@ internal class NullTest {
     @Test
     fun `invoke should return null`() {
         assertNull(
-            Wrapper.NULL.invoke(mockk()),
+            AString.Null.invoke(mockk<Context>()),
         )
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `identity should be true for same type`() {
         assertTrue {
-            Wrapper.NULL === Wrapper.wrap(null)
+            AString.Null === AString.Null
         }
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Wrapper.NULL == Wrapper.NULL
+            AString.Null == AString.Null
         }
     }
 
     @Test
     fun `equals should be false for non NullValueProvider`() {
         assertFalse {
-            Wrapper.NULL.equals("foo")
+            AString.Null.equals("foo")
         }
         assertFalse {
-            Wrapper.NULL == mockk<AString>()
+            AString.Null == mockk<AString>()
         }
         assertFalse {
-            Wrapper.NULL == Wrapper.wrap("")
+            AString.Null == Wrapper.wrap("")
         }
         assertFalse {
-            Wrapper.NULL.equals(mockk<Resource>())
+            AString.Null == mockk<Resource>()
         }
         assertFalse {
-            Wrapper.NULL.equals(mockk<Provider>())
+            AString.Null == mockk<Provider>()
         }
-    }
-
-    @Test
-    fun `hashCode should return 0`() {
-        assertEquals(
-            0,
-            Wrapper.NULL.hashCode(),
-        )
     }
 
     @Test
     fun `toString should return typed string`() {
         assertEquals(
             "AString(CharSequence(null))",
-            Wrapper.NULL.toString(),
+            AString.Null.toString(),
         )
     }
 }

@@ -27,21 +27,15 @@ public class ParcelableAStringTest {
     private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date(), Wrapper.wrap("test-string")};
 
     @Test
+    public void AString_Null_should_implement_parcelable() {
+        assertParcelableAStringIdentity(AString.Null);
+        assertParcelableAStringInvocation(AString.Null);
+    }
+
+    @Test
     public void Wrapper_should_implement_parcelable() {
         assertParcelableAStringEquality(Wrapper.wrap("test-string"));
         assertParcelableAStringInvocation(Wrapper.wrap("test-string"));
-    }
-
-    @Test
-    public void Wrapper_of_null_should_implement_parcelable() {
-        assertParcelableAStringEquality(Wrapper.wrap(null));
-        assertParcelableAStringInvocation(Wrapper.wrap(null));
-    }
-
-    @Test
-    public void Wrapper_NULL_should_implement_parcelable() {
-        assertParcelableAStringIdentity(Wrapper.NULL);
-        assertParcelableAStringInvocation(Wrapper.NULL);
     }
 
     @Test
@@ -100,14 +94,14 @@ public class ParcelableAStringTest {
 
     @Test
     public void AppIdProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(Provider.AppIdProvider);
-        assertParcelableAStringInvocation(Provider.AppIdProvider);
+        assertParcelableAStringIdentity(Provider.AppId);
+        assertParcelableAStringInvocation(Provider.AppId);
     }
 
     @Test
     public void AppVersionProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(Provider.AppVersionProvider);
-        assertParcelableAStringInvocation(Provider.AppVersionProvider);
+        assertParcelableAStringIdentity(Provider.AppVersion);
+        assertParcelableAStringInvocation(Provider.AppVersion);
     }
 
     private static class Format implements AString {

@@ -9,7 +9,6 @@ import static androidx.core.os.ParcelCompat.readParcelable;
 import static androidx.core.os.ParcelCompat.readSerializable;
 import static java.lang.String.format;
 import static java.util.Arrays.copyOf;
-import static xyz.tynn.astring.Wrapper.NULL;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -46,7 +45,7 @@ final class ToString implements AString {
     }
 
     static AString wrap(AString delegate, Locale locale, Object[] formatArgs) {
-        if (delegate == null || delegate == NULL) return NULL;
+        if (delegate == null || delegate == Null) return Null;
         if (formatArgs == null || formatArgs.length == 0) {
             if (delegate instanceof Provider || delegate instanceof ToString) return delegate;
             if (delegate instanceof Wrapper) return ((Wrapper) delegate).wrapToString();

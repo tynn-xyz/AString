@@ -15,7 +15,7 @@ enum Provider implements AString {
     /**
      * Implementation providing {@link Context#getPackageName()}
      */
-    AppIdProvider {
+    AppId {
         @Override
         public String invoke(@NonNull Context context) {
             return context.getPackageName();
@@ -31,7 +31,7 @@ enum Provider implements AString {
     /**
      * Implementation providing {@link PackageInfo#versionName}
      */
-    AppVersionProvider {
+    AppVersion {
         @Override
         public String invoke(@NonNull Context context) {
             try {

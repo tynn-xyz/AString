@@ -6,7 +6,6 @@ package xyz.tynn.astring;
 import static android.content.res.Resources.ID_NULL;
 import static androidx.core.os.ParcelCompat.readBoolean;
 import static androidx.core.os.ParcelCompat.writeBoolean;
-import static xyz.tynn.astring.Wrapper.NULL;
 
 import android.content.Context;
 import android.os.Parcel;
@@ -29,12 +28,12 @@ final class Resource implements AString {
     }
 
     static AString wrap(int resId, Integer quantity) {
-        if (resId == ID_NULL) return NULL;
+        if (resId == ID_NULL) return Null;
         return new Resource(resId, quantity);
     }
 
     static AString wrap(int resId, Integer quantity, Object[] formatArgs) {
-        if (resId == ID_NULL) return NULL;
+        if (resId == ID_NULL) return Null;
         return ToString.wrap(new Resource(resId, quantity), null, formatArgs);
     }
 

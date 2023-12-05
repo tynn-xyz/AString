@@ -7,7 +7,11 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import io.mockk.every
 import io.mockk.mockk
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 internal class AppVersionProviderTest {
 
@@ -23,7 +27,7 @@ internal class AppVersionProviderTest {
 
         assertEquals(
             "foo",
-            Provider.AppVersionProvider.invoke(context),
+            Provider.AppVersion.invoke(context),
         )
     }
 
@@ -31,7 +35,7 @@ internal class AppVersionProviderTest {
     @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Provider.AppVersionProvider == Provider.AppVersionProvider
+            Provider.AppVersion == Provider.AppVersion
         }
     }
 
@@ -39,16 +43,16 @@ internal class AppVersionProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppVersionProvider`() {
         assertFalse {
-            Provider.AppVersionProvider.equals("foo")
+            Provider.AppVersion.equals("foo")
         }
         assertFalse {
-            Provider.AppVersionProvider == mockk<AString>()
+            Provider.AppVersion == mockk<AString>()
         }
         assertFalse {
-            Provider.AppVersionProvider == Provider.AppIdProvider
+            Provider.AppVersion == Provider.AppId
         }
         assertFalse {
-            Provider.AppVersionProvider == mockk<Provider>()
+            Provider.AppVersion == mockk<Provider>()
         }
     }
 
@@ -56,7 +60,7 @@ internal class AppVersionProviderTest {
     fun `hashCode should not return 0`() {
         assertNotEquals(
             0,
-            Provider.AppVersionProvider.hashCode(),
+            Provider.AppVersion.hashCode(),
         )
     }
 
@@ -64,7 +68,7 @@ internal class AppVersionProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(appVersion))",
-            Provider.AppVersionProvider.toString(),
+            Provider.AppVersion.toString(),
         )
     }
 }

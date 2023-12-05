@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static io.mockk.MockKKt.every;
 import static xyz.tynn.astring.AStringFactory.createFromCharSequence;
-import static xyz.tynn.astring.AStringFactory.nullAsAString;
 
 import android.content.Context;
 
@@ -58,8 +57,8 @@ public class AStringBindingTest {
 
     @SuppressWarnings("ConstantConditions")
     @Test
-    public void wrap_should_return_nullAsAString_on_null_astring() {
-        assertSame(nullAsAString,
+    public void wrap_should_return_Null_on_null_astring() {
+        assertSame(AString.Null,
                 AStringBinding.wrap(null, null));
     }
 

@@ -34,7 +34,6 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import xyz.tynn.astring.AString
 import xyz.tynn.astring.asAString
-import xyz.tynn.astring.nullAsAString
 import java.util.Locale
 import java.util.Locale.FRENCH
 import java.util.Locale.GERMANY
@@ -55,7 +54,7 @@ internal class AStringTest {
     fun `asString should map null to empty string`() = compose.runTest {
         assertEquals(
             "",
-            nullAsAString.asString(),
+            null.asAString().asString(),
         )
     }
 
@@ -85,7 +84,7 @@ internal class AStringTest {
     fun `aString should map null to empty string`() = compose.runTest {
         assertEquals(
             "",
-            aString(nullAsAString),
+            aString(AString.Null),
         )
     }
 
@@ -117,7 +116,7 @@ internal class AStringTest {
         mockkStatic(CharSequence::toAnnotatedString) {
             assertEquals(
                 AnnotatedString(""),
-                nullAsAString.asAnnotatedString(),
+                null.asAString().asAnnotatedString(),
             )
 
             verify { any<CharSequence>().toAnnotatedString() wasNot called }

@@ -6,7 +6,11 @@ package xyz.tynn.astring
 import android.content.Context
 import io.mockk.every
 import io.mockk.mockk
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 internal class AppIdProviderTest {
 
@@ -18,7 +22,7 @@ internal class AppIdProviderTest {
 
         assertEquals(
             "foo",
-            Provider.AppIdProvider.invoke(context),
+            Provider.AppId.invoke(context),
         )
     }
 
@@ -26,7 +30,7 @@ internal class AppIdProviderTest {
     @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Provider.AppIdProvider == Provider.AppIdProvider
+            Provider.AppId == Provider.AppId
         }
     }
 
@@ -34,16 +38,16 @@ internal class AppIdProviderTest {
     @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppIdProvider`() {
         assertFalse {
-            Provider.AppIdProvider.equals("foo")
+            Provider.AppId.equals("foo")
         }
         assertFalse {
-            Provider.AppIdProvider == mockk<AString>()
+            Provider.AppId == mockk<AString>()
         }
         assertFalse {
-            Provider.AppIdProvider == Provider.AppVersionProvider
+            Provider.AppId == Provider.AppVersion
         }
         assertFalse {
-            Provider.AppIdProvider == mockk<Provider>()
+            Provider.AppId == mockk<Provider>()
         }
     }
 
@@ -51,7 +55,7 @@ internal class AppIdProviderTest {
     fun `hashCode should return 0`() {
         assertNotEquals(
             0,
-            Provider.AppIdProvider.hashCode(),
+            Provider.AppId.hashCode(),
         )
     }
 
@@ -59,7 +63,7 @@ internal class AppIdProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(appId))",
-            Provider.AppIdProvider.toString(),
+            Provider.AppId.toString(),
         )
     }
 }

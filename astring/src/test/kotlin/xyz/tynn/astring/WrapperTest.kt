@@ -15,7 +15,7 @@ internal class WrapperTest {
     fun `invoke should return the string`() {
         assertEquals(
             "foo",
-            Wrapper.wrap("foo").invoke(null),
+            Wrapper.wrap("foo").invoke(mockk()),
         )
     }
 

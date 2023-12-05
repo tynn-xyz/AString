@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 final class Wrapper implements AString {
 
-    static final Wrapper NULL = new Wrapper(null);
+    private static Wrapper NULL;
 
     private final CharSequence value;
 
@@ -28,7 +28,11 @@ final class Wrapper implements AString {
     }
 
     static Wrapper wrap(CharSequence value) {
-        return value == null ? NULL : new Wrapper(value);
+        return value != null ? new Wrapper(value) : NULL != null ? NULL : initNull();
+    }
+
+    private synchronized static Wrapper initNull() {
+        return NULL == null ? NULL = new Wrapper(null) : NULL;
     }
 
     @Override

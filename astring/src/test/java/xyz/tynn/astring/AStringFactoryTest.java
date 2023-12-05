@@ -13,30 +13,31 @@ import java.util.Locale;
 public class AStringFactoryTest {
 
     @Test
-    public void nullAsAString_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.nullAsAString);
+    @SuppressWarnings("EqualsWithItself")
+    public void Null_should_return_Null() {
+        assertSame(AString.Null, AString.Null);
     }
 
     @Test
-    public void wrapNullAsAString_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.wrapNullAsAString(null));
+    public void ensureAStringNull_should_return_NULL() {
+        assertSame(AString.Null, AStringFactory.ensureAStringNull(null));
     }
 
     @Test
-    public void wrapNullAsAString_should_return_identity() {
+    public void ensureAStringNull_should_return_identity() {
         AString aString = AStringFactory.createFromQuantityStringResource(1, 2);
-        assertSame(aString, AStringFactory.wrapNullAsAString(aString));
+        assertSame(aString, AStringFactory.ensureAStringNull(aString));
     }
 
     @Test
     public void createFromCharSequence_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.createFromCharSequence(null));
+        assertSame(AString.Null, AStringFactory.createFromCharSequence(null));
     }
 
     @Test
     public void createFromQuantityStringResource_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.createFromQuantityStringResource(0, 1));
-        assertSame(Wrapper.NULL, AStringFactory.createFromQuantityStringResource(0, 1, 2));
+        assertSame(AString.Null, AStringFactory.createFromQuantityStringResource(0, 1));
+        assertSame(AString.Null, AStringFactory.createFromQuantityStringResource(0, 1, 2));
     }
 
     @Test
@@ -47,13 +48,13 @@ public class AStringFactoryTest {
 
     @Test
     public void createFromQuantityTextResource_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.createFromQuantityTextResource(0, 1));
+        assertSame(AString.Null, AStringFactory.createFromQuantityTextResource(0, 1));
     }
 
     @Test
     public void createFromStringResource_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.createFromStringResource(0));
-        assertSame(Wrapper.NULL, AStringFactory.createFromStringResource(0, 1));
+        assertSame(AString.Null, AStringFactory.createFromStringResource(0));
+        assertSame(AString.Null, AStringFactory.createFromStringResource(0, 1));
     }
 
     @Test
@@ -64,84 +65,84 @@ public class AStringFactoryTest {
 
     @Test
     public void createFromTextResource_should_return_NULL() {
-        assertSame(Wrapper.NULL, AStringFactory.createFromTextResource(0));
+        assertSame(AString.Null, AStringFactory.createFromTextResource(0));
     }
 
     @Test
     public void format_should_return_ToString() {
-        assertEquals(AStringFactory.formatWithAString(Wrapper.NULL, 1, "2"),
-                AStringFactory.formatWithAString(Wrapper.NULL, 1, "2"));
+        assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
+                AStringFactory.formatWithAString(AString.Null, 1, "2"));
     }
 
     @Test
     public void format_without_args_should_return_ToString() {
-        assertEquals(AStringFactory.formatWithAString(Wrapper.NULL),
-                AStringFactory.formatWithAString(Wrapper.NULL, (Object[]) null));
+        assertEquals(AStringFactory.formatWithAString(AString.Null),
+                AStringFactory.formatWithAString(AString.Null, (Object[]) null));
     }
 
     @Test
     public void format_should_be_NULL_on_null_format() {
-        assertSame(Wrapper.NULL, AStringFactory.formatWithAString(null, 1, "2"));
-        assertSame(Wrapper.NULL, AStringFactory.formatWithAString(Wrapper.NULL, 1, "2"));
+        assertSame(AString.Null, AStringFactory.formatWithAString(null, 1, "2"));
+        assertSame(AString.Null, AStringFactory.formatWithAString(AString.Null, 1, "2"));
     }
 
     @Test
     public void format_without_locale_should_return_ToString() {
-        assertEquals(AStringFactory.formatWithAString(Wrapper.NULL, 1, "2"),
-                AStringFactory.formatWithAString(Wrapper.NULL, null, 1, "2"));
+        assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
+                AStringFactory.formatWithAString(AString.Null, null, 1, "2"));
     }
 
     @Test
     public void format_without_locale_and_args_should_return_ToString() {
-        assertEquals(AStringFactory.formatWithAString(Wrapper.NULL),
-                AStringFactory.formatWithAString(Wrapper.NULL, null, (Object[]) null));
+        assertEquals(AStringFactory.formatWithAString(AString.Null),
+                AStringFactory.formatWithAString(AString.Null, null, (Object[]) null));
     }
 
     @Test
     public void format_with_locale_should_return_ToString() {
-        assertEquals(AStringFactory.formatWithAString(Wrapper.NULL, Locale.UK, 1, "2"),
-                AStringFactory.formatWithAString(Wrapper.NULL, Locale.UK, 1, "2"));
+        assertEquals(AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"),
+                AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"));
     }
 
     @Test
     public void format_with_locale_should_be_NULL_on_null_format() {
-        assertEquals(Wrapper.NULL, AStringFactory.formatWithAString(null, Locale.UK, 1, "2"));
-        assertEquals(Wrapper.NULL, AStringFactory.formatWithAString(Wrapper.NULL, Locale.UK, 1, "2"));
+        assertEquals(AString.Null, AStringFactory.formatWithAString(null, Locale.UK, 1, "2"));
+        assertEquals(AString.Null, AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"));
     }
 
     @Test
-    public void wrapToString_should_be_NULL_on_null() {
-        assertEquals(Wrapper.NULL, AStringFactory.wrapToString(null));
-        assertEquals(Wrapper.NULL, AStringFactory.wrapToString(Wrapper.NULL));
+    public void mapToString_should_be_NULL_on_null() {
+        assertEquals(AString.Null, AStringFactory.mapToString(null));
+        assertEquals(AString.Null, AStringFactory.mapToString(AString.Null));
     }
 
     @Test
-    public void wrapToString_should_be_identity_on_Provider() {
-        assertSame(Provider.AppIdProvider, AStringFactory.wrapToString(Provider.AppIdProvider));
-        assertSame(Provider.AppVersionProvider, AStringFactory.wrapToString(Provider.AppVersionProvider));
+    public void mapToString_should_be_identity_on_Provider() {
+        assertSame(Provider.AppId, AStringFactory.mapToString(Provider.AppId));
+        assertSame(Provider.AppVersion, AStringFactory.mapToString(Provider.AppVersion));
     }
 
     @Test
-    public void wrapToString_should_be_identity_on_ToString() {
-        AString aString = AStringFactory.formatWithAString(Provider.AppIdProvider, 1);
-        assertSame(aString, AStringFactory.wrapToString(aString));
+    public void mapToString_should_be_identity_on_ToString() {
+        AString aString = AStringFactory.formatWithAString(Provider.AppId, 1);
+        assertSame(aString, AStringFactory.mapToString(aString));
     }
 
     @Test
-    public void wrapToString_should_be_Wrapper_on_Wrapper() {
+    public void mapToString_should_be_Wrapper_on_Wrapper() {
         AString aString = AStringFactory.createFromCharSequence("value");
-        assertSame(aString, AStringFactory.wrapToString(aString));
-        assertEquals(aString, AStringFactory.wrapToString(
+        assertSame(aString, AStringFactory.mapToString(aString));
+        assertEquals(aString, AStringFactory.mapToString(
                 AStringFactory.createFromCharSequence(new StringBuilder("value"))));
     }
 
     @Test
     public void appIdAString_should_return_AppIdProvider() {
-        assertSame(Provider.AppIdProvider, AStringFactory.appIdAString);
+        assertSame(Provider.AppId, AStringFactory.getAppId());
     }
 
     @Test
     public void appVersionAString_should_return_AppVersionProvider() {
-        assertSame(Provider.AppVersionProvider, AStringFactory.appVersionAString);
+        assertSame(Provider.AppVersion, AStringFactory.getAppVersion());
     }
 }

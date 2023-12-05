@@ -13,17 +13,21 @@ import kotlin.test.assertSame
 internal class AStringFactoryKtTest {
 
     @Test
-    fun `nullAsAString should be the NULL singleton`() {
+    fun `Null should be the NULL singleton`() {
         assertSame(
-            Wrapper.NULL,
-            nullAsAString,
+            Wrapper.wrap(null),
+            AString.Null,
+        )
+        assertSame(
+            AString.Null,
+            AString.Null,
         )
     }
 
     @Test
     fun `asAString should return NULL for null`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             null.asAString(),
         )
     }
@@ -31,11 +35,11 @@ internal class AStringFactoryKtTest {
     @Test
     fun `AString should return NULL for null`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             AString(null),
         )
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             AString(nothing = null),
         )
     }
@@ -44,7 +48,7 @@ internal class AStringFactoryKtTest {
     fun `asAString should return NULL for null AString`() {
         val aString: AString? = null
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             aString.asAString(),
         )
     }
@@ -62,11 +66,11 @@ internal class AStringFactoryKtTest {
     fun `AString should return NULL for null AString`() {
         val aString: AString? = null
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             AString(aString),
         )
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             AString(aString = null),
         )
     }
@@ -84,7 +88,7 @@ internal class AStringFactoryKtTest {
     fun `asAString should return Null for null CharSequence`() {
         val charSequence: CharSequence? = null
         assertEquals(
-            Wrapper.NULL,
+            AString.Null,
             charSequence.asAString(),
         )
     }
@@ -101,11 +105,11 @@ internal class AStringFactoryKtTest {
     fun `AString should return NULL for null CharSequence`() {
         val charSequence: CharSequence? = null
         assertEquals(
-            Wrapper.NULL,
+            AString.Null,
             AString(charSequence),
         )
         assertEquals(
-            Wrapper.NULL,
+            AString.Null,
             AString(value = null),
         )
     }
@@ -121,11 +125,11 @@ internal class AStringFactoryKtTest {
     @Test
     fun `StringResource should return NULL for ID_NULL`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             StringResource(ID_NULL),
         )
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             StringResource(ID_NULL, 1),
         )
     }
@@ -157,7 +161,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `TextResource should return NULL for ID_NULL`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             TextResource(ID_NULL),
         )
     }
@@ -173,11 +177,11 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityStringResource should return NULL for ID_NULL`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             QuantityStringResource(ID_NULL, 1),
         )
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             QuantityStringResource(ID_NULL, 1, 2),
         )
     }
@@ -209,7 +213,7 @@ internal class AStringFactoryKtTest {
     @Test
     fun `QuantityTextResource should return NULL for ID_NULL`() {
         assertSame(
-            Wrapper.NULL,
+            AString.Null,
             QuantityTextResource(ID_NULL, 1),
         )
     }
@@ -242,15 +246,15 @@ internal class AStringFactoryKtTest {
     fun `format should return ToString with format args for ToString`() {
         assertEquals(
             ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).wrapToString().format(1, "2"),
+            TextResource(1).mapToString().format(1, "2"),
         )
         assertEquals(
             ToString.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
-            TextResource(1).wrapToString().format(Locale.GERMAN, 1, "2"),
+            TextResource(1).mapToString().format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
             ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).wrapToString().format(locale = null, 1, "2"),
+            TextResource(1).mapToString().format(locale = null, 1, "2"),
         )
     }
 
@@ -271,76 +275,76 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `wrapToString should return unformatted ToString`() {
+    fun `mapToString should return unformatted ToString`() {
         assertEquals(
             ToString.wrap(TextResource(1), null, null),
-            TextResource(1).wrapToString(),
+            TextResource(1).mapToString(),
         )
     }
 
     @Test
-    fun `wrapToString should return identity for ToString`() {
+    fun `mapToString should return identity for ToString`() {
         val format = "format".asAString().format(1)
         assertSame(
             format,
-            format.wrapToString(),
+            format.mapToString(),
         )
-        val toString = TextResource(1).wrapToString()
+        val toString = TextResource(1).mapToString()
         assertSame(
             toString,
-            toString.wrapToString(),
+            toString.mapToString(),
         )
     }
 
     @Test
-    fun `wrapToString should return NULL for null`() {
+    fun `mapToString should return NULL for null`() {
         assertSame(
-            nullAsAString,
-            null.wrapToString(),
+            AString.Null,
+            null.mapToString(),
         )
         assertSame(
-            nullAsAString,
-            null.asAString().wrapToString(),
+            AString.Null,
+            null.asAString().mapToString(),
         )
     }
 
     @Test
-    fun `wrapToString should return new Wrapper`() {
+    fun `mapToString should return new Wrapper`() {
         assertEquals(
             "format".asAString(),
-            StringBuilder("format").asAString().wrapToString(),
+            StringBuilder("format").asAString().mapToString(),
         )
     }
 
     @Test
-    fun `wrapToString should return identity for Wrapper of String`() {
+    fun `mapToString should return identity for Wrapper of String`() {
         val wrapper = "format".asAString()
         assertSame(
             wrapper,
-            wrapper.wrapToString(),
+            wrapper.mapToString(),
         )
     }
 
     @Test
-    fun `wrapToString should return identity for Provider`() {
-        Provider.values().forEach {
-            assertSame(it, it.wrapToString())
+    fun `mapToString should return identity for Provider`() {
+        Provider.entries.forEach {
+            assertSame(it, it.mapToString())
         }
     }
 
     @Test
     fun `appIdAString should be an identity`() {
         assertSame(
-            appIdAString,
-            appIdAString,
+            AppId,
+            AppId,
         )
     }
 
     @Test
     fun `appVersionAString should be an identity`() {
         assertSame(
-            appVersionAString,
-            appVersionAString,
+            AppVersion,
+            AppVersion,
         )
     }
 }

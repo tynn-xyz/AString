@@ -31,7 +31,16 @@ public interface AString : Parcelable {
      */
     public operator fun invoke(context: Context): CharSequence?
 
-    override fun describeContents(): Int = 0
+    public override fun describeContents(): Int = 0
+
+    public companion object {
+
+        /**
+         * An `AString` always providing `null`
+         */
+        @JvmField
+        public val Null: AString = Wrapper.wrap(null)
+    }
 }
 
 /**
