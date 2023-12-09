@@ -21,7 +21,7 @@ import java.util.Locale
 @JvmName("formatWithAString")
 public fun AString?.format(
     vararg formatArgs: Any?,
-): AString = ToString.wrap(
+): AString = Format.wrap(
     this,
     null,
     formatArgs,
@@ -42,7 +42,7 @@ public fun AString?.format(
 public fun AString?.format(
     locale: Locale?,
     vararg formatArgs: Any?,
-): AString = ToString.wrap(
+): AString = Format.wrap(
     this,
     locale,
     formatArgs,
@@ -55,7 +55,7 @@ public fun AString?.format(
  *
  * @see CharSequence.toString
  */
-public fun AString?.mapToString(): AString = ToString.wrap(
+public fun AString?.mapToString(): AString = Format.wrap(
     this,
     null,
     null,

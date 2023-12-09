@@ -48,10 +48,7 @@ internal class NullTest {
             AString.Null == Wrapper.wrap("")
         }
         assertFalse {
-            AString.Null == mockk<Resource>()
-        }
-        assertFalse {
-            AString.Null == mockk<Provider>()
+            AString.Null == mockk<Delegate>()
         }
     }
 

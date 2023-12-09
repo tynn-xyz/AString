@@ -30,7 +30,6 @@ public interface AString : Parcelable {
      * @return string value from context; might be null
      */
     public operator fun invoke(context: Context): CharSequence?
-
     public override fun describeContents(): Int = 0
 
     public companion object {

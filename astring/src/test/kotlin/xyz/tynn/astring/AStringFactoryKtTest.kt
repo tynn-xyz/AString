@@ -13,18 +13,6 @@ import kotlin.test.assertSame
 internal class AStringFactoryKtTest {
 
     @Test
-    fun `Null should be the NULL singleton`() {
-        assertSame(
-            Wrapper.wrap(null),
-            AString.Null,
-        )
-        assertSame(
-            AString.Null,
-            AString.Null,
-        )
-    }
-
-    @Test
     fun `asAString should return NULL for null`() {
         assertSame(
             AString.Null,
@@ -135,9 +123,9 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `StringResource should return ToString Resource without format args`() {
+    fun `StringResource should return Format Resource without format args`() {
         assertEquals(
-            ToString.wrap(
+            Format.wrap(
                 Resource.wrap(1, null),
                 null,
                 arrayOf(),
@@ -147,9 +135,9 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `StringResource should return ToString Resource with format args`() {
+    fun `StringResource should return Format Resource with format args`() {
         assertEquals(
-            ToString.wrap(
+            Format.wrap(
                 Resource.wrap(1, null),
                 null,
                 arrayOf(2, "3"),
@@ -187,9 +175,9 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `QuantityStringResource should return ToString Resource quantity without format args`() {
+    fun `QuantityStringResource should return Format Resource quantity without format args`() {
         assertEquals(
-            ToString.wrap(
+            Format.wrap(
                 Resource.wrap(1, 2),
                 null,
                 arrayOf(),
@@ -199,9 +187,9 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `QuantityStringResource should return ToString Resource quantity with format args`() {
+    fun `QuantityStringResource should return Format Resource quantity with format args`() {
         assertEquals(
-            ToString.wrap(
+            Format.wrap(
                 Resource.wrap(1, 2),
                 null,
                 arrayOf(3, "4"),
@@ -227,63 +215,63 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `format should return ToString`() {
+    fun `format should return Format`() {
         assertEquals(
-            ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
             TextResource(1).format(1, "2"),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
             TextResource(1).format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
             TextResource(1).format(locale = null, 1, "2"),
         )
     }
 
     @Test
-    fun `format should return ToString with format args for ToString`() {
+    fun `format should return Format with format args for Format`() {
         assertEquals(
-            ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
             TextResource(1).mapToString().format(1, "2"),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
             TextResource(1).mapToString().format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
             TextResource(1).mapToString().format(locale = null, 1, "2"),
         )
     }
 
     @Test
-    fun `format should return ToString ignoring empty format args`() {
+    fun `format should return Format ignoring empty format args`() {
         assertEquals(
-            ToString.wrap(TextResource(1), null, null),
+            Format.wrap(TextResource(1), null, null),
             TextResource(1).format(),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), null, null),
+            Format.wrap(TextResource(1), null, null),
             TextResource(1).format(Locale.GERMAN),
         )
         assertEquals(
-            ToString.wrap(TextResource(1), null, null),
+            Format.wrap(TextResource(1), null, null),
             TextResource(1).format(locale = null),
         )
     }
 
     @Test
-    fun `mapToString should return unformatted ToString`() {
+    fun `mapToString should return unformatted Format`() {
         assertEquals(
-            ToString.wrap(TextResource(1), null, null),
+            Format.wrap(TextResource(1), null, null),
             TextResource(1).mapToString(),
         )
     }
 
     @Test
-    fun `mapToString should return identity for ToString`() {
+    fun `mapToString should return identity for Format`() {
         val format = "format".asAString().format(1)
         assertSame(
             format,
@@ -323,13 +311,6 @@ internal class AStringFactoryKtTest {
             wrapper,
             wrapper.mapToString(),
         )
-    }
-
-    @Test
-    fun `mapToString should return identity for Provider`() {
-        Provider.entries.forEach {
-            assertSame(it, it.mapToString())
-        }
     }
 
     @Test

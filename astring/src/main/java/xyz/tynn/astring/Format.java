@@ -24,20 +24,20 @@ import java.util.Objects;
  * Implementation calling {@link CharSequence#toString()} on the result and
  * {@link String#format(Locale, String, Object...)} with provided format arguments
  */
-final class ToString implements AString {
+final class Format implements AString {
 
     private final AString delegate;
     private final Locale locale;
     private final Object[] formatArgs, aStringArgs;
 
-    private ToString(AString delegate, Locale locale, Object[] formatArgs) {
+    private Format(AString delegate, Locale locale, Object[] formatArgs) {
         this.delegate = delegate;
         this.locale = locale;
         this.formatArgs = formatArgs;
-        this.aStringArgs = maybeCopyFormatArgs(formatArgs);
+        this.aStringArgs = createAStringArgs(formatArgs);
     }
 
-    private static Object[] maybeCopyFormatArgs(Object[] formatArgs) {
+    private static Object[] createAStringArgs(Object[] formatArgs) {
         if (formatArgs != null) for (Object arg : formatArgs)
             if (arg instanceof AString)
                 return copyOf(formatArgs, formatArgs.length, Object[].class);
@@ -47,15 +47,15 @@ final class ToString implements AString {
     static AString wrap(AString delegate, Locale locale, Object[] formatArgs) {
         if (delegate == null || delegate == Null) return Null;
         if (formatArgs == null || formatArgs.length == 0) {
-            if (delegate instanceof Provider || delegate instanceof ToString) return delegate;
             if (delegate instanceof Wrapper) return ((Wrapper) delegate).wrapToString();
+            if (delegate instanceof Format) return delegate;
             locale = null;
             formatArgs = null;
-        } else if (delegate instanceof ToString) {
-            ToString toString = (ToString) delegate;
-            if (toString.formatArgs == null) delegate = toString.delegate;
+        } else if (delegate instanceof Format) {
+            Format format = (Format) delegate;
+            if (format.formatArgs == null) delegate = format.delegate;
         }
-        return new ToString(delegate, locale, formatArgs);
+        return new Format(delegate, locale, formatArgs);
     }
 
     @Override
@@ -90,7 +90,7 @@ final class ToString implements AString {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ToString that = (ToString) o;
+        Format that = (Format) o;
         return delegate.equals(that.delegate) &&
                 Objects.equals(this.locale, that.locale) &&
                 Arrays.equals(this.formatArgs, that.formatArgs);
@@ -122,20 +122,20 @@ final class ToString implements AString {
         dest.writeValue(formatArgs);
     }
 
-    public static final Creator<ToString> CREATOR = new Creator<>() {
+    public static final Creator<Format> CREATOR = new Creator<>() {
 
         @Override
-        public ToString createFromParcel(Parcel source) {
+        public Format createFromParcel(Parcel source) {
             ClassLoader classLoader = getClass().getClassLoader();
-            return new ToString(
+            return new Format(
                     readParcelable(source, classLoader, AString.class),
                     readSerializable(source, classLoader, Locale.class),
                     (Object[]) source.readValue(classLoader));
         }
 
         @Override
-        public ToString[] newArray(int size) {
-            return new ToString[size];
+        public Format[] newArray(int size) {
+            return new Format[size];
         }
     };
 }

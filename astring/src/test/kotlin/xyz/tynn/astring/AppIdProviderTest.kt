@@ -27,10 +27,9 @@ internal class AppIdProviderTest {
     }
 
     @Test
-    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Provider.AppId == Provider.AppId
+            Provider.AppId.toAString() == Provider.AppId.toAString()
         }
     }
 
@@ -41,7 +40,7 @@ internal class AppIdProviderTest {
             Provider.AppId.equals("foo")
         }
         assertFalse {
-            Provider.AppId == mockk<AString>()
+            Provider.AppId.toAString() == mockk<AString>()
         }
         assertFalse {
             Provider.AppId == Provider.AppVersion
@@ -55,15 +54,15 @@ internal class AppIdProviderTest {
     fun `hashCode should return 0`() {
         assertNotEquals(
             0,
-            Provider.AppId.hashCode(),
+            Provider.AppId.toAString().hashCode(),
         )
     }
 
     @Test
     fun `toString should return typed string`() {
         assertEquals(
-            "AString(Context(appId))",
-            Provider.AppId.toString(),
+            "AString(Context(AppId))",
+            Provider.AppId.toAString().toString(),
         )
     }
 }

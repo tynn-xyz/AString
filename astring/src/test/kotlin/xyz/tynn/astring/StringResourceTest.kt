@@ -107,15 +107,15 @@ internal class StringResourceTest {
     @Test
     fun `hashCode should return delegate to string resource`() {
         assertEquals(
-            983103,
+            30506945,
             Resource.wrap(1, null, null).hashCode(),
         )
         assertEquals(
-            983103,
+            30506945,
             Resource.wrap(1, null, arrayOf()).hashCode(),
         )
         assertEquals(
-            984177,
+            30508019,
             Resource.wrap(1, null, arrayOf(2, "3")).hashCode(),
         )
     }

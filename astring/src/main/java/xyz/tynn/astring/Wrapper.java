@@ -23,7 +23,7 @@ final class Wrapper implements AString {
 
     private final CharSequence value;
 
-    private Wrapper(@Nullable CharSequence value) {
+    private Wrapper(CharSequence value) {
         this.value = value;
     }
 

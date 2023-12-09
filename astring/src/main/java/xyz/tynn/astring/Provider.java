@@ -3,14 +3,15 @@
 
 package xyz.tynn.astring;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 
-enum Provider implements AString {
+@SuppressLint("UnsafeOptInUsageError")
+enum Provider implements AStringProvider {
 
     /**
      * Implementation providing {@link Context#getPackageName()}
@@ -24,7 +25,7 @@ enum Provider implements AString {
         @NonNull
         @Override
         public String toString() {
-            return "AString(" + "Context(" + "appId" + "))";
+            return "Context(" + "AppId" + ')';
         }
     },
 
@@ -46,27 +47,13 @@ enum Provider implements AString {
         @NonNull
         @Override
         public String toString() {
-            return "AString(" + "Context(" + "appVersion" + "))";
+            return "Context(" + "AppVersion" + ')';
         }
     },
 
     ;
 
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeString(name());
+    AString toAString() {
+        return Delegate.wrap(this);
     }
-
-    public static final Creator<Provider> CREATOR = new Creator<>() {
-
-        @Override
-        public Provider createFromParcel(Parcel source) {
-            return Provider.valueOf(source.readString());
-        }
-
-        @Override
-        public Provider[] newArray(int size) {
-            return new Provider[size];
-        }
-    };
 }

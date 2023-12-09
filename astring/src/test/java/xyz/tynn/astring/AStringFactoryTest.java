@@ -69,13 +69,13 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void format_should_return_ToString() {
+    public void format_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
                 AStringFactory.formatWithAString(AString.Null, 1, "2"));
     }
 
     @Test
-    public void format_without_args_should_return_ToString() {
+    public void format_without_args_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null),
                 AStringFactory.formatWithAString(AString.Null, (Object[]) null));
     }
@@ -87,19 +87,19 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void format_without_locale_should_return_ToString() {
+    public void format_without_locale_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
                 AStringFactory.formatWithAString(AString.Null, null, 1, "2"));
     }
 
     @Test
-    public void format_without_locale_and_args_should_return_ToString() {
+    public void format_without_locale_and_args_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null),
                 AStringFactory.formatWithAString(AString.Null, null, (Object[]) null));
     }
 
     @Test
-    public void format_with_locale_should_return_ToString() {
+    public void format_with_locale_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"),
                 AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"));
     }
@@ -117,14 +117,8 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void mapToString_should_be_identity_on_Provider() {
-        assertSame(Provider.AppId, AStringFactory.mapToString(Provider.AppId));
-        assertSame(Provider.AppVersion, AStringFactory.mapToString(Provider.AppVersion));
-    }
-
-    @Test
-    public void mapToString_should_be_identity_on_ToString() {
-        AString aString = AStringFactory.formatWithAString(Provider.AppId, 1);
+    public void mapToString_should_be_identity_on_Format() {
+        AString aString = AStringFactory.formatWithAString(Provider.AppId.toAString(), 1);
         assertSame(aString, AStringFactory.mapToString(aString));
     }
 
@@ -137,12 +131,12 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void appIdAString_should_return_AppIdProvider() {
-        assertSame(Provider.AppId, AStringFactory.getAppId());
+    public void AppId_should_return_AppId_provider_wrap() {
+        assertEquals(Provider.AppId.toAString(), AStringFactory.getAppId());
     }
 
     @Test
-    public void appVersionAString_should_return_AppVersionProvider() {
-        assertSame(Provider.AppVersion, AStringFactory.getAppVersion());
+    public void AppVersion_should_return_AppVersion_provider_wrap() {
+        assertEquals(Provider.AppVersion.toAString(), AStringFactory.getAppVersion());
     }
 }

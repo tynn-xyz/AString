@@ -67,11 +67,11 @@ internal class QuantityTextResourceTest {
     @Test
     fun `hashCode should return delegate to text resource and quantity`() {
         assertEquals(
-            994,
+            31776,
             Resource.wrap(1, 2).hashCode(),
         )
         assertEquals(
-            1025,
+            32737,
             Resource.wrap(2, 2).hashCode(),
         )
     }

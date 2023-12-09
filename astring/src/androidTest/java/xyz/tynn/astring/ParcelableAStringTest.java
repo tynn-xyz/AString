@@ -23,7 +23,7 @@ public class ParcelableAStringTest {
     private static final Locale LOCALE = Locale.UK;
     private static final int RES_ID = 123;
     private static final int QUANTITY = 456;
-    private static final AString FORMAT = new Format();
+    private static final AString FORMAT = new FormatAString();
     private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date(), Wrapper.wrap("test-string")};
 
     @Test
@@ -39,27 +39,27 @@ public class ParcelableAStringTest {
     }
 
     @Test
-    public void ToString_should_implement_parcelable() {
-        assertParcelableAStringEquality(ToString.wrap(FORMAT, LOCALE, FORMAT_ARGS));
-        assertParcelableAStringInvocation(ToString.wrap(FORMAT, LOCALE, FORMAT_ARGS));
+    public void Format_should_implement_parcelable() {
+        assertParcelableAStringEquality(Format.wrap(FORMAT, LOCALE, FORMAT_ARGS));
+        assertParcelableAStringInvocation(Format.wrap(FORMAT, LOCALE, FORMAT_ARGS));
     }
 
     @Test
-    public void ToString_without_locale_should_implement_parcelable() {
-        assertParcelableAStringEquality(ToString.wrap(FORMAT, null, FORMAT_ARGS));
-        assertParcelableAStringInvocation(ToString.wrap(FORMAT, null, FORMAT_ARGS));
+    public void Format_without_locale_should_implement_parcelable() {
+        assertParcelableAStringEquality(Format.wrap(FORMAT, null, FORMAT_ARGS));
+        assertParcelableAStringInvocation(Format.wrap(FORMAT, null, FORMAT_ARGS));
     }
 
     @Test
-    public void ToString_without_args_should_implement_parcelable() {
-        assertParcelableAStringEquality(ToString.wrap(FORMAT, LOCALE, null));
-        assertParcelableAStringInvocation(ToString.wrap(FORMAT, LOCALE, null));
+    public void Format_without_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Format.wrap(FORMAT, LOCALE, null));
+        assertParcelableAStringInvocation(Format.wrap(FORMAT, LOCALE, null));
     }
 
     @Test
-    public void ToString_without_args_and_locale_should_implement_parcelable() {
-        assertParcelableAStringEquality(ToString.wrap(FORMAT, null, null));
-        assertParcelableAStringInvocation(ToString.wrap(FORMAT, null, null));
+    public void Format_without_args_and_locale_should_implement_parcelable() {
+        assertParcelableAStringEquality(Format.wrap(FORMAT, null, null));
+        assertParcelableAStringInvocation(Format.wrap(FORMAT, null, null));
     }
 
     @Test
@@ -94,17 +94,17 @@ public class ParcelableAStringTest {
 
     @Test
     public void AppIdProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(Provider.AppId);
-        assertParcelableAStringInvocation(Provider.AppId);
+        assertParcelableAStringEquality(Provider.AppId.toAString());
+        assertParcelableAStringInvocation(Provider.AppId.toAString());
     }
 
     @Test
     public void AppVersionProvider_should_implement_parcelable() {
-        assertParcelableAStringIdentity(Provider.AppVersion);
-        assertParcelableAStringInvocation(Provider.AppVersion);
+        assertParcelableAStringEquality(Provider.AppVersion.toAString());
+        assertParcelableAStringInvocation(Provider.AppVersion.toAString());
     }
 
-    private static class Format implements AString {
+    private static class FormatAString implements AString {
 
         @Nullable
         @Override
@@ -118,7 +118,7 @@ public class ParcelableAStringTest {
 
         @Override
         public boolean equals(@Nullable Object obj) {
-            return obj instanceof Format;
+            return obj instanceof FormatAString;
         }
 
         @Override
@@ -126,16 +126,16 @@ public class ParcelableAStringTest {
             return 43;
         }
 
-        public static final Creator<Format> CREATOR = new Creator<>() {
+        public static final Creator<FormatAString> CREATOR = new Creator<>() {
 
             @Override
-            public Format createFromParcel(Parcel source) {
-                return new Format();
+            public FormatAString createFromParcel(Parcel source) {
+                return new FormatAString();
             }
 
             @Override
-            public Format[] newArray(int size) {
-                return new Format[size];
+            public FormatAString[] newArray(int size) {
+                return new FormatAString[size];
             }
         };
     }
