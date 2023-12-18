@@ -12,7 +12,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-internal class AppIdProviderTest {
+internal class AppIdTest {
 
     @Test
     fun `invoke should return the package name`() {
@@ -22,31 +22,28 @@ internal class AppIdProviderTest {
 
         assertEquals(
             "foo",
-            Provider.AppId.invoke(context),
+            AppId.invoke(context),
         )
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Provider.AppId.toAString() == Provider.AppId.toAString()
+            AppId == AppId
         }
     }
 
     @Test
-    @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppIdProvider`() {
         assertFalse {
-            Provider.AppId.equals("foo")
+            AppId.equals("foo")
         }
         assertFalse {
-            Provider.AppId.toAString() == mockk<AString>()
+            AppId == mockk<AString>()
         }
         assertFalse {
-            Provider.AppId == Provider.AppVersion
-        }
-        assertFalse {
-            Provider.AppId == mockk<Provider>()
+            AppId == AppVersion
         }
     }
 
@@ -54,7 +51,7 @@ internal class AppIdProviderTest {
     fun `hashCode should return 0`() {
         assertNotEquals(
             0,
-            Provider.AppId.toAString().hashCode(),
+            AppId.hashCode(),
         )
     }
 
@@ -62,7 +59,7 @@ internal class AppIdProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(AppId))",
-            Provider.AppId.toAString().toString(),
+            AppId.toString(),
         )
     }
 }

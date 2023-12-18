@@ -6,10 +6,25 @@
 package xyz.tynn.astring
 
 import android.content.res.Configuration
+import xyz.tynn.astring.Predicate.NonBlank
+import xyz.tynn.astring.Predicate.NonEmpty
+import xyz.tynn.astring.Predicate.NonNull
+import xyz.tynn.astring.Transformer.Trim
 import java.util.Locale
 
 /**
- * Wraps the [AString] to format the string with [formatArgs]
+ * Maps the [AString] `CharSequence` to the result of [transformer]
+ */
+@[InefficientAStringApi JvmName("mapAString")]
+public fun AString.map(
+    transformer: AString.Transformer,
+): AString = Delegate.wrap(
+    transformer,
+    this,
+)
+
+/**
+ * Formats the [AString] `CharSequence` with [formatArgs]
  * using the first locale of [Configuration.getLocales]
  *
  * **Note** that any [AString] within [formatArgs] will be invoked
@@ -28,7 +43,7 @@ public fun AString?.format(
 )
 
 /**
- * Wraps the [AString] to format the string with [formatArgs]
+ * Formats the [AString] `CharSequence` with [formatArgs]
  * using the provided [locale] if not null or the first locale of
  * [Configuration.getLocales]
  *
@@ -49,14 +64,57 @@ public fun AString?.format(
 )
 
 /**
- * Wraps the [AString] to always return a [String] on invocation
+ * Maps a null [AString] `CharSequence` to an empty `String`
  *
  * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
- *
- * @see CharSequence.toString
  */
-public fun AString?.mapToString(): AString = Format.wrap(
+@[JvmName("mapNullToEmpty") OptIn(InefficientAStringApi::class)]
+public fun AString?.emptyIfNull(): AString = Delegate.wrap(
+    NonNull,
+    this,
+)
+
+/**
+ * Maps a blank [AString] `CharSequence` to null
+ *
+ * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
+ */
+@[JvmName("mapBlankToNull") OptIn(InefficientAStringApi::class)]
+public fun AString?.nullIfBlank(): AString = Delegate.wrap(
+    NonBlank,
+    this,
+)
+
+/**
+ * Maps an empty [AString] `CharSequence` to null
+ *
+ * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
+ */
+@[JvmName("mapEmptyToNull") OptIn(InefficientAStringApi::class)]
+public fun AString?.nullIfEmpty(): AString = Delegate.wrap(
+    NonEmpty,
+    this,
+)
+
+/**
+ * Maps the [AString] to always return a [String] on invocation
+ *
+ * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
+ */
+@JvmName("mapCharSequenceToString")
+public fun AString?.string(): AString = Format.wrap(
     this,
     null,
     null,
+)
+
+/**
+ * Trims the [AString] `CharSequence`
+ *
+ * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
+ */
+@[JvmName("trimCharSequence") OptIn(InefficientAStringApi::class)]
+public fun AString?.trim(): AString = Delegate.wrap(
+    Trim,
+    this,
 )

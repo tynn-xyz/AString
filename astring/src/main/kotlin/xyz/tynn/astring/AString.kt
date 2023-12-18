@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.text.Spannable
 import android.view.View
 import androidx.fragment.app.Fragment
+import java.io.Serializable
 import java.util.Objects.requireNonNull
 import kotlin.reflect.KProperty
 
@@ -31,6 +32,8 @@ public interface AString : Parcelable {
      */
     public operator fun invoke(context: Context): CharSequence?
     public override fun describeContents(): Int = 0
+    public override fun equals(other: Any?): Boolean
+    public override fun hashCode(): Int
 
     public companion object {
 
@@ -39,6 +42,24 @@ public interface AString : Parcelable {
          */
         @JvmField
         public val Null: AString = Wrapper.wrap(null)
+    }
+
+    /**
+     * Functional interface providing a [CharSequence] from a [Context]
+     *
+     * This differs from [AString] in not implementing [Parcelable]
+     */
+    @InefficientAStringApi
+    public fun interface Provider : Serializable {
+        public operator fun invoke(context: Context): CharSequence?
+    }
+
+    /**
+     * Functional interface transforming a [CharSequence] provided by an [AString]
+     */
+    @InefficientAStringApi
+    public fun interface Transformer : Serializable {
+        public operator fun invoke(value: CharSequence?): CharSequence?
     }
 }
 

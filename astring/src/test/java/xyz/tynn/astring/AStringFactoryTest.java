@@ -8,8 +8,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import java.util.Locale;
-
 public class AStringFactoryTest {
 
     @Test
@@ -19,14 +17,20 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void ensureAStringNull_should_return_NULL() {
-        assertSame(AString.Null, AStringFactory.ensureAStringNull(null));
+    @SuppressWarnings("ConstantConditions")
+    public void createAString_should_return_NULL() {
+        assertSame(AString.Null, AStringFactory.createAString(null));
     }
 
     @Test
-    public void ensureAStringNull_should_return_identity() {
-        AString aString = AStringFactory.createFromQuantityStringResource(1, 2);
-        assertSame(aString, AStringFactory.ensureAStringNull(aString));
+    @SuppressWarnings("ConstantConditions")
+    public void mapAString_should_return_NULL() {
+        assertSame(AString.Null, AStringFactory.mapAString(AString.Null, null));
+    }
+
+    @Test
+    public void ensureAStringNull_should_return_NULL() {
+        assertSame(AString.Null, AStringFactory.ensureAStringNull(null));
     }
 
     @Test
@@ -69,74 +73,56 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void format_should_return_Format() {
-        assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
-                AStringFactory.formatWithAString(AString.Null, 1, "2"));
-    }
-
-    @Test
     public void format_without_args_should_return_Format() {
         assertEquals(AStringFactory.formatWithAString(AString.Null),
                 AStringFactory.formatWithAString(AString.Null, (Object[]) null));
     }
 
     @Test
-    public void format_should_be_NULL_on_null_format() {
-        assertSame(AString.Null, AStringFactory.formatWithAString(null, 1, "2"));
-        assertSame(AString.Null, AStringFactory.formatWithAString(AString.Null, 1, "2"));
-    }
-
-    @Test
     public void format_without_locale_should_return_Format() {
+        assertEquals(AStringFactory.formatWithAString(AString.Null),
+                AStringFactory.formatWithAString(AString.Null, null, (Object[]) null));
         assertEquals(AStringFactory.formatWithAString(AString.Null, 1, "2"),
                 AStringFactory.formatWithAString(AString.Null, null, 1, "2"));
     }
 
     @Test
-    public void format_without_locale_and_args_should_return_Format() {
-        assertEquals(AStringFactory.formatWithAString(AString.Null),
-                AStringFactory.formatWithAString(AString.Null, null, (Object[]) null));
+    public void string_should_be_NULL_on_null() {
+        assertEquals(AString.Null, AStringFactory.mapCharSequenceToString(null));
+        assertEquals(AString.Null, AStringFactory.mapCharSequenceToString(AString.Null));
     }
 
     @Test
-    public void format_with_locale_should_return_Format() {
-        assertEquals(AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"),
-                AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"));
+    public void trim_should_be_NULL_on_null() {
+        assertEquals(AString.Null, AStringFactory.trimCharSequence(null));
+        assertEquals(AString.Null, AStringFactory.trimCharSequence(AString.Null));
     }
 
     @Test
-    public void format_with_locale_should_be_NULL_on_null_format() {
-        assertEquals(AString.Null, AStringFactory.formatWithAString(null, Locale.UK, 1, "2"));
-        assertEquals(AString.Null, AStringFactory.formatWithAString(AString.Null, Locale.UK, 1, "2"));
+    public void mapBlankToNull_should_be_NULL_on_null() {
+        assertEquals(AString.Null, AStringFactory.mapBlankToNull(null));
+        assertEquals(AString.Null, AStringFactory.mapBlankToNull(AString.Null));
     }
 
     @Test
-    public void mapToString_should_be_NULL_on_null() {
-        assertEquals(AString.Null, AStringFactory.mapToString(null));
-        assertEquals(AString.Null, AStringFactory.mapToString(AString.Null));
+    public void mapEmptyToNull_should_be_NULL_on_null() {
+        assertEquals(AString.Null, AStringFactory.mapEmptyToNull(null));
+        assertEquals(AString.Null, AStringFactory.mapEmptyToNull(AString.Null));
     }
 
     @Test
-    public void mapToString_should_be_identity_on_Format() {
-        AString aString = AStringFactory.formatWithAString(Provider.AppId.toAString(), 1);
-        assertSame(aString, AStringFactory.mapToString(aString));
-    }
-
-    @Test
-    public void mapToString_should_be_Wrapper_on_Wrapper() {
-        AString aString = AStringFactory.createFromCharSequence("value");
-        assertSame(aString, AStringFactory.mapToString(aString));
-        assertEquals(aString, AStringFactory.mapToString(
-                AStringFactory.createFromCharSequence(new StringBuilder("value"))));
+    public void mapNullToEmpty_should_be_NULL_on_null() {
+        assertEquals(AStringFactory.createFromCharSequence(""),
+                AStringFactory.mapNullToEmpty(null));
     }
 
     @Test
     public void AppId_should_return_AppId_provider_wrap() {
-        assertEquals(Provider.AppId.toAString(), AStringFactory.getAppId());
+        assertEquals(Delegate.wrap(Provider.AppId), AStringFactory.getAppId());
     }
 
     @Test
     public void AppVersion_should_return_AppVersion_provider_wrap() {
-        assertEquals(Provider.AppVersion.toAString(), AStringFactory.getAppVersion());
+        assertEquals(Delegate.wrap(Provider.AppVersion), AStringFactory.getAppVersion());
     }
 }

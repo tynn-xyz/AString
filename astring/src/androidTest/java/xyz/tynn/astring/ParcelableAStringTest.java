@@ -27,13 +27,9 @@ public class ParcelableAStringTest {
     private static final Object[] FORMAT_ARGS = {"arg1", 2, 3L, 4.5, 6F, new Date(), Wrapper.wrap("test-string")};
 
     @Test
-    public void AString_Null_should_implement_parcelable() {
-        assertParcelableAStringIdentity(AString.Null);
-        assertParcelableAStringInvocation(AString.Null);
-    }
-
-    @Test
     public void Wrapper_should_implement_parcelable() {
+        assertParcelableAStringIdentity(Wrapper.wrap(null));
+        assertParcelableAStringInvocation(Wrapper.wrap(null));
         assertParcelableAStringEquality(Wrapper.wrap("test-string"));
         assertParcelableAStringInvocation(Wrapper.wrap("test-string"));
     }
@@ -42,66 +38,45 @@ public class ParcelableAStringTest {
     public void Format_should_implement_parcelable() {
         assertParcelableAStringEquality(Format.wrap(FORMAT, LOCALE, FORMAT_ARGS));
         assertParcelableAStringInvocation(Format.wrap(FORMAT, LOCALE, FORMAT_ARGS));
-    }
-
-    @Test
-    public void Format_without_locale_should_implement_parcelable() {
         assertParcelableAStringEquality(Format.wrap(FORMAT, null, FORMAT_ARGS));
         assertParcelableAStringInvocation(Format.wrap(FORMAT, null, FORMAT_ARGS));
-    }
-
-    @Test
-    public void Format_without_args_should_implement_parcelable() {
         assertParcelableAStringEquality(Format.wrap(FORMAT, LOCALE, null));
         assertParcelableAStringInvocation(Format.wrap(FORMAT, LOCALE, null));
-    }
-
-    @Test
-    public void Format_without_args_and_locale_should_implement_parcelable() {
         assertParcelableAStringEquality(Format.wrap(FORMAT, null, null));
         assertParcelableAStringInvocation(Format.wrap(FORMAT, null, null));
     }
 
     @Test
-    public void Resource_quantity_text_should_implement_parcelable() {
+    public void Resource_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null));
         assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY));
-    }
-
-    @Test
-    public void Resource_quantity_string_with_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, FORMAT_ARGS));
         assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY, FORMAT_ARGS));
-    }
-
-    @Test
-    public void Resource_quantity_string_without_args_should_implement_parcelable() {
+        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, null));
         assertParcelableAStringEquality(Resource.wrap(RES_ID, QUANTITY, null));
     }
 
     @Test
-    public void Resource_text_should_implement_parcelable() {
-        assertParcelableAStringEquality(Resource.wrap(RES_ID, null));
-    }
-
-    @Test
-    public void Resource_string_with_args_should_implement_parcelable() {
-        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, FORMAT_ARGS));
-    }
-
-    @Test
-    public void Resource_string_without_args_should_implement_parcelable() {
-        assertParcelableAStringEquality(Resource.wrap(RES_ID, null, null));
-    }
-
-    @Test
-    public void AppIdProvider_should_implement_parcelable() {
-        assertParcelableAStringEquality(Provider.AppId.toAString());
-        assertParcelableAStringInvocation(Provider.AppId.toAString());
-    }
-
-    @Test
-    public void AppVersionProvider_should_implement_parcelable() {
-        assertParcelableAStringEquality(Provider.AppVersion.toAString());
-        assertParcelableAStringInvocation(Provider.AppVersion.toAString());
+    public void Delegate_should_implement_parcelable() {
+        assertParcelableAStringIdentity(Delegate.wrap(null));
+        assertParcelableAStringInvocation(Delegate.wrap(null));
+        assertParcelableAStringEquality(Delegate.wrap(Provider.AppId));
+        assertParcelableAStringInvocation(Delegate.wrap(Provider.AppId));
+        assertParcelableAStringEquality(Delegate.wrap(Provider.AppVersion));
+        assertParcelableAStringInvocation(Delegate.wrap(Provider.AppVersion));
+        assertParcelableAStringInvocation(Delegate.wrap(Object::toString));
+        assertParcelableAStringIdentity(Delegate.wrap(null, null));
+        assertParcelableAStringInvocation(Delegate.wrap(null, null));
+        assertParcelableAStringEquality(Delegate.wrap(Predicate.NonBlank, FORMAT));
+        assertParcelableAStringInvocation(Delegate.wrap(Predicate.NonBlank, FORMAT));
+        assertParcelableAStringEquality(Delegate.wrap(Predicate.NonEmpty, FORMAT));
+        assertParcelableAStringInvocation(Delegate.wrap(Predicate.NonEmpty, FORMAT));
+        assertParcelableAStringEquality(Delegate.wrap(Predicate.NonNull, FORMAT));
+        assertParcelableAStringInvocation(Delegate.wrap(Predicate.NonNull, FORMAT));
+        assertParcelableAStringEquality(Delegate.wrap(Transformer.ToString, FORMAT));
+        assertParcelableAStringInvocation(Delegate.wrap(Transformer.ToString, FORMAT));
+        assertParcelableAStringEquality(Delegate.wrap(Transformer.Trim, FORMAT));
+        assertParcelableAStringInvocation(Delegate.wrap(Transformer.Trim, FORMAT));
     }
 
     private static class FormatAString implements AString {

@@ -18,6 +18,8 @@ internal class AStringKtKtTest {
     private val aString = mockk<AString>(relaxed = true)
     private val aContext = mockk<Context>()
 
+    private val Context.string by aString
+
     @Test
     fun `aString with context delegates to this`() {
         aContext.aString(aString)
@@ -39,6 +41,13 @@ internal class AStringKtKtTest {
         mockk<View> {
             every { context } returns aContext
         }.aString(aString)
+
+        verify { aString(aContext) }
+    }
+
+    @Test
+    fun `getValue with context delegates to receiver`() {
+        aContext.string
 
         verify { aString(aContext) }
     }

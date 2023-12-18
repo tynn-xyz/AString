@@ -37,7 +37,6 @@ public class AStringKtTest {
     @Test
     public void invokeWithContext_should_delegate_to_context() {
         every(scope -> aString.invoke(context)).returns("context");
-
         assertEquals("context", AStringKt.invokeWithContext(context, aString));
     }
 
@@ -46,7 +45,7 @@ public class AStringKtTest {
         assertNull(AStringKt.invokeWithContext(context, null));
     }
 
-    @SuppressWarnings({"ConstantConditions", "RedundantCast"})
+    @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
     public void invokeWithContext_should_throw_on_null_context() {
         AStringKt.invokeWithContext((Context) null, aString);
@@ -74,14 +73,12 @@ public class AStringKtTest {
     public void invokeWithFragment_should_throw_on_null_context() {
         every(scope -> fragment.requireContext()).answers((scope, $) -> scope.callOriginal());
         every(scope -> fragment.getContext()).returns(null);
-
         AStringKt.invokeWithFragment(fragment, aString);
     }
 
     @Test
     public void invokeWithView_should_delegate_to_view() {
         every(scope -> aString.invoke(view.getContext())).returns("view");
-
         assertEquals("view", AStringKt.invokeWithView(view, aString));
     }
 
@@ -90,7 +87,7 @@ public class AStringKtTest {
         assertNull(AStringKt.invokeWithView(view, null));
     }
 
-    @SuppressWarnings({"ConstantConditions", "RedundantCast"})
+    @SuppressWarnings("ConstantConditions")
     @Test(expected = NullPointerException.class)
     public void invokeWithView_should_throw_on_null_view() {
         AStringKt.invokeWithView((View) null, aString);

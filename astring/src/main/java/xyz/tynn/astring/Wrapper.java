@@ -5,6 +5,7 @@ package xyz.tynn.astring;
 
 import static android.text.TextUtils.CHAR_SEQUENCE_CREATOR;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Parcel;
 import android.text.TextUtils;
@@ -43,7 +44,7 @@ final class Wrapper implements AString {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Wrapper)) return false;
         Wrapper that = (Wrapper) o;
         return Objects.equals(value, that.value);
     }
@@ -64,9 +65,10 @@ final class Wrapper implements AString {
         TextUtils.writeToParcel(value, dest, flags);
     }
 
-    Wrapper wrapToString() {
-        CharSequence value = this.value;
-        return value == null || value instanceof String ? this : new Wrapper(value.toString());
+    @SuppressLint("UnsafeOptInUsageError")
+    Wrapper map(AString.Transformer transformer) {
+        CharSequence value = transformer.invoke(this.value);
+        return value != null && value.equals(this.value) ? this : wrap(value);
     }
 
     public static final Creator<Wrapper> CREATOR = new Creator<>() {

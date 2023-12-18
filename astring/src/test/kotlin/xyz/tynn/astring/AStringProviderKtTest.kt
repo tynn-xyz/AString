@@ -4,24 +4,77 @@
 package xyz.tynn.astring
 
 import android.content.Context
+import io.mockk.every
 import io.mockk.mockk
+import xyz.tynn.astring.Provider.AppId
+import xyz.tynn.astring.Provider.AppVersion
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 @InefficientAStringApi
 internal class AStringProviderKtTest {
 
-    private val context = mockk<Context>()
+    @Test
+    fun `equals should be true for matching provider`() {
+        assertTrue {
+            Delegate.wrap(AppId) == Delegate.wrap(AppId)
+        }
+        assertTrue {
+            Delegate.wrap(AppVersion) == Delegate.wrap(AppVersion)
+        }
+        assertTrue {
+            Delegate.wrap(Provider()) == Delegate.wrap(Provider())
+        }
+    }
 
     @Test
-    fun `AString should return provided string`() {
-        val string = mockk<CharSequence>()
+    fun `equals should be false for non matching provider`() {
+        assertFalse {
+            Delegate.wrap(mockk()) == Delegate.wrap(mockk())
+        }
+    }
+
+    @Test
+    fun `equals should be false for non provider Delegate`() {
+        assertFalse {
+            Delegate.wrap(mockk()).equals("foo")
+        }
+        assertFalse {
+            Delegate.wrap(mockk()) == mockk<AString>()
+        }
+        assertFalse {
+            Delegate.wrap(mockk()).equals(mockk<Wrapper>())
+        }
+        assertFalse {
+            Delegate.wrap(mockk()).equals(mockk<Provider>())
+        }
+        assertFalse {
+            Delegate.wrap(mockk()).equals(mockk<Resource>())
+        }
+        assertFalse {
+            Delegate.wrap(mockk()) == Delegate.wrap(mockk(), mockk())
+        }
+    }
+
+    @Test
+    fun `hashCode should return delegate to provider`() {
         assertEquals(
-            string,
-            context.aString(
-                AString { string },
-            ),
+            4775,
+            Delegate.wrap(mockk { every { this@mockk.hashCode() } returns 123 }).hashCode(),
+        )
+    }
+
+    @Test
+    fun `toString should delegate to provider`() {
+        val provider = mockk<AString.Provider> {
+            every { this@mockk.toString() } returns "to-string"
+        }
+        assertEquals(
+            "AString(to-string)",
+            AString(provider).toString(),
         )
     }
 
@@ -29,14 +82,14 @@ internal class AStringProviderKtTest {
     @Suppress("RedundantSamConstructor")
     fun `interface should not be efficient`() {
         assertNotEquals(
-            AString(AStringProvider { "" }),
-            AString(AStringProvider { "" }),
+            AString(AString.Provider { "" }),
+            AString(AString.Provider { "" }),
         )
     }
 
     @Test
     fun `interface val should be efficient`() {
-        val function = AStringProvider { "" }
+        val function = AString.Provider { "" }
         assertEquals(
             AString(function),
             AString(function),
@@ -96,7 +149,7 @@ internal class AStringProviderKtTest {
 
     private fun function(context: Context) = context.toString()
 
-    private class Provider : AStringProvider {
+    private class Provider : AString.Provider {
         override fun invoke(context: Context) = context.toString()
         override fun equals(other: Any?) = other is Provider
         override fun hashCode() = 0

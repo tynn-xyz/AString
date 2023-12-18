@@ -3,7 +3,6 @@
 
 package xyz.tynn.astring
 
-import android.content.Context
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -11,54 +10,56 @@ import xyz.tynn.astring.test.AStringAssert.assertParcelableAStringEquality
 import xyz.tynn.astring.test.AStringAssert.assertParcelableAStringInvocation
 
 @InefficientAStringApi
-internal class AStringProviderKtAndroidTest {
+internal class AStringTransformerKtAndroidTest {
+
+    private val aString = AppId
 
     @Test
-    fun provider_should_implement_parcelable() {
-        assertParcelableAStringEquality(AString(Context::getPackageName))
-        assertParcelableAStringInvocation(AString(Context::getPackageName))
+    fun transformer_should_implement_parcelable() {
+        assertParcelableAStringEquality(aString.map(CharSequence?::toString))
+        assertParcelableAStringInvocation(aString.map(CharSequence?::toString))
     }
 
     @Test
     @Suppress("RedundantSamConstructor")
     fun interface_should_not_be_efficient() {
         assertNotEquals(
-            AString(AString.Provider { "" }),
-            AString(AString.Provider { "" }),
+            aString.map(AString.Transformer { "" }),
+            aString.map(AString.Transformer { "" }),
         )
     }
 
     @Test
     fun interface_val_should_be_efficient() {
-        val function = AString.Provider { "" }
+        val function = AString.Transformer { "" }
         assertEquals(
-            AString(function),
-            AString(function),
+            aString.map(function),
+            aString.map(function),
         )
     }
 
     @Test
     fun instance_should_be_efficient() {
         assertEquals(
-            AString(Provider()),
-            AString(Provider()),
+            aString.map(Transformer()),
+            aString.map(Transformer()),
         )
     }
 
     @Test
     fun instance_val_should_be_efficient() {
-        val function = Provider()
+        val function = Transformer()
         assertEquals(
-            AString(function),
-            AString(function),
+            aString.map(function),
+            aString.map(function),
         )
     }
 
     @Test
     fun function_reference_should_be_efficient() {
         assertEquals(
-            AString(::function),
-            AString(::function),
+            aString.map(::function),
+            aString.map(::function),
         )
     }
 
@@ -66,33 +67,33 @@ internal class AStringProviderKtAndroidTest {
     fun function_reference_val_should_be_efficient() {
         val function = ::function
         assertEquals(
-            AString(function),
-            AString(function),
+            aString.map(function),
+            aString.map(function),
         )
     }
 
     @Test
     fun lambda_should_not_be_efficient() {
         assertNotEquals(
-            AString { it.toString() },
-            AString { it.toString() },
+            aString.map { it },
+            aString.map { it },
         )
     }
 
     @Test
     fun lambda_val_should_be_efficient() {
-        val function = { _: Context -> "" }
+        val function = { it: CharSequence? -> it }
         assertEquals(
-            AString(function),
-            AString(function),
+            aString.map(function),
+            aString.map(function),
         )
     }
 
-    private fun function(context: Context) = context.toString()
+    private fun function(value: CharSequence?) = value
 
-    private class Provider : AString.Provider {
-        override fun invoke(context: Context) = context.toString()
-        override fun equals(other: Any?) = other is Provider
+    private class Transformer : AString.Transformer {
+        override fun invoke(value: CharSequence?) = value
+        override fun equals(other: Any?) = other is Transformer
         override fun hashCode() = 0
     }
 }

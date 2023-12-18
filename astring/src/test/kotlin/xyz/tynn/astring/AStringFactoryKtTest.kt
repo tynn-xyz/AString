@@ -3,6 +3,7 @@
 
 package xyz.tynn.astring
 
+import android.content.Context
 import android.content.res.Resources.ID_NULL
 import io.mockk.mockk
 import java.util.Locale
@@ -10,7 +11,33 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
 
+@InefficientAStringApi
 internal class AStringFactoryKtTest {
+
+    @Test
+    fun `AString should return provided string`() {
+        val context = mockk<Context>()
+        val string = mockk<CharSequence>()
+        assertEquals(
+            string,
+            context.aString(
+                AString { string },
+            ),
+        )
+    }
+
+    @Test
+    fun `map should transform the original value`() {
+        val context = mockk<Context>()
+        assertEquals(
+            "value-value",
+            context.aString(
+                AString { "value" }.map {
+                    "$it-$it"
+                },
+            ),
+        )
+    }
 
     @Test
     fun `asAString should return NULL for null`() {
@@ -43,7 +70,7 @@ internal class AStringFactoryKtTest {
 
     @Test
     fun `asAString should be an identity for AString`() {
-        val aString: AString = mockk()
+        val aString = mockk<AString>()
         assertSame(
             aString,
             aString.asAString(),
@@ -65,7 +92,7 @@ internal class AStringFactoryKtTest {
 
     @Test
     fun `AString should be an identity for AString`() {
-        val aString: AString = mockk()
+        val aString = mockk<AString>()
         assertSame(
             aString,
             AString(aString),
@@ -234,15 +261,15 @@ internal class AStringFactoryKtTest {
     fun `format should return Format with format args for Format`() {
         assertEquals(
             Format.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).mapToString().format(1, "2"),
+            TextResource(1).string().format(1, "2"),
         )
         assertEquals(
             Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
-            TextResource(1).mapToString().format(Locale.GERMAN, 1, "2"),
+            TextResource(1).string().format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
             Format.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).mapToString().format(locale = null, 1, "2"),
+            TextResource(1).string().format(locale = null, 1, "2"),
         )
     }
 
@@ -263,69 +290,214 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `mapToString should return unformatted Format`() {
+    fun `string should return unformatted Format`() {
         assertEquals(
             Format.wrap(TextResource(1), null, null),
-            TextResource(1).mapToString(),
+            TextResource(1).string(),
         )
     }
 
     @Test
-    fun `mapToString should return identity for Format`() {
+    fun `string should return identity for Format`() {
         val format = "format".asAString().format(1)
         assertSame(
             format,
-            format.mapToString(),
+            format.string(),
         )
-        val toString = TextResource(1).mapToString()
+        val toString = TextResource(1).string()
         assertSame(
             toString,
-            toString.mapToString(),
+            toString.string(),
         )
     }
 
     @Test
-    fun `mapToString should return NULL for null`() {
+    fun `string should return NULL for null`() {
         assertSame(
             AString.Null,
-            null.mapToString(),
+            null.string(),
         )
         assertSame(
             AString.Null,
-            null.asAString().mapToString(),
+            null.asAString().string(),
         )
     }
 
     @Test
-    fun `mapToString should return new Wrapper`() {
+    fun `string should return mapped Wrapper`() {
         assertEquals(
             "format".asAString(),
-            StringBuilder("format").asAString().mapToString(),
+            StringBuilder("format").asAString().string(),
         )
     }
 
     @Test
-    fun `mapToString should return identity for Wrapper of String`() {
+    fun `string should return identity for Wrapper of String`() {
         val wrapper = "format".asAString()
         assertSame(
             wrapper,
-            wrapper.mapToString(),
+            wrapper.string(),
+        )
+    }
+
+    @Test
+    fun `nullIfBlank should return Null for null`() {
+        assertSame(
+            AString.Null,
+            null.nullIfBlank(),
+        )
+        assertSame(
+            AString.Null,
+            null.asAString().nullIfBlank(),
+        )
+    }
+
+    @Test
+    fun `nullIfBlank should return Null for empty Wrapper`() {
+        assertSame(
+            AString.Null,
+            " ".asAString().nullIfBlank(),
+        )
+    }
+
+    @Test
+    fun `nullIfBlank should return identity for Wrapper`() {
+        val aString = "wrapper".asAString()
+        assertSame(
+            aString,
+            aString.nullIfBlank(),
+        )
+    }
+
+    @Test
+    fun `nullIfBlank should return Delegate`() {
+        val aString = mockk<AString>()
+        assertEquals(
+            Delegate.wrap(
+                Predicate.NonBlank,
+                aString,
+            ),
+            aString.nullIfBlank(),
+        )
+    }
+
+    @Test
+    fun `nullIfEmpty should return Null for null`() {
+        assertSame(
+            AString.Null,
+            null.nullIfEmpty(),
+        )
+        assertSame(
+            AString.Null,
+            null.asAString().nullIfEmpty(),
+        )
+    }
+
+    @Test
+    fun `nullIfEmpty should return Null for empty Wrapper`() {
+        assertSame(
+            AString.Null,
+            "".asAString().nullIfEmpty(),
+        )
+    }
+
+    @Test
+    fun `nullIfEmpty should return identity for Wrapper`() {
+        val aString = "wrapper".asAString()
+        assertSame(
+            aString,
+            aString.nullIfEmpty(),
+        )
+    }
+
+    @Test
+    fun `nullIfEmpty should return Delegate`() {
+        val aString = mockk<AString>()
+        assertEquals(
+            Delegate.wrap(
+                Predicate.NonEmpty,
+                aString,
+            ),
+            aString.nullIfEmpty(),
+        )
+    }
+
+    @Test
+    fun `emptyIfNull should return empty Wrapper for null`() {
+        assertEquals(
+            "".asAString(),
+            null.emptyIfNull(),
+        )
+    }
+
+    @Test
+    fun `emptyIfNull should return empty Wrapper for Null`() {
+        assertEquals(
+            "".asAString(),
+            null.asAString().emptyIfNull(),
+        )
+    }
+
+    @Test
+    fun `emptyIfNull should return identity for Wrapper`() {
+        val aString = "wrapper".asAString()
+        assertSame(
+            aString,
+            aString.emptyIfNull(),
+        )
+    }
+
+    @Test
+    fun `emptyIfNull should return Delegate`() {
+        val aString = mockk<AString>()
+        assertEquals(
+            Delegate.wrap(
+                Predicate.NonNull,
+                aString,
+            ),
+            aString.emptyIfNull(),
+        )
+    }
+
+    @Test
+    fun `trim should return Null for null`() {
+        assertEquals(
+            AString.Null,
+            null.trim(),
+        )
+        assertEquals(
+            AString.Null,
+            null.asAString().trim(),
+        )
+    }
+
+    @Test
+    fun `trim should return trimmed Wrapper`() {
+        assertEquals(
+            "wrapper".asAString(),
+            " wrapper ".asAString().trim(),
+        )
+    }
+
+    @Test
+    fun `trim should return Delegate`() {
+        val aString = mockk<AString>()
+        assertEquals(
+            Delegate.wrap(
+                Transformer.Trim,
+                aString,
+            ),
+            aString.trim(),
         )
     }
 
     @Test
     fun `appIdAString should be an identity`() {
-        assertSame(
-            AppId,
-            AppId,
-        )
+        assertSame(AppId, AppId)
     }
 
     @Test
     fun `appVersionAString should be an identity`() {
-        assertSame(
-            AppVersion,
-            AppVersion,
-        )
+        assertSame(AppVersion, AppVersion)
     }
 }

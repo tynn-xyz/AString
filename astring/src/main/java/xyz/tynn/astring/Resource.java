@@ -17,7 +17,7 @@ import java.util.Objects;
  * Implementation delegating to a resource with or without format arguments
  */
 @SuppressLint("UnsafeOptInUsageError")
-final class Resource implements AStringProvider {
+final class Resource implements AString.Provider {
 
     private final int resId;
     private final Integer quantity;
@@ -47,7 +47,7 @@ final class Resource implements AStringProvider {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Resource)) return false;
         Resource that = (Resource) o;
         return resId == that.resId && Objects.equals(quantity, that.quantity);
     }

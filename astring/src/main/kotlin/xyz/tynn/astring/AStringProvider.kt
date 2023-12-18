@@ -11,16 +11,6 @@ import android.os.Parcelable
 import java.io.Serializable
 
 /**
- * Functional interface providing a [CharSequence] from a [Context]
- *
- * This differs from [AString] in not implementing [Parcelable]
- */
-@InefficientAStringApi
-public fun interface AStringProvider : Serializable {
-    public operator fun invoke(context: Context): CharSequence?
-}
-
-/**
  * Creates an [AString] by wrapping the [AStringProvider]
  *
  * **Note**: While [AString] implements [Parcelable],
@@ -29,7 +19,7 @@ public fun interface AStringProvider : Serializable {
  */
 @[InefficientAStringApi JvmName("createAString")]
 public fun AString(
-    provider: AStringProvider,
+    provider: AString.Provider,
 ): AString = Delegate.wrap(
     provider,
 )
@@ -39,11 +29,17 @@ public fun AString(
  *
  * @see Context.getPackageName
  */
-public val AppId: AString = Provider.AppId.toAString()
+@OptIn(InefficientAStringApi::class)
+public val AppId: AString = Delegate.wrap(
+    Provider.AppId,
+)
 
 /**
  * An `AString` always providing the application version
  *
  * @see PackageInfo.versionName
  */
-public val AppVersion: AString = Provider.AppVersion.toAString()
+@OptIn(InefficientAStringApi::class)
+public val AppVersion: AString = Delegate.wrap(
+    Provider.AppVersion,
+)

@@ -9,6 +9,7 @@ import static androidx.core.os.ParcelCompat.readParcelable;
 import static androidx.core.os.ParcelCompat.readSerializable;
 import static java.lang.String.format;
 import static java.util.Arrays.copyOf;
+import static xyz.tynn.astring.Transformer.ToString;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -47,8 +48,8 @@ final class Format implements AString {
     static AString wrap(AString delegate, Locale locale, Object[] formatArgs) {
         if (delegate == null || delegate == Null) return Null;
         if (formatArgs == null || formatArgs.length == 0) {
-            if (delegate instanceof Wrapper) return ((Wrapper) delegate).wrapToString();
             if (delegate instanceof Format) return delegate;
+            if (delegate instanceof Wrapper) return ((Wrapper) delegate).map(ToString);
             locale = null;
             formatArgs = null;
         } else if (delegate instanceof Format) {
@@ -89,7 +90,7 @@ final class Format implements AString {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Format)) return false;
         Format that = (Format) o;
         return delegate.equals(that.delegate) &&
                 Objects.equals(this.locale, that.locale) &&

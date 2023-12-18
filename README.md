@@ -31,7 +31,7 @@ the version for every other dependency is provided implicitly with a BOM.
 
 ## Usage
 
-    val string by aString
+    val Context.string by AString("value")
 
 The `AString` itself should be used in place of a `CharSequence`,
 just like string resource would be used by the framework.
@@ -56,8 +56,7 @@ and equivalents for `getQuantityString()` and `getQuantityText()` provided by
     QuantityStringResource(R.plurals.res_id, 1, "arg")
     QuantityTextResource(R.plurals.res_id, 2)
 
-Of course it is also possible to provide any other data like
-`AppId` or `AppVersion` from the `Context`.
+While `AppId` or `AppVersion` just provide data from the `Context` itself.
 
 ### `AString` Transformers
 
@@ -65,7 +64,9 @@ While `AString` represent any generic `CharSequence`, it might be useful to
 transform the value before its use.
 
     aString.format("arg", AppId)
-    aString.mapToString()
+    aString.nullIfBlank()
+    aString.string()
+    aString.trim()
 
 ### _Jetpack_ Compose extension functions
 [![API][compose-shield]][compose]

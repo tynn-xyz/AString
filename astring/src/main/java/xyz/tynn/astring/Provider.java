@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 
 @SuppressLint("UnsafeOptInUsageError")
-enum Provider implements AStringProvider {
+enum Provider implements AString.Provider {
 
     /**
      * Implementation providing {@link Context#getPackageName()}
@@ -50,10 +50,4 @@ enum Provider implements AStringProvider {
             return "Context(" + "AppVersion" + ')';
         }
     },
-
-    ;
-
-    AString toAString() {
-        return Delegate.wrap(this);
-    }
 }

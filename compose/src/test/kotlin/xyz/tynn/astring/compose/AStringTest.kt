@@ -154,7 +154,7 @@ internal class AStringTest {
         )
     }
 
-    private object LanguageAString : AString {
+    private data object LanguageAString : AString {
         override fun writeToParcel(
             dest: Parcel,
             flags: Int,

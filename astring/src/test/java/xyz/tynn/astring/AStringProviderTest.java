@@ -18,12 +18,12 @@ public class AStringProviderTest {
     @Test
     @SuppressWarnings("Convert2Lambda")
     public void interface_should_not_be_efficient() {
-        assertNotEquals(AStringFactory.createAString(new AStringProvider() {
+        assertNotEquals(AStringFactory.createAString(new AString.Provider() {
             @Override
             public CharSequence invoke(@NonNull Context context) {
                 return "";
             }
-        }), AStringFactory.createAString(new AStringProvider() {
+        }), AStringFactory.createAString(new AString.Provider() {
             @Override
             public CharSequence invoke(@NonNull Context context) {
                 return "";
@@ -34,7 +34,7 @@ public class AStringProviderTest {
     @Test
     @SuppressWarnings("Convert2Lambda")
     public void interface_ref_should_be_efficient() {
-        AStringProvider function = new AStringProvider() {
+        AString.Provider function = new AString.Provider() {
             @Override
             public CharSequence invoke(@NonNull Context context) {
                 return "";
@@ -52,7 +52,7 @@ public class AStringProviderTest {
 
     @Test
     public void instance_ref_should_be_efficient() {
-        AStringProvider function = new Provider();
+        AString.Provider function = new Provider();
         assertEquals(AStringFactory.createAString(function),
                 AStringFactory.createAString(function));
     }
@@ -65,7 +65,7 @@ public class AStringProviderTest {
 
     @Test
     public void function_ref_should_be_efficient() {
-        AStringProvider function = this::function;
+        AString.Provider function = this::function;
         assertEquals(AStringFactory.createAString(function),
                 AStringFactory.createAString(function));
     }
@@ -78,16 +78,21 @@ public class AStringProviderTest {
 
     @Test
     public void lambda_ref_should_be_efficient() {
-        AStringProvider function = context -> "";
+        AString.Provider function = context -> "";
         assertEquals(AStringFactory.createAString(function),
                 AStringFactory.createAString(function));
+    }
+
+    @Test
+    public void delegate_should_return_Null_on_null_provider() {
+        assertEquals(AString.Null, Delegate.wrap(null));
     }
 
     private CharSequence function(Context context) {
         return "";
     }
 
-    private final static class Provider implements AStringProvider {
+    private final static class Provider implements AString.Provider {
 
         @Nullable
         @Override

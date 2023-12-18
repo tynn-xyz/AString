@@ -13,7 +13,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-internal class AppVersionProviderTest {
+internal class AppVersionTest {
 
     @Test
     fun `invoke should return the package name`() {
@@ -27,31 +27,28 @@ internal class AppVersionProviderTest {
 
         assertEquals(
             "foo",
-            Provider.AppVersion.invoke(context),
+            AppVersion.invoke(context),
         )
     }
 
     @Test
+    @Suppress("KotlinConstantConditions")
     fun `equals should be true for same type`() {
         assertTrue {
-            Provider.AppVersion.toAString() == Provider.AppVersion.toAString()
+            AppVersion == AppVersion
         }
     }
 
     @Test
-    @Suppress("EqualsBetweenInconvertibleTypes", "KotlinConstantConditions")
     fun `equals should be false for non AppVersionProvider`() {
         assertFalse {
-            Provider.AppVersion.equals("foo")
+            AppVersion.equals("foo")
         }
         assertFalse {
-            Provider.AppVersion.toAString() == mockk<AString>()
+            AppVersion == mockk<AString>()
         }
         assertFalse {
-            Provider.AppVersion == Provider.AppId
-        }
-        assertFalse {
-            Provider.AppVersion == mockk<Provider>()
+            AppVersion == AppId
         }
     }
 
@@ -59,7 +56,7 @@ internal class AppVersionProviderTest {
     fun `hashCode should not return 0`() {
         assertNotEquals(
             0,
-            Provider.AppVersion.toAString().hashCode(),
+            AppVersion.hashCode(),
         )
     }
 
@@ -67,7 +64,7 @@ internal class AppVersionProviderTest {
     fun `toString should return typed string`() {
         assertEquals(
             "AString(Context(AppVersion))",
-            Provider.AppVersion.toAString().toString(),
+            AppVersion.toString(),
         )
     }
 }

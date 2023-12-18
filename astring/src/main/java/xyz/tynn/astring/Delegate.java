@@ -28,11 +28,22 @@ final class Delegate implements AString {
     private Delegate(Serializer<?> delegate, AString... aStrings) {
         this.delegate = delegate;
         this.aStrings = aStrings = aStrings == null ? EMPTY : aStrings;
+        for (int i = 0; i < aStrings.length; i++)
+            if (aStrings[i] == null) aStrings[i] = Null;
     }
 
     @InefficientAStringApi
-    static AString wrap(AStringProvider provider) {
-        return provider == null ? Null : new Delegate(new Serializer.Provider(provider), EMPTY);
+    static AString wrap(AString.Provider provider) {
+        if (provider == null) return Null;
+        return new Delegate(new Serializer.Provider(provider), EMPTY);
+    }
+
+    @InefficientAStringApi
+    static AString wrap(AString.Transformer transformer, AString aString) {
+        if (transformer == null) return Null;
+        if (aString == null || aString == Null) return Wrapper.wrap(transformer.invoke(null));
+        if (aString instanceof Wrapper) return ((Wrapper) aString).map(transformer);
+        return new Delegate(new Serializer.Transformer(transformer), aString);
     }
 
     @Nullable
@@ -44,7 +55,7 @@ final class Delegate implements AString {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Delegate)) return false;
         Delegate that = (Delegate) o;
         return delegate.equals(that.delegate) && Arrays.equals(aStrings, that.aStrings);
     }
@@ -59,11 +70,7 @@ final class Delegate implements AString {
     public String toString() {
         StringBuilder sb = new StringBuilder("AString(");
         sb.append(delegate);
-        if (aStrings.length > 0) {
-            int length = sb.length();
-            for (AString o : aStrings) sb.append(',').append(o);
-            sb.append(')').setCharAt(length, '(');
-        }
+        for (AString o : aStrings) sb.append(',').append(o);
         return sb.append(')').toString();
     }
 
@@ -82,12 +89,12 @@ final class Delegate implements AString {
         }
 
         @Nullable
-        abstract CharSequence invoke(@NonNull Context context, @NonNull AString[] aStrings);
+        abstract CharSequence invoke(Context context, AString[] aStrings);
 
         @Override
         public final boolean equals(Object o) {
             if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (!(o instanceof Serializer)) return false;
             Serializer<?> that = (Serializer<?>) o;
             return delegate.equals(that.delegate);
         }
@@ -98,15 +105,15 @@ final class Delegate implements AString {
         }
 
         @InefficientAStringApi
-        static final class Provider extends Serializer<AStringProvider> {
+        static final class Provider extends Serializer<AString.Provider> {
 
-            Provider(AStringProvider delegate) {
+            Provider(AString.Provider delegate) {
                 super(delegate);
             }
 
             @Nullable
             @Override
-            public CharSequence invoke(@NonNull Context context, @NonNull AString[] aStrings) {
+            public CharSequence invoke(Context context, AString[] aStrings) {
                 return delegate.invoke(context);
             }
 
@@ -114,6 +121,26 @@ final class Delegate implements AString {
             @Override
             public String toString() {
                 return delegate.toString();
+            }
+        }
+
+        @InefficientAStringApi
+        static final class Transformer extends Serializer<AString.Transformer> {
+
+            Transformer(AString.Transformer delegate) {
+                super(delegate);
+            }
+
+            @Nullable
+            @Override
+            public CharSequence invoke(Context context, AString[] aStrings) {
+                return delegate.invoke(aStrings[0].invoke(context));
+            }
+
+            @NonNull
+            @Override
+            public String toString() {
+                return "Map(" + delegate + ')';
             }
         }
     }

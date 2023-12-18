@@ -9,9 +9,22 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
+import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 internal class NullTest {
+
+    @Test
+    fun `Null should be the NULL singleton`() {
+        assertSame(
+            Wrapper.wrap(null),
+            AString.Null,
+        )
+        assertSame(
+            AString.Null,
+            AString.Null,
+        )
+    }
 
     @Test
     fun `invoke should return null`() {
