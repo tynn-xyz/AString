@@ -56,17 +56,37 @@ and equivalents for `getQuantityString()` and `getQuantityText()` provided by
     QuantityStringResource(R.plurals.res_id, 1, "arg")
     QuantityTextResource(R.plurals.res_id, 2)
 
-While `AppId` or `AppVersion` just provide data from the `Context` itself.
+While `AppId` or `AppVersion` just provide the data from the `Context` itself.
 
 ### `AString` Transformers
 
-While `AString` represent any generic `CharSequence`, it might be useful to
-transform the value before its use.
+Since the `AString` represent any generic `CharSequence`, it might be useful
+to transform the value before its use.
 
     aString.format("arg", AppId)
+    aString.defaultIfNull("value")
     aString.nullIfBlank()
-    aString.string()
+    aString.mapToString()
     aString.trim()
+
+### `AString` Reducers
+
+If multiple instances of `AString` are provided, it is also possible to reduce
+these to a single and single `AString`.
+
+    aStrings.firstNonBlank()
+    aStrings.joinNonNull(',')
+
+The provided values of the `Iterable` are provided lazily.
+
+### `@InefficientAStringApi AString` usages
+
+Generic `AString.Provider`, `AString.Transformer` and `AString.Reducer` are
+supported but do not provide comparability or readable string representations. 
+
+    AString { it.packageName }
+    aString.map { it?.toString() }
+    aStrings.reduce { it.singleOrNull() }
 
 ### _Jetpack_ Compose extension functions
 [![API][compose-shield]][compose]

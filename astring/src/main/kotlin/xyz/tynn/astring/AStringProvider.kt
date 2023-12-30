@@ -11,10 +11,10 @@ import android.os.Parcelable
 import java.io.Serializable
 
 /**
- * Creates an [AString] by wrapping the [AStringProvider]
+ * Creates an [AString] by wrapping the [AString.Provider]
  *
  * **Note**: While [AString] implements [Parcelable],
- * the [AStringProvider] only implements [Serializable]
+ * the [AString.Provider] only implements [Serializable]
  * and thus can be implemented with a single lambda
  */
 @[InefficientAStringApi JvmName("createAString")]

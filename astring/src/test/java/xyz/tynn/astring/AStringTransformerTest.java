@@ -19,8 +19,8 @@ public class AStringTransformerTest {
     @Test
     public void delegate_should_wrap_null_AString() {
         AString.Transformer function = value -> value;
-        assertEquals(Delegate.wrap(function, AString.Null),
-                Delegate.wrap(function, null));
+        assertEquals(Delegate.wrap(AString.Null, function),
+                Delegate.wrap(null, function));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class AStringTransformerTest {
     public void map_should_wrap_null_AString() {
         AString.Transformer function = value -> value;
         assertEquals(
-                Delegate.wrap(function, AString.Null),
+                Delegate.wrap(AString.Null, function),
                 mapAString(null, function)
         );
     }
@@ -96,7 +96,7 @@ public class AStringTransformerTest {
 
     @Test
     public void delegate_should_return_Null_on_null_transformer() {
-        assertEquals(AString.Null, Delegate.wrap(null, null));
+        assertEquals(AString.Null, Delegate.wrap((AString) null, null));
     }
 
     private CharSequence function(CharSequence value) {

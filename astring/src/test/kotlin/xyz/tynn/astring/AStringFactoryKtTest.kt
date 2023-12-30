@@ -261,15 +261,15 @@ internal class AStringFactoryKtTest {
     fun `format should return Format with format args for Format`() {
         assertEquals(
             Format.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).string().format(1, "2"),
+            TextResource(1).mapToString().format(1, "2"),
         )
         assertEquals(
             Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
-            TextResource(1).string().format(Locale.GERMAN, 1, "2"),
+            TextResource(1).mapToString().format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
             Format.wrap(TextResource(1), null, arrayOf(1, "2")),
-            TextResource(1).string().format(locale = null, 1, "2"),
+            TextResource(1).mapToString().format(locale = null, 1, "2"),
         )
     }
 
@@ -290,53 +290,53 @@ internal class AStringFactoryKtTest {
     }
 
     @Test
-    fun `string should return unformatted Format`() {
+    fun `mapToString should return unformatted Format`() {
         assertEquals(
             Format.wrap(TextResource(1), null, null),
-            TextResource(1).string(),
+            TextResource(1).mapToString(),
         )
     }
 
     @Test
-    fun `string should return identity for Format`() {
+    fun `mapToString should return identity for Format`() {
         val format = "format".asAString().format(1)
         assertSame(
             format,
-            format.string(),
+            format.mapToString(),
         )
-        val toString = TextResource(1).string()
+        val toString = TextResource(1).mapToString()
         assertSame(
             toString,
-            toString.string(),
+            toString.mapToString(),
         )
     }
 
     @Test
-    fun `string should return NULL for null`() {
+    fun `mapToString should return NULL for null`() {
         assertSame(
             AString.Null,
-            null.string(),
+            null.mapToString(),
         )
         assertSame(
             AString.Null,
-            null.asAString().string(),
+            null.asAString().mapToString(),
         )
     }
 
     @Test
-    fun `string should return mapped Wrapper`() {
+    fun `mapToString should return mapped Wrapper`() {
         assertEquals(
             "format".asAString(),
-            StringBuilder("format").asAString().string(),
+            StringBuilder("format").asAString().mapToString(),
         )
     }
 
     @Test
-    fun `string should return identity for Wrapper of String`() {
+    fun `mapToString should return identity for Wrapper of String`() {
         val wrapper = "format".asAString()
         assertSame(
             wrapper,
-            wrapper.string(),
+            wrapper.mapToString(),
         )
     }
 
@@ -374,8 +374,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                Predicate.NonBlank,
                 aString,
+                Predicate.NonBlank,
             ),
             aString.nullIfBlank(),
         )
@@ -415,8 +415,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                Predicate.NonEmpty,
                 aString,
+                Predicate.NonEmpty,
             ),
             aString.nullIfEmpty(),
         )
@@ -452,8 +452,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                Predicate.NonNull,
                 aString,
+                Predicate.NonNull,
             ),
             aString.emptyIfNull(),
         )
@@ -484,8 +484,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                Transformer.Trim,
                 aString,
+                Transformer.Trim,
             ),
             aString.trim(),
         )

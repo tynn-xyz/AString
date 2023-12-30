@@ -12,7 +12,20 @@ import android.annotation.SuppressLint;
 import androidx.annotation.Nullable;
 
 @SuppressLint("UnsafeOptInUsageError")
-enum Predicate implements AString.Transformer {
+enum Predicate implements AString.Reducer, AString.Transformer {
+
+    AnyValue(null) {
+        @Override
+        boolean test(CharSequence value) {
+            return true;
+        }
+
+        @Override
+        @androidx.annotation.NonNull
+        public String toString() {
+            return "Any";
+        }
+    },
 
     NonBlank(null) {
         @Override
@@ -70,5 +83,12 @@ enum Predicate implements AString.Transformer {
     @Override
     public CharSequence invoke(@Nullable CharSequence value) {
         return test(value) ? value : defaultValue;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence invoke(@androidx.annotation.NonNull Iterable<? extends CharSequence> values) {
+        for (CharSequence value : values) if (test(value)) return value;
+        return null;
     }
 }

@@ -55,6 +55,14 @@ public interface AString : Parcelable {
     }
 
     /**
+     * Functional interface reducing [CharSequence] provided by a lazy [Iterable] of [AString]
+     */
+    @InefficientAStringApi
+    public fun interface Reducer : Serializable {
+        public operator fun invoke(values: Iterable<CharSequence?>): CharSequence?
+    }
+
+    /**
      * Functional interface transforming a [CharSequence] provided by an [AString]
      */
     @InefficientAStringApi

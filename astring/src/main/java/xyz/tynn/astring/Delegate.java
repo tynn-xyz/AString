@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Objects;
 
 final class Delegate implements AString {
@@ -39,7 +42,22 @@ final class Delegate implements AString {
     }
 
     @InefficientAStringApi
-    static AString wrap(AString.Transformer transformer, AString aString) {
+    static AString wrap(AString.Reducer reducer, AString... aStrings) {
+        if (reducer == null || aStrings == null || aStrings.length == 0) return Null;
+        return new Delegate(new Serializer.Reducer(reducer), aStrings);
+    }
+
+    @InefficientAStringApi
+    static AString wrap(AString.Reducer reducer, Iterable<AString> aStrings) {
+        if (reducer == null || aStrings == null) return Null;
+        Collection<AString> list = aStrings instanceof Collection<?>
+                ? (Collection<AString>) aStrings : new ArrayList<>();
+        if (list != aStrings) for (AString aString : aStrings) list.add(aString);
+        return wrap(reducer, list.toArray(EMPTY));
+    }
+
+    @InefficientAStringApi
+    static AString wrap(AString aString, Transformer transformer) {
         if (transformer == null) return Null;
         if (aString == null || aString == Null) return Wrapper.wrap(transformer.invoke(null));
         if (aString instanceof Wrapper) return ((Wrapper) aString).map(transformer);
@@ -121,6 +139,65 @@ final class Delegate implements AString {
             @Override
             public String toString() {
                 return delegate.toString();
+            }
+        }
+
+        @InefficientAStringApi
+        static final class Reducer extends Serializer<AString.Reducer> {
+
+            Reducer(AString.Reducer delegate) {
+                super(delegate);
+            }
+
+            @Nullable
+            @Override
+            public CharSequence invoke(@NonNull Context context, @NonNull AString[] aStrings) {
+                try (LazyIterable iterable = new LazyIterable(context, aStrings)) {
+                    return delegate.invoke(iterable);
+                }
+            }
+
+            @NonNull
+            @Override
+            public String toString() {
+                return "Reduce(" + delegate + ')';
+            }
+
+            private static final class LazyIterable implements AutoCloseable, Iterable<CharSequence> {
+
+                Context context;
+                AString[] aStrings;
+
+                LazyIterable(Context context, AString[] aStrings) {
+                    this.context = context;
+                    this.aStrings = aStrings;
+                }
+
+                @Override
+                public void close() {
+                    context = null;
+                    aStrings = null;
+                }
+
+                @NonNull
+                @Override
+                public Iterator<CharSequence> iterator() {
+                    return new Iterator<>() {
+                        private int i = 0;
+
+                        @Override
+                        public boolean hasNext() {
+                            return i < aStrings.length;
+                        }
+
+                        @Override
+                        public CharSequence next() {
+                            if (context == null || aStrings == null)
+                                throw new AssertionError("accessed values after invocation");
+                            return aStrings[i++].invoke(context);
+                        }
+                    };
+                }
             }
         }
 

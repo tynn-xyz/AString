@@ -22,55 +22,55 @@ internal class AStringTransformerKtTest {
     @Test
     fun `equals should be true for matching transformer and receiver`() {
         assertTrue {
-            Delegate.wrap(Transformer(), AppId) == Delegate.wrap(Transformer(), AppId)
+            Delegate.wrap(AppId, Transformer()) == Delegate.wrap(AppId, Transformer())
         }
         assertTrue {
-            Delegate.wrap(Transformer(), AppVersion) == Delegate.wrap(Transformer(), AppVersion)
+            Delegate.wrap(AppVersion, Transformer()) == Delegate.wrap(AppVersion, Transformer())
         }
         assertTrue {
-            Delegate.wrap(Predicate.NonBlank, AppId) == Delegate.wrap(Predicate.NonBlank, AppId)
+            Delegate.wrap(AppId, Predicate.NonBlank) == Delegate.wrap(AppId, Predicate.NonBlank)
         }
         assertTrue {
-            Delegate.wrap(Predicate.NonEmpty, AppId) == Delegate.wrap(Predicate.NonEmpty, AppId)
+            Delegate.wrap(AppId, Predicate.NonEmpty) == Delegate.wrap(AppId, Predicate.NonEmpty)
         }
         assertTrue {
-            Delegate.wrap(Predicate.NonNull, AppId) == Delegate.wrap(Predicate.NonNull, AppId)
+            Delegate.wrap(AppId, Predicate.NonNull) == Delegate.wrap(AppId, Predicate.NonNull)
         }
     }
 
     @Test
     fun `equals should be false for non matching transformer`() {
         assertFalse {
-            Delegate.wrap(mockk(), AppId) == Delegate.wrap(mockk(), AppId)
+            Delegate.wrap(AppId, mockk()) == Delegate.wrap(AppId, mockk())
         }
     }
 
     @Test
     fun `equals should be false for non matching receiver`() {
         assertFalse {
-            Delegate.wrap(Transformer(), mockk()) == Delegate.wrap(Transformer(), mockk())
+            Delegate.wrap(mockk(), Transformer()) == Delegate.wrap(mockk(), Transformer())
         }
     }
 
     @Test
     fun `equals should be false for non transformer Delegate`() {
         assertFalse {
-            Delegate.wrap(mockk()).equals("foo")
+            Delegate.wrap(mockk<AString>(), mockk()).equals("foo")
         }
         assertFalse {
-            Delegate.wrap(mockk()) == mockk<AString>()
+            Delegate.wrap(mockk<AString>(), mockk()) == mockk<AString>()
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Wrapper>())
+            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Wrapper>())
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Transformer>())
+            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Transformer>())
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Resource>())
+            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Resource>())
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk()) == Delegate.wrap(mockk())
+            Delegate.wrap(mockk<AString>(), mockk()) == Delegate.wrap(mockk<AString.Provider>())
         }
     }
 
@@ -79,14 +79,14 @@ internal class AStringTransformerKtTest {
         assertEquals(
             5150,
             Delegate.wrap(
+                mockk<AString> { every { this@mockk.hashCode() } returns 345 },
                 mockk { every { this@mockk.hashCode() } returns 123 },
-                mockk { every { this@mockk.hashCode() } returns 345 },
             ).hashCode(),
         )
     }
 
     @Test
-    fun `toString should delegate to provider and receiver`() {
+    fun `toString should delegate to transformer and receiver`() {
         val transformer = mockk<AString.Transformer> {
             every { this@mockk.toString() } returns "to-string"
         }
@@ -159,6 +159,294 @@ internal class AStringTransformerKtTest {
                 AString("value")
                     .nullIfEmpty(),
             )
+        )
+    }
+
+    @Test
+    fun `defaultIfBlank should return original if non blank`() {
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfBlank(
+                    defaultValue = "",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfBlank(
+                    defaultValue = AString(
+                        value = "",
+                    ),
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun `defaultIfBlank should return defaultValue if null`() {
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfBlank(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfBlank(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfBlank(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfBlank(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfBlank(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfBlank(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun `defaultIfEmpty should return original if non null`() {
+        assertEquals(
+            " ",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfEmpty(
+                    defaultValue = "",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfEmpty(
+                    defaultValue = "",
+                ),
+            ),
+        )
+        assertEquals(
+            " ",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfEmpty(
+                    defaultValue = AString(
+                        value = "",
+                    ),
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfEmpty(
+                    defaultValue = AString(
+                        value = "",
+                    ),
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun `defaultIfEmpty should return defaultValue if null`() {
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfEmpty(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfEmpty(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfEmpty(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfEmpty(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun `defaultIfNull should return original if non null`() {
+        assertEquals(
+            "",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfNull(
+                    defaultValue = " ",
+                ),
+            ),
+        )
+        assertEquals(
+            " ",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfNull(
+                    defaultValue = "",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfNull(
+                    defaultValue = "",
+                ),
+            ),
+        )
+        assertEquals(
+            "",
+            context.aString(
+                AString(
+                    value = "",
+                ).defaultIfNull(
+                    defaultValue = AString(
+                        value = " ",
+                    ),
+                ),
+            ),
+        )
+        assertEquals(
+            " ",
+            context.aString(
+                AString(
+                    value = " ",
+                ).defaultIfNull(
+                    defaultValue = AString(
+                        value = "",
+                    ),
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = "value",
+                ).defaultIfNull(
+                    defaultValue = AString(
+                        value = "",
+                    ),
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun `defaultIfNull should return defaultValue if null`() {
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfNull(
+                    defaultValue = "value",
+                ),
+            ),
+        )
+        assertEquals(
+            "value",
+            context.aString(
+                AString(
+                    value = null,
+                ).defaultIfNull(
+                    defaultValue = AString(
+                        value = "value",
+                    )
+                ),
+            ),
         )
     }
 

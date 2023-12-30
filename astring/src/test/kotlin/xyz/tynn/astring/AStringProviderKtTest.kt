@@ -33,29 +33,30 @@ internal class AStringProviderKtTest {
     @Test
     fun `equals should be false for non matching provider`() {
         assertFalse {
-            Delegate.wrap(mockk()) == Delegate.wrap(mockk())
+            Delegate.wrap(mockk<AString.Provider>()) == Delegate.wrap(mockk<AString.Provider>())
         }
     }
 
     @Test
     fun `equals should be false for non provider Delegate`() {
         assertFalse {
-            Delegate.wrap(mockk()).equals("foo")
+            Delegate.wrap(mockk<AString.Provider>()).equals("foo")
         }
         assertFalse {
-            Delegate.wrap(mockk()) == mockk<AString>()
+            Delegate.wrap(mockk<AString.Provider>()) == mockk<AString>()
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Wrapper>())
+            Delegate.wrap(mockk<AString.Provider>()).equals(mockk<Wrapper>())
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Provider>())
+            Delegate.wrap(mockk<AString.Provider>()).equals(mockk<Provider>())
         }
         assertFalse {
-            Delegate.wrap(mockk()).equals(mockk<Resource>())
+            Delegate.wrap(mockk<AString.Provider>()).equals(mockk<Resource>())
         }
         assertFalse {
-            Delegate.wrap(mockk()) == Delegate.wrap(mockk(), mockk())
+            Delegate.wrap(mockk<AString.Provider>()) ==
+                    Delegate.wrap(mockk(), mockk<AString.Transformer>())
         }
     }
 
@@ -63,7 +64,9 @@ internal class AStringProviderKtTest {
     fun `hashCode should return delegate to provider`() {
         assertEquals(
             4775,
-            Delegate.wrap(mockk { every { this@mockk.hashCode() } returns 123 }).hashCode(),
+            Delegate.wrap(
+                mockk<AString.Provider> { every { this@mockk.hashCode() } returns 123 },
+            ).hashCode(),
         )
     }
 

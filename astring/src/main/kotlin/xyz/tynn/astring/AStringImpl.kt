@@ -46,7 +46,7 @@ public inline fun AString?.asAString(): AString = AString(
  * aString ?: AString.NULL
  * ```
  */
-@JvmName("ensureAStringNull")
+@JvmName("ensureNonNull")
 public fun AString(
     aString: AString?,
 ): AString = aString ?: AString.Null
