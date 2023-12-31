@@ -6,6 +6,8 @@ package xyz.tynn.astring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static xyz.tynn.astring.AStringFactory.createFromCharSequence;
+import static xyz.tynn.astring.AStringFactory.getAppId;
+import static xyz.tynn.astring.AStringFactory.getAppVersion;
 import static xyz.tynn.astring.test.AStringAssert.assertParcelableAStringInvocation;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class AStringReducerAndroidTest {
 
-    private final Iterable<AString> aStrings = List.of(AString.Null);
+    private final Iterable<AString> aStrings = List.of(getAppId(), getAppVersion());
 
     @Test
     public void delegate_should_implement_parcelable() {

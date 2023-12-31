@@ -15,10 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Objects;
 
 final class Delegate implements AString {
@@ -43,21 +43,22 @@ final class Delegate implements AString {
 
     @InefficientAStringApi
     static AString wrap(AString.Reducer reducer, AString... aStrings) {
-        if (reducer == null || aStrings == null || aStrings.length == 0) return Null;
-        return new Delegate(new Serializer.Reducer(reducer), aStrings);
+        if (reducer == null || aStrings == null) return Null;
+        AString aString = Wrapper.maybeReduce(reducer, aStrings);
+        return aString != null ? aString : new Delegate(new Serializer.Reducer(reducer), aStrings);
     }
 
     @InefficientAStringApi
     static AString wrap(AString.Reducer reducer, Iterable<AString> aStrings) {
         if (reducer == null || aStrings == null) return Null;
         Collection<AString> list = aStrings instanceof Collection<?>
-                ? (Collection<AString>) aStrings : new ArrayList<>();
+                ? (Collection<AString>) aStrings : new LinkedList<>();
         if (list != aStrings) for (AString aString : aStrings) list.add(aString);
         return wrap(reducer, list.toArray(EMPTY));
     }
 
     @InefficientAStringApi
-    static AString wrap(AString aString, Transformer transformer) {
+    static AString wrap(Transformer transformer, AString aString) {
         if (transformer == null) return Null;
         if (aString == null || aString == Null) return Wrapper.wrap(transformer.invoke(null));
         if (aString instanceof Wrapper) return ((Wrapper) aString).map(transformer);

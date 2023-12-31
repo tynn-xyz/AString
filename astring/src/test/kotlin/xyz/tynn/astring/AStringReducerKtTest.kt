@@ -61,22 +61,23 @@ internal class AStringReducerKtTest {
     @Test
     fun `equals should be false for non reducer Delegate`() {
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()).equals("foo")
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals("foo")
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()) == mockk<AString>()
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()) == mockk<AString>()
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()).equals(mockk<Wrapper>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Wrapper>())
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()).equals(mockk<Reducer>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Reducer>())
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()).equals(mockk<Resource>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Resource>())
         }
         assertFalse {
-            Delegate.wrap(mockk(), mockk<AString>()) == Delegate.wrap(mockk<AString.Provider>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()) ==
+                    Delegate.wrap(mockk<AString.Provider>())
         }
     }
 

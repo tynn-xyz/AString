@@ -64,7 +64,7 @@ Since the `AString` represent any generic `CharSequence`, it might be useful
 to transform the value before its use.
 
     aString.format("arg", AppId)
-    aString.defaultIfNull("value")
+    aString.ifNull("value")
     aString.nullIfBlank()
     aString.mapToString()
     aString.trim()

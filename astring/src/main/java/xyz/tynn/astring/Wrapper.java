@@ -4,6 +4,7 @@
 package xyz.tynn.astring;
 
 import static android.text.TextUtils.CHAR_SEQUENCE_CREATOR;
+import static java.util.Collections.emptyList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -69,6 +71,21 @@ final class Wrapper implements AString {
     Wrapper map(AString.Transformer transformer) {
         CharSequence value = transformer.invoke(this.value);
         return value != null && value.equals(this.value) ? this : wrap(value);
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    static AString maybeReduce(AString.Reducer reducer, AString[] aStrings) {
+        if (aStrings.length == 0) return wrap(reducer.invoke(emptyList()));
+        ArrayList<CharSequence> values = new ArrayList<>(aStrings.length);
+        for (AString aString : aStrings)
+            if (aString == null || aString == NULL)
+                values.add(null);
+            else if (aString instanceof Wrapper)
+                values.add(((Wrapper) aString).value);
+            else return null;
+        CharSequence value = reducer.invoke(values);
+        return value != null && aStrings.length == 1 && value.equals(values.get(0))
+                ? aStrings[0] : wrap(value);
     }
 
     public static final Creator<Wrapper> CREATOR = new Creator<>() {

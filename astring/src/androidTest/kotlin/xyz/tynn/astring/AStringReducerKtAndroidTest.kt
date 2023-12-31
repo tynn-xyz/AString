@@ -12,15 +12,13 @@ import xyz.tynn.astring.test.AStringAssert.assertParcelableAStringInvocation
 @InefficientAStringApi
 internal class AStringReducerKtAndroidTest {
 
-    private val aString1 = AString.Null
-    private val aString2 = "+".asAString()
-    private val aStrings = listOf(aString1, aString2)
-    private val aStringIterable = sequenceOf(aString1, aString2).asIterable()
+    private val aStrings = listOf(AString.Null, AppId)
+    private val aStringIterable = sequenceOf(AString.Null, AppId).asIterable()
 
     @Test
     fun firstNonBlank_should_be_parcelable() {
-        assertParcelableAStringEquality(firstNonBlank(aString1, aString2))
-        assertParcelableAStringInvocation(firstNonBlank(aString1, aString2))
+        assertParcelableAStringEquality(firstNonBlank(AString.Null, AppId))
+        assertParcelableAStringInvocation(firstNonBlank(AString.Null, AppId))
         assertParcelableAStringEquality(aStrings.firstNonBlank())
         assertParcelableAStringInvocation(aStrings.firstNonBlank())
         assertParcelableAStringEquality(aStringIterable.firstNonBlank())
@@ -29,8 +27,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun firstNonEmpty_should_be_parcelable() {
-        assertParcelableAStringEquality(firstNonEmpty(aString1, aString2))
-        assertParcelableAStringInvocation(firstNonEmpty(aString1, aString2))
+        assertParcelableAStringEquality(firstNonEmpty(AString.Null, AppId))
+        assertParcelableAStringInvocation(firstNonEmpty(AString.Null, AppId))
         assertParcelableAStringEquality(aStrings.firstNonEmpty())
         assertParcelableAStringInvocation(aStrings.firstNonEmpty())
         assertParcelableAStringEquality(aStringIterable.firstNonEmpty())
@@ -39,8 +37,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun firstNonNull_should_be_parcelable() {
-        assertParcelableAStringEquality(firstNonNull(aString1, aString2))
-        assertParcelableAStringInvocation(firstNonNull(aString1, aString2))
+        assertParcelableAStringEquality(firstNonNull(AString.Null, AppId))
+        assertParcelableAStringInvocation(firstNonNull(AString.Null, AppId))
         assertParcelableAStringEquality(aStrings.firstNonNull())
         assertParcelableAStringInvocation(aStrings.firstNonNull())
         assertParcelableAStringEquality(aStringIterable.firstNonNull())
@@ -49,8 +47,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun join_should_be_parcelable() {
-        assertParcelableAStringEquality(join(aString1, aString2, separator = "-"))
-        assertParcelableAStringInvocation(join(aString1, aString2, separator = "-"))
+        assertParcelableAStringEquality(join(AString.Null, AppId, separator = "-"))
+        assertParcelableAStringInvocation(join(AString.Null, AppId, separator = "-"))
         assertParcelableAStringEquality(aStrings.join(separator = "-"))
         assertParcelableAStringInvocation(aStrings.join(separator = "-"))
         assertParcelableAStringEquality(aStringIterable.join(separator = "-"))
@@ -59,8 +57,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun joinNonBlank_should_be_parcelable() {
-        assertParcelableAStringEquality(joinNonBlank(aString1, aString2, separator = "-"))
-        assertParcelableAStringInvocation(joinNonBlank(aString1, aString2, separator = "-"))
+        assertParcelableAStringEquality(joinNonBlank(AString.Null, AppId, separator = "-"))
+        assertParcelableAStringInvocation(joinNonBlank(AString.Null, AppId, separator = "-"))
         assertParcelableAStringEquality(aStrings.joinNonBlank(separator = "-"))
         assertParcelableAStringInvocation(aStrings.joinNonBlank(separator = "-"))
         assertParcelableAStringEquality(aStringIterable.joinNonBlank(separator = "-"))
@@ -69,8 +67,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun joinNonEmpty_should_be_parcelable() {
-        assertParcelableAStringEquality(joinNonEmpty(aString1, aString2, separator = "-"))
-        assertParcelableAStringInvocation(joinNonEmpty(aString1, aString2, separator = "-"))
+        assertParcelableAStringEquality(joinNonEmpty(AString.Null, AppId, separator = "-"))
+        assertParcelableAStringInvocation(joinNonEmpty(AString.Null, AppId, separator = "-"))
         assertParcelableAStringEquality(aStrings.joinNonEmpty(separator = "-"))
         assertParcelableAStringInvocation(aStrings.joinNonEmpty(separator = "-"))
         assertParcelableAStringEquality(aStringIterable.joinNonEmpty(separator = "-"))
@@ -79,8 +77,8 @@ internal class AStringReducerKtAndroidTest {
 
     @Test
     fun joinNonNull_should_be_parcelable() {
-        assertParcelableAStringEquality(joinNonNull(aString1, aString2, separator = "-"))
-        assertParcelableAStringInvocation(joinNonNull(aString1, aString2, separator = "-"))
+        assertParcelableAStringEquality(joinNonNull(AString.Null, AppId, separator = "-"))
+        assertParcelableAStringInvocation(joinNonNull(AString.Null, AppId, separator = "-"))
         assertParcelableAStringEquality(aStrings.joinNonNull(separator = "-"))
         assertParcelableAStringInvocation(aStrings.joinNonNull(separator = "-"))
         assertParcelableAStringEquality(aStringIterable.joinNonNull(separator = "-"))
@@ -91,15 +89,15 @@ internal class AStringReducerKtAndroidTest {
     @Suppress("RedundantSamConstructor")
     fun interface_should_not_be_efficient() {
         assertNotEquals(
-            reduce(aString1, aString2, reducer = AString.Reducer { "" }),
-            reduce(aString1, aString2, reducer = AString.Reducer { "" }),
+            reduce(AString.Null, AppId, reducer = AString.Reducer { "" }),
+            reduce(AString.Null, AppId, reducer = AString.Reducer { "" }),
         )
         assertNotEquals(
-            reduce(aString1, aString2, reducer = AString.Reducer { "" }),
+            reduce(AString.Null, AppId, reducer = AString.Reducer { "" }),
             aStrings.reduce(reducer = AString.Reducer { "" }),
         )
         assertNotEquals(
-            reduce(aString1, aString2, reducer = AString.Reducer { "" }),
+            reduce(AString.Null, AppId, reducer = AString.Reducer { "" }),
             aStringIterable.reduce(reducer = AString.Reducer { "" }),
         )
     }
@@ -108,15 +106,15 @@ internal class AStringReducerKtAndroidTest {
     fun interface_val_should_be_efficient() {
         val function = AString.Reducer { "" }
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStrings.reduce(reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStringIterable.reduce(reducer = function),
         )
     }
@@ -124,15 +122,15 @@ internal class AStringReducerKtAndroidTest {
     @Test
     fun instance_should_be_efficient() {
         assertEquals(
-            reduce(aString1, aString2, reducer = Reducer()),
-            reduce(aString1, aString2, reducer = Reducer()),
+            reduce(AString.Null, AppId, reducer = Reducer()),
+            reduce(AString.Null, AppId, reducer = Reducer()),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = Reducer()),
+            reduce(AString.Null, AppId, reducer = Reducer()),
             aStrings.reduce(reducer = Reducer()),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = Reducer()),
+            reduce(AString.Null, AppId, reducer = Reducer()),
             aStringIterable.reduce(reducer = Reducer()),
         )
     }
@@ -141,15 +139,15 @@ internal class AStringReducerKtAndroidTest {
     fun instance_val_should_be_efficient() {
         val function = Reducer()
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStrings.reduce(reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStringIterable.reduce(reducer = function),
         )
     }
@@ -157,15 +155,15 @@ internal class AStringReducerKtAndroidTest {
     @Test
     fun function_reference_should_be_efficient() {
         assertEquals(
-            reduce(aString1, aString2, reducer = ::function),
-            reduce(aString1, aString2, reducer = ::function),
+            reduce(AString.Null, AppId, reducer = ::function),
+            reduce(AString.Null, AppId, reducer = ::function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = ::function),
+            reduce(AString.Null, AppId, reducer = ::function),
             aStrings.reduce(reducer = ::function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = ::function),
+            reduce(AString.Null, AppId, reducer = ::function),
             aStringIterable.reduce(reducer = ::function),
         )
     }
@@ -174,15 +172,15 @@ internal class AStringReducerKtAndroidTest {
     fun function_reference_val_should_be_efficient() {
         val function = ::function
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStrings.reduce(reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStringIterable.reduce(reducer = function),
         )
     }
@@ -190,15 +188,15 @@ internal class AStringReducerKtAndroidTest {
     @Test
     fun lambda_should_not_be_efficient() {
         assertNotEquals(
-            reduce(aString1, aString2) { it.toString() },
-            reduce(aString1, aString2) { it.toString() },
+            reduce(AString.Null, AppId) { it.toString() },
+            reduce(AString.Null, AppId) { it.toString() },
         )
         assertNotEquals(
-            reduce(aString1, aString2) { it.toString() },
+            reduce(AString.Null, AppId) { it.toString() },
             aStrings.reduce { it.toString() },
         )
         assertNotEquals(
-            reduce(aString1, aString2) { it.toString() },
+            reduce(AString.Null, AppId) { it.toString() },
             aStringIterable.reduce { it.toString() },
         )
     }
@@ -207,15 +205,15 @@ internal class AStringReducerKtAndroidTest {
     fun lambda_val_should_be_efficient() {
         val function = { _: Iterable<CharSequence?> -> "" }
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStrings.reduce(reducer = function),
         )
         assertEquals(
-            reduce(aString1, aString2, reducer = function),
+            reduce(AString.Null, AppId, reducer = function),
             aStringIterable.reduce(reducer = function),
         )
     }

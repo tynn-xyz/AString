@@ -15,7 +15,7 @@ import xyz.tynn.astring.Predicate.NonNull
  */
 @InefficientAStringApi
 public fun reduce(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
     reducer: AString.Reducer,
 ): AString = Delegate.wrap(
     reducer,
@@ -26,7 +26,7 @@ public fun reduce(
  * Reduces an [Iterable] of [AString] to a single [CharSequence]
  */
 @InefficientAStringApi
-public fun Iterable<AString>.reduce(
+public fun Iterable<AString?>.reduce(
     reducer: AString.Reducer,
 ): AString = Delegate.wrap(
     reducer,
@@ -38,7 +38,7 @@ public fun Iterable<AString>.reduce(
  */
 @OptIn(InefficientAStringApi::class)
 public fun firstNonBlank(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
 ): AString = Delegate.wrap(
     NonBlank,
     *aStrings,
@@ -48,7 +48,7 @@ public fun firstNonBlank(
  * Reduces all items by returning the first non-blank [CharSequence] value
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.firstNonBlank(): AString = Delegate.wrap(
+public fun Iterable<AString?>.firstNonBlank(): AString = Delegate.wrap(
     NonBlank,
     this,
 )
@@ -58,7 +58,7 @@ public fun Iterable<AString>.firstNonBlank(): AString = Delegate.wrap(
  */
 @OptIn(InefficientAStringApi::class)
 public fun firstNonEmpty(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
 ): AString = Delegate.wrap(
     NonEmpty,
     *aStrings,
@@ -68,7 +68,7 @@ public fun firstNonEmpty(
  * Reduces all items by returning the first non-empty [CharSequence] value
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.firstNonEmpty(): AString = Delegate.wrap(
+public fun Iterable<AString?>.firstNonEmpty(): AString = Delegate.wrap(
     NonEmpty,
     this,
 )
@@ -78,7 +78,7 @@ public fun Iterable<AString>.firstNonEmpty(): AString = Delegate.wrap(
  */
 @OptIn(InefficientAStringApi::class)
 public fun firstNonNull(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
 ): AString = Delegate.wrap(
     NonNull,
     *aStrings,
@@ -88,7 +88,7 @@ public fun firstNonNull(
  * Reduces all items by returning the first non-null [CharSequence] value
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.firstNonNull(): AString = Delegate.wrap(
+public fun Iterable<AString?>.firstNonNull(): AString = Delegate.wrap(
     NonNull,
     this,
 )
@@ -98,7 +98,7 @@ public fun Iterable<AString>.firstNonNull(): AString = Delegate.wrap(
  */
 @OptIn(InefficientAStringApi::class)
 public fun join(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -112,7 +112,7 @@ public fun join(
  * Reduces all items by joining all nullable [CharSequence] values
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.join(
+public fun Iterable<AString?>.join(
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -127,7 +127,7 @@ public fun Iterable<AString>.join(
  */
 @OptIn(InefficientAStringApi::class)
 public fun joinNonBlank(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -141,7 +141,7 @@ public fun joinNonBlank(
  * Reduces all items by joining all non-null [CharSequence] values
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.joinNonBlank(
+public fun Iterable<AString?>.joinNonBlank(
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -156,7 +156,7 @@ public fun Iterable<AString>.joinNonBlank(
  */
 @OptIn(InefficientAStringApi::class)
 public fun joinNonEmpty(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -170,7 +170,7 @@ public fun joinNonEmpty(
  * Reduces all items by joining all non-null [CharSequence] values
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.joinNonEmpty(
+public fun Iterable<AString?>.joinNonEmpty(
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -185,7 +185,7 @@ public fun Iterable<AString>.joinNonEmpty(
  */
 @OptIn(InefficientAStringApi::class)
 public fun joinNonNull(
-    vararg aStrings: AString,
+    vararg aStrings: AString?,
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(
@@ -199,7 +199,7 @@ public fun joinNonNull(
  * Reduces all items by joining all non-null [CharSequence] values
  */
 @OptIn(InefficientAStringApi::class)
-public fun Iterable<AString>.joinNonNull(
+public fun Iterable<AString?>.joinNonNull(
     separator: String,
 ): AString = Delegate.wrap(
     Joiner(

@@ -56,7 +56,7 @@ internal class AStringProviderKtTest {
         }
         assertFalse {
             Delegate.wrap(mockk<AString.Provider>()) ==
-                    Delegate.wrap(mockk(), mockk<AString.Transformer>())
+                    Delegate.wrap(mockk<AString.Transformer>(), mockk())
         }
     }
 

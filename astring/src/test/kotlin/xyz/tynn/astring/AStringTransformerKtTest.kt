@@ -22,55 +22,48 @@ internal class AStringTransformerKtTest {
     @Test
     fun `equals should be true for matching transformer and receiver`() {
         assertTrue {
-            Delegate.wrap(AppId, Transformer()) == Delegate.wrap(AppId, Transformer())
+            Delegate.wrap(Transformer(), AppId) == Delegate.wrap(Transformer(), AppId)
         }
         assertTrue {
-            Delegate.wrap(AppVersion, Transformer()) == Delegate.wrap(AppVersion, Transformer())
-        }
-        assertTrue {
-            Delegate.wrap(AppId, Predicate.NonBlank) == Delegate.wrap(AppId, Predicate.NonBlank)
-        }
-        assertTrue {
-            Delegate.wrap(AppId, Predicate.NonEmpty) == Delegate.wrap(AppId, Predicate.NonEmpty)
-        }
-        assertTrue {
-            Delegate.wrap(AppId, Predicate.NonNull) == Delegate.wrap(AppId, Predicate.NonNull)
+            Delegate.wrap(Transformer(), AppVersion) == Delegate.wrap(Transformer(), AppVersion)
         }
     }
 
     @Test
     fun `equals should be false for non matching transformer`() {
         assertFalse {
-            Delegate.wrap(AppId, mockk()) == Delegate.wrap(AppId, mockk())
+            Delegate.wrap(mockk<AString.Transformer>(), AppId) ==
+                    Delegate.wrap(mockk<AString.Transformer>(), AppId)
         }
     }
 
     @Test
     fun `equals should be false for non matching receiver`() {
         assertFalse {
-            Delegate.wrap(mockk(), Transformer()) == Delegate.wrap(mockk(), Transformer())
+            Delegate.wrap(Transformer(), mockk()) == Delegate.wrap(Transformer(), mockk())
         }
     }
 
     @Test
     fun `equals should be false for non transformer Delegate`() {
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()).equals("foo")
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals("foo")
         }
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()) == mockk<AString>()
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()) == mockk<AString>()
         }
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Wrapper>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Wrapper>())
         }
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Transformer>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Transformer>())
         }
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()).equals(mockk<Resource>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()).equals(mockk<Resource>())
         }
         assertFalse {
-            Delegate.wrap(mockk<AString>(), mockk()) == Delegate.wrap(mockk<AString.Provider>())
+            Delegate.wrap(mockk<AString.Transformer>(), mockk()) ==
+                    Delegate.wrap(mockk<AString.Provider>())
         }
     }
 
@@ -79,8 +72,8 @@ internal class AStringTransformerKtTest {
         assertEquals(
             5150,
             Delegate.wrap(
-                mockk<AString> { every { this@mockk.hashCode() } returns 345 },
-                mockk { every { this@mockk.hashCode() } returns 123 },
+                mockk<AString.Transformer> { every { this@mockk.hashCode() } returns 123 },
+                mockk { every { this@mockk.hashCode() } returns 345 },
             ).hashCode(),
         )
     }
@@ -93,38 +86,6 @@ internal class AStringTransformerKtTest {
         assertEquals(
             "AString(Map(to-string),$AppId)",
             AppId.map(transformer).toString(),
-        )
-    }
-
-    @Test
-    fun `emptyIfNull should map null to an empty string`() {
-        assertEquals(
-            "",
-            context.aString(
-                AString(null)
-                    .emptyIfNull(),
-            )
-        )
-        assertEquals(
-            "",
-            context.aString(
-                AString("")
-                    .emptyIfNull(),
-            )
-        )
-        assertEquals(
-            " ",
-            context.aString(
-                AString(" ")
-                    .emptyIfNull(),
-            )
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString("value")
-                    .emptyIfNull(),
-            )
         )
     }
 
@@ -163,205 +124,13 @@ internal class AStringTransformerKtTest {
     }
 
     @Test
-    fun `defaultIfBlank should return original if non blank`() {
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "value",
-                ).defaultIfBlank(
-                    defaultValue = "",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "value",
-                ).defaultIfBlank(
-                    defaultValue = AString(
-                        value = "",
-                    ),
-                ),
-            ),
-        )
-    }
-
-    @Test
-    fun `defaultIfBlank should return defaultValue if null`() {
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = null,
-                ).defaultIfBlank(
-                    defaultValue = "value",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "",
-                ).defaultIfBlank(
-                    defaultValue = "value",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = " ",
-                ).defaultIfBlank(
-                    defaultValue = "value",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = null,
-                ).defaultIfBlank(
-                    defaultValue = AString(
-                        value = "value",
-                    )
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "",
-                ).defaultIfBlank(
-                    defaultValue = AString(
-                        value = "value",
-                    )
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = " ",
-                ).defaultIfBlank(
-                    defaultValue = AString(
-                        value = "value",
-                    )
-                ),
-            ),
-        )
-    }
-
-    @Test
-    fun `defaultIfEmpty should return original if non null`() {
-        assertEquals(
-            " ",
-            context.aString(
-                AString(
-                    value = " ",
-                ).defaultIfEmpty(
-                    defaultValue = "",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "value",
-                ).defaultIfEmpty(
-                    defaultValue = "",
-                ),
-            ),
-        )
-        assertEquals(
-            " ",
-            context.aString(
-                AString(
-                    value = " ",
-                ).defaultIfEmpty(
-                    defaultValue = AString(
-                        value = "",
-                    ),
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "value",
-                ).defaultIfEmpty(
-                    defaultValue = AString(
-                        value = "",
-                    ),
-                ),
-            ),
-        )
-    }
-
-    @Test
-    fun `defaultIfEmpty should return defaultValue if null`() {
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = null,
-                ).defaultIfEmpty(
-                    defaultValue = "value",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "",
-                ).defaultIfEmpty(
-                    defaultValue = "value",
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = null,
-                ).defaultIfEmpty(
-                    defaultValue = AString(
-                        value = "value",
-                    )
-                ),
-            ),
-        )
-        assertEquals(
-            "value",
-            context.aString(
-                AString(
-                    value = "",
-                ).defaultIfEmpty(
-                    defaultValue = AString(
-                        value = "value",
-                    )
-                ),
-            ),
-        )
-    }
-
-    @Test
-    fun `defaultIfNull should return original if non null`() {
+    fun `ifNull should return original if non null`() {
         assertEquals(
             "",
             context.aString(
                 AString(
                     value = "",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = " ",
                 ),
             ),
@@ -371,7 +140,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = " ",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = "",
                 ),
             ),
@@ -381,7 +150,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = "value",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = "",
                 ),
             ),
@@ -391,7 +160,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = "",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = AString(
                         value = " ",
                     ),
@@ -403,7 +172,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = " ",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = AString(
                         value = "",
                     ),
@@ -415,7 +184,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = "value",
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = AString(
                         value = "",
                     ),
@@ -425,13 +194,13 @@ internal class AStringTransformerKtTest {
     }
 
     @Test
-    fun `defaultIfNull should return defaultValue if null`() {
+    fun `ifNull should return defaultValue if null`() {
         assertEquals(
             "value",
             context.aString(
                 AString(
                     value = null,
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = "value",
                 ),
             ),
@@ -441,7 +210,7 @@ internal class AStringTransformerKtTest {
             context.aString(
                 AString(
                     value = null,
-                ).defaultIfNull(
+                ).ifNull(
                     defaultValue = AString(
                         value = "value",
                     )

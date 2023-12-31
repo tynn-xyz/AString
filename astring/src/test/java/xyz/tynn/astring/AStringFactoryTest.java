@@ -112,26 +112,6 @@ public class AStringFactoryTest {
     }
 
     @Test
-    public void mapNullToEmpty_should_be_empty_on_null() {
-        assertEquals(AStringFactory.createFromCharSequence(""),
-                AStringFactory.mapNullToEmpty(null));
-    }
-
-    @Test
-    @SuppressWarnings("ConstantConditions")
-    public void mapBlankToDefault_should_not_be_null_on_null() {
-        assertNotNull(AStringFactory.mapBlankToDefault(null, (CharSequence) null));
-        assertNotNull(AStringFactory.mapBlankToDefault(null, (AString) null));
-    }
-
-    @Test
-    @SuppressWarnings("ConstantConditions")
-    public void mapEmptyToDefault_should_not_be_null_on_null() {
-        assertNotNull(AStringFactory.mapEmptyToDefault(null, (CharSequence) null));
-        assertNotNull(AStringFactory.mapEmptyToDefault(null, (AString) null));
-    }
-
-    @Test
     @SuppressWarnings("ConstantConditions")
     public void mapNullToDefault_should_not_be_null_on_null() {
         assertNotNull(AStringFactory.mapNullToDefault(null, (CharSequence) null));

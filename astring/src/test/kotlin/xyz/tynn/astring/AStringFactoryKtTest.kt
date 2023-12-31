@@ -374,8 +374,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                aString,
                 Predicate.NonBlank,
+                aString,
             ),
             aString.nullIfBlank(),
         )
@@ -415,47 +415,10 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                aString,
                 Predicate.NonEmpty,
+                aString,
             ),
             aString.nullIfEmpty(),
-        )
-    }
-
-    @Test
-    fun `emptyIfNull should return empty Wrapper for null`() {
-        assertEquals(
-            "".asAString(),
-            null.emptyIfNull(),
-        )
-    }
-
-    @Test
-    fun `emptyIfNull should return empty Wrapper for Null`() {
-        assertEquals(
-            "".asAString(),
-            null.asAString().emptyIfNull(),
-        )
-    }
-
-    @Test
-    fun `emptyIfNull should return identity for Wrapper`() {
-        val aString = "wrapper".asAString()
-        assertSame(
-            aString,
-            aString.emptyIfNull(),
-        )
-    }
-
-    @Test
-    fun `emptyIfNull should return Delegate`() {
-        val aString = mockk<AString>()
-        assertEquals(
-            Delegate.wrap(
-                aString,
-                Predicate.NonNull,
-            ),
-            aString.emptyIfNull(),
         )
     }
 
@@ -484,8 +447,8 @@ internal class AStringFactoryKtTest {
         val aString = mockk<AString>()
         assertEquals(
             Delegate.wrap(
-                aString,
                 Transformer.Trim,
+                aString,
             ),
             aString.trim(),
         )

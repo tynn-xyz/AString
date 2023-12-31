@@ -16,11 +16,11 @@ import java.util.Locale
  * Maps the [AString] `CharSequence` to the result of [transformer]
  */
 @[InefficientAStringApi JvmName("mapAString")]
-public fun AString.map(
+public fun AString?.map(
     transformer: AString.Transformer,
 ): AString = Delegate.wrap(
-    this,
     transformer,
+    this,
 )
 
 /**
@@ -64,58 +64,10 @@ public fun AString?.format(
 )
 
 /**
- * Maps a blank `CharSequence` to [defaultValue]
- */
-@[JvmName("mapBlankToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfBlank(
-    defaultValue: CharSequence,
-): AString = Delegate.wrap(
-    NonBlank,
-    this,
-    AString(defaultValue),
-)
-
-/**
- * Maps a blank `CharSequence` to [defaultValue]
- */
-@[JvmName("mapBlankToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfBlank(
-    defaultValue: AString,
-): AString = Delegate.wrap(
-    NonBlank,
-    this,
-    defaultValue,
-)
-
-/**
- * Maps a empty `CharSequence` to [defaultValue]
- */
-@[JvmName("mapEmptyToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfEmpty(
-    defaultValue: CharSequence,
-): AString = Delegate.wrap(
-    NonEmpty,
-    this,
-    AString(defaultValue),
-)
-
-/**
- * Maps a empty `CharSequence` to [defaultValue]
- */
-@[JvmName("mapEmptyToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfEmpty(
-    defaultValue: AString,
-): AString = Delegate.wrap(
-    NonEmpty,
-    this,
-    defaultValue,
-)
-
-/**
  * Maps a null `CharSequence` to [defaultValue]
  */
 @[JvmName("mapNullToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfNull(
+public fun AString?.ifNull(
     defaultValue: CharSequence,
 ): AString = Delegate.wrap(
     NonNull,
@@ -127,23 +79,12 @@ public fun AString?.defaultIfNull(
  * Maps a null `CharSequence` to [defaultValue]
  */
 @[JvmName("mapNullToDefault") OptIn(InefficientAStringApi::class)]
-public fun AString?.defaultIfNull(
+public fun AString?.ifNull(
     defaultValue: AString,
 ): AString = Delegate.wrap(
     NonNull,
     this,
     defaultValue,
-)
-
-/**
- * Maps a null [AString] `CharSequence` to an empty `String`
- *
- * Returns [AString.Null] if this [AString] is `null` or [AString.Null]
- */
-@[JvmName("mapNullToEmpty") OptIn(InefficientAStringApi::class)]
-public fun AString?.emptyIfNull(): AString = Delegate.wrap(
-    this,
-    NonNull,
 )
 
 /**
@@ -153,8 +94,8 @@ public fun AString?.emptyIfNull(): AString = Delegate.wrap(
  */
 @[JvmName("mapBlankToNull") OptIn(InefficientAStringApi::class)]
 public fun AString?.nullIfBlank(): AString = Delegate.wrap(
-    this,
     NonBlank,
+    this,
 )
 
 /**
@@ -164,8 +105,8 @@ public fun AString?.nullIfBlank(): AString = Delegate.wrap(
  */
 @[JvmName("mapEmptyToNull") OptIn(InefficientAStringApi::class)]
 public fun AString?.nullIfEmpty(): AString = Delegate.wrap(
-    this,
     NonEmpty,
+    this,
 )
 
 /**
@@ -187,6 +128,6 @@ public fun AString?.mapToString(): AString = Format.wrap(
  */
 @[JvmName("trimCharSequence") OptIn(InefficientAStringApi::class)]
 public fun AString?.trim(): AString = Delegate.wrap(
-    this,
     Trim,
+    this,
 )

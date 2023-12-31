@@ -6,6 +6,8 @@ package xyz.tynn.astring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import static xyz.tynn.astring.AStringFactory.getAppId;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -17,15 +19,15 @@ import java.util.List;
 public class AStringReducerTest {
 
     private final Iterable<AString> aStrings = List.of(
-            AStringFactory.getAppId(),
+            getAppId(),
             AStringFactory.getAppVersion()
     );
 
     @Test
     public void delegate_should_wrap_null_AString() {
         AString.Reducer function = values -> "value";
-        Assert.assertEquals(Delegate.wrap(function, AString.Null, AString.Null),
-                Delegate.wrap(function, null, null));
+        assertEquals(Delegate.wrap(function, AString.Null, AString.Null, getAppId()),
+                Delegate.wrap(function, null, null, getAppId()));
     }
 
     @Test

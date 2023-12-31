@@ -12,9 +12,9 @@ import android.annotation.SuppressLint;
 import androidx.annotation.Nullable;
 
 @SuppressLint("UnsafeOptInUsageError")
-enum Predicate implements AString.Reducer, AString.Transformer {
+enum Predicate implements AString.Reducer {
 
-    AnyValue(null) {
+    AnyValue {
         @Override
         boolean test(CharSequence value) {
             return true;
@@ -27,7 +27,7 @@ enum Predicate implements AString.Reducer, AString.Transformer {
         }
     },
 
-    NonBlank(null) {
+    NonBlank {
         @Override
         boolean test(CharSequence value) {
             if (value != null) for (int i = 0, cp; i < value.length(); i += charCount(cp))
@@ -43,7 +43,7 @@ enum Predicate implements AString.Reducer, AString.Transformer {
         }
     },
 
-    NonEmpty(null) {
+    NonEmpty {
         @Override
         boolean test(CharSequence value) {
             return value != null && value.length() > 0;
@@ -56,7 +56,7 @@ enum Predicate implements AString.Reducer, AString.Transformer {
         }
     },
 
-    NonNull("") {
+    NonNull {
         @Override
         boolean test(CharSequence value) {
             return value != null;
@@ -71,19 +71,7 @@ enum Predicate implements AString.Reducer, AString.Transformer {
 
     ;
 
-    private final CharSequence defaultValue;
-
-    Predicate(CharSequence defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
     abstract boolean test(CharSequence value);
-
-    @Nullable
-    @Override
-    public CharSequence invoke(@Nullable CharSequence value) {
-        return test(value) ? value : defaultValue;
-    }
 
     @Nullable
     @Override
