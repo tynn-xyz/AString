@@ -4,57 +4,9 @@ plugins {
     alias libs.plugins.kotlin.kapt apply false
     alias libs.plugins.conventions
     alias libs.plugins.publish
+    id 'android-kotlin'
 }
 
 allprojects {
     group = 'xyz.tynn.astring'
-}
-
-subprojects {
-    pluginManager.withPlugin('xyz.tynn.convention.android') {
-        apply plugin: libs.plugins.kotlin.asProvider().get().pluginId
-
-        java.toolchain.languageVersion.set JavaLanguageVersion.of(11)
-
-        kotlin.explicitApi()
-
-        android.kotlinOptions {
-            afterEvaluate {
-                if (!findProperty('isKotlinOnly')) freeCompilerArgs += [
-                        '-Xno-call-assertions',
-                        '-Xno-param-assertions',
-                        '-Xno-receiver-assertions',
-                ]
-            }
-        }
-
-        dependencies {
-            testImplementation libs.bundles.testing
-        }
-    }
-
-    pluginManager.withPlugin('maven-publish') {
-        publishing.publications.all {
-            pom {
-                description = 'A context aware string abstraction for Android'
-                developers {
-                    developer {
-                        id = 'tynn'
-                        name = 'Christian Schmitz'
-                        email = 'christian@tynn.xyz'
-                    }
-                }
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-            }
-        }
-    }
-}
-
-nexusPublishing.repositories.sonatype {
-    nexusUrl.set uri('https://s01.oss.sonatype.org/service/local/')
 }

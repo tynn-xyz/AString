@@ -1,6 +1,6 @@
 plugins {
     alias libs.plugins.android
-    id 'maven-publish'
+    id 'nexus-publish'
 }
 
 dependencies {

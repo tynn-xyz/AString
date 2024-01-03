@@ -1,0 +1,22 @@
+plugins {
+    id 'maven-publish'
+}
+
+publishing.publications.all {
+    pom {
+        description = 'A context aware string abstraction for Android'
+        developers {
+            developer {
+                id = 'tynn'
+                name = 'Christian Schmitz'
+                email = 'christian@tynn.xyz'
+            }
+        }
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+    }
+}

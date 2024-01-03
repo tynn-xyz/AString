@@ -3,6 +3,8 @@ pluginManagement {
         gradlePluginPortal()
         google()
     }
+
+    includeBuild 'gradle/conventions'
 }
 
 dependencyResolutionManagement {
