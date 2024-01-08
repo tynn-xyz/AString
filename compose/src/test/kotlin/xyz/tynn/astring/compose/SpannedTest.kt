@@ -9,6 +9,7 @@ import android.graphics.Typeface.BOLD
 import android.graphics.Typeface.BOLD_ITALIC
 import android.graphics.Typeface.ITALIC
 import android.graphics.Typeface.NORMAL
+import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
 import android.os.Build.VERSION_CODES.N
@@ -19,7 +20,9 @@ import android.text.Annotation
 import android.text.Layout.Alignment.ALIGN_CENTER
 import android.text.style.AlignmentSpan
 import android.text.style.BackgroundColorSpan
+import android.text.style.CharacterStyle.wrap
 import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.text.style.LocaleSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.ScaleXSpan
@@ -891,6 +894,38 @@ internal class SpannedTest {
             buildSpannedString(
                 string,
                 UnderlineSpan(),
+                2..3,
+            ).toAnnotatedString(),
+        )
+    }
+
+    @Test
+    fun `toAnnotatedString should add SpanStyle from wrapped CharacterStyle`() {
+        assertEquals(
+            buildAnnotatedString(string) {
+                addStyle(
+                    SpanStyle(
+                        textDecoration = Underline,
+                    ),
+                    2,
+                    3,
+                )
+            },
+            buildSpannedString(
+                string,
+                wrap(UnderlineSpan()),
+                2..3,
+            ).toAnnotatedString(),
+        )
+    }
+
+    @Test
+    fun `toAnnotatedString should skip unknown wrapped CharacterStyle`() {
+        assertEquals(
+            AnnotatedString(string),
+            buildSpannedString(
+                string,
+                wrap(ImageSpan(mockk<Drawable>())),
                 2..3,
             ).toAnnotatedString(),
         )

@@ -12,11 +12,16 @@ import android.os.Build.VERSION_CODES.P
 import android.os.Build.VERSION_CODES.Q
 import android.text.Annotation
 import android.text.Layout.Alignment.ALIGN_CENTER
+import android.text.Layout.Alignment.ALIGN_NORMAL
+import android.text.Layout.Alignment.ALIGN_OPPOSITE
 import android.text.Spanned
+import android.text.style.AbsoluteSizeSpan
 import android.text.style.AlignmentSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
+import android.text.style.LeadingMarginSpan
+import android.text.style.LineHeightSpan
 import android.text.style.LocaleSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.ScaleXSpan
@@ -36,6 +41,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.AnnotatedString.Builder
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
@@ -67,38 +73,38 @@ import androidx.core.text.getSpans
 @ExperimentalTextApi
 internal fun CharSequence.toAnnotatedString(
     addSpan: AddSpan = warn,
-) = when (val string = this) {
-    is AnnotatedString -> string
-    !is Spanned -> AnnotatedString(string.toString())
-    else -> buildAnnotatedString {
-        append(string.toString())
-        string.getSpans<Any>().forEach { span ->
+) = when (val text = this) {
+    is AnnotatedString -> text
+    !is Spanned -> AnnotatedString(text.toString())
+    else -> Builder(text.length).apply {
+        append(text.toString())
+        text.getSpans<Any>().forEach { span ->
             maybeAddSpan(
                 span,
-                string.getSpanStart(span),
-                string.getSpanEnd(span),
+                text.getSpanStart(span),
+                text.getSpanEnd(span),
                 addSpan,
             )
         }
-    }
+    }.toAnnotatedString()
 }
 
 @ExperimentalTextApi
-private fun AnnotatedString.Builder.maybeAddSpan(
+private fun Builder.maybeAddSpan(
     span: Any,
     start: Int,
     end: Int,
     addSpan: AddSpan,
-) = span.toSpanStyle()?.let {
+) = span.toParagraphStyle()?.let {
     addStyle(it, start, end)
-} ?: span.toParagraphStyle()?.let {
+} ?: span.toSpanStyle()?.let {
     addStyle(it, start, end)
-} ?: span.toUrlAnnotation()?.let {
-    addUrlAnnotation(it, start, end)
-} ?: span.toTtsAnnotation()?.let {
-    addTtsAnnotation(it, start, end)
 } ?: span.toStringAnnotation()?.let { (tag, annotation) ->
     addStringAnnotation(tag, annotation, start, end)
+} ?: span.toTtsAnnotation()?.let {
+    addTtsAnnotation(it, start, end)
+} ?: span.toUrlAnnotation()?.let {
+    addUrlAnnotation(it, start, end)
 } ?: addSpan(span, start, end)
 
 private fun Any.toParagraphStyle() = when (this) {
@@ -107,15 +113,22 @@ private fun Any.toParagraphStyle() = when (this) {
     is AlignmentSpan -> ParagraphStyle(
         textAlign = when (alignment) {
             ALIGN_CENTER -> Center
+            ALIGN_NORMAL -> null
+            ALIGN_OPPOSITE -> null
             else -> null
         },
     )
 
+    is LeadingMarginSpan -> null
+    is LineHeightSpan -> null
+
     else -> null
 }
 
-private fun Any.toSpanStyle() = when (this) {
+private fun Any.toSpanStyle(): SpanStyle? = when (this) {
     !is CharacterStyle -> null
+
+    is AbsoluteSizeSpan -> null
 
     is BackgroundColorSpan -> SpanStyle(
         background = Color(backgroundColor),
@@ -169,15 +182,15 @@ private fun Any.toSpanStyle() = when (this) {
         fontSize = textSize.let {
             if (it == -1) TextUnit.Unspecified else it.sp
         },
+        fontStyle = Italic.takeIf {
+            textStyle and ITALIC == ITALIC
+        },
+        fontFamily = family.toFontFamily(typeface),
         fontWeight = textFontWeight.let {
             val bold = Bold.takeIf { textStyle and BOLD == BOLD }
             if (it == -1 || bold != null && bold.weight > it) bold
             else FontWeight(it)
         },
-        fontStyle = Italic.takeIf {
-            textStyle and ITALIC == ITALIC
-        },
-        fontFamily = family.toFontFamily(typeface),
         fontFeatureSettings = fontFeatureSettings,
         localeList = textLocales?.toLocaleList(),
         shadow = if (shadowColor != 0 && shadowRadius != 0f) Shadow(
@@ -192,13 +205,13 @@ private fun Any.toSpanStyle() = when (this) {
         fontSize = textSize.let {
             if (it == -1) TextUnit.Unspecified else it.sp
         },
-        fontWeight = Bold.takeIf {
-            textStyle and BOLD == BOLD
-        },
         fontStyle = Italic.takeIf {
             textStyle and ITALIC == ITALIC
         },
         fontFamily = family.toFontFamily(),
+        fontWeight = Bold.takeIf {
+            textStyle and BOLD == BOLD
+        },
     )
 
     is TypefaceSpan -> SpanStyle(
@@ -211,7 +224,9 @@ private fun Any.toSpanStyle() = when (this) {
         textDecoration = Underline,
     )
 
-    else -> null
+    else -> underlying.takeUnless {
+        it == this
+    }?.toSpanStyle()
 }
 
 private fun Any.toStringAnnotation() = when (this) {
@@ -228,22 +243,19 @@ private fun Any.toUrlAnnotation() = when (this) {
 private fun Any.toTtsAnnotation() = when {
     this !is TtsSpan -> null
     type != TYPE_VERBATIM -> null
-    else -> VerbatimTtsAnnotation(
-        args.getString(
-            ARG_VERBATIM,
-            "",
-        )
-    )
+    else -> args.getString(
+        ARG_VERBATIM,
+    )?.let(::VerbatimTtsAnnotation)
 }
 
 private fun String?.toFontFamily(
     typeface: Typeface? = null,
 ) = if (typeface == null) when (this) {
     null -> null
-    "cursive" -> Cursive
-    "monospace" -> Monospace
-    "sans-serif" -> SansSerif
-    "serif" -> Serif
+    Cursive.name -> Cursive
+    Monospace.name -> Monospace
+    SansSerif.name -> SansSerif
+    Serif.name -> Serif
     else -> Default
 } else FontFamily(typeface)
 

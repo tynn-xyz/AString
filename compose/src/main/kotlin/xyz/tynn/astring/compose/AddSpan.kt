@@ -4,13 +4,9 @@
 package xyz.tynn.astring.compose
 
 import android.util.Log.w
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.AnnotatedString.Builder
 
-internal typealias AddSpan = AnnotatedString.Builder.(
-    span: Any,
-    start: Int,
-    end: Int,
-) -> Unit
+internal typealias AddSpan = Builder.(span: Any, start: Int, end: Int) -> Unit
 
 internal val warn: AddSpan = { span, start, end ->
     val type = span.javaClass.name
