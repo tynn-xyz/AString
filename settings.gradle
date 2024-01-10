@@ -4,7 +4,7 @@ pluginManagement {
         google()
     }
 
-    includeBuild 'gradle/conventions'
+    includeBuild 'gradle/convention'
 }
 
 dependencyResolutionManagement {
@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 }
 
 include ':astring:bom'
+include ':astring:catalog'
 
 include ':compose'
 
@@ -22,5 +23,7 @@ include ':widget:core'
 include ':widget:appcompat'
 include ':widget:material'
 include ':widget:binding:adapters'
+
+includeBuild 'integration'
 
 rootProject.name = 'AString'

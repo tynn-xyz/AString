@@ -1,0 +1,16 @@
+plugins {
+    alias libs.plugins.android.app
+}
+
+android {
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+    implementation buildLibs.astring.core
+    implementation buildLibs.astring.binding
+
+    androidTestImplementation libs.bundles.testing.android
+}

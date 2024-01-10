@@ -1,0 +1,27 @@
+plugins {
+    id 'version-catalog'
+}
+
+catalog.versionCatalog {
+    it.version 'astring', version
+}
+
+final module = project
+rootProject.allprojects {
+    if (project != module) pluginManager.withPlugin('maven-publish') {
+        module.catalog.versionCatalog {
+            final name = project.name
+            final alias = name == 'astring' ? name : "astring-$name"
+            it.library(alias, group, name).versionRef 'astring'
+        }
+    }
+}
+
+tasks.register('updateCatalog', Copy) {
+    into projectDir
+    include 'libs.versions.toml'
+    from tasks.named('generateCatalogAsToml')
+    rename 'libs.versions.toml', 'versions.toml'
+    filter { it.startsWith('#') ? null : it }
+    outputs.upToDateWhen { false }
+}

@@ -4,12 +4,9 @@
 [![API][api-shield]][api]
 ###### A context aware parcelable string abstraction for _Android_
 
-    interface AString extends Parcelable {
+    interface AString : Parcelable {
         fun invoke(context: Context): CharSequence?
     }
-
-The library is implemented with _Kotlin_ for _Java_, thus
-the _Kotlin Standard Library_ is not required to use _AString_.
 
 The main use-case is to provide a generic string data type for
 inter-layer communication and state management. Therefore every

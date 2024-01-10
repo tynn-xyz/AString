@@ -1,0 +1,3 @@
+<resources>
+    <string name="astring"><b><u>ASt</u>ring</b> <a href="https://google.com"><i><u>val</u>ue</i></a></string>
+</resources>

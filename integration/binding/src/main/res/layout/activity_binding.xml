@@ -1,0 +1,39 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="xyz.tynn.astring.binding.AStringBinding" />
+
+        <variable
+            name="data"
+            type="xyz.tynn.astring.integration.binding.BindingData" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".BindingActivity">
+
+        <TextView
+            android:id="@+id/astring_binding_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.aString.invoke(context)}" />
+
+        <TextView
+            android:id="@+id/astring_binding_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.aString}" />
+
+        <EditText
+            android:id="@+id/astring_binding_converter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:text="@={AStringBinding.load(context, data.aString)}"
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+</layout>

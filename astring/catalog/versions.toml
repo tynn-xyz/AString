@@ -1,0 +1,15 @@
+[metadata]
+format.version = "1.1"
+
+[versions]
+astring = "unspecified"
+
+[libraries]
+astring = {group = "xyz.tynn.astring", name = "astring", version.ref = "astring" }
+astring-appcompat = {group = "xyz.tynn.astring", name = "appcompat", version.ref = "astring" }
+astring-binding = {group = "xyz.tynn.astring", name = "binding", version.ref = "astring" }
+astring-bom = {group = "xyz.tynn.astring", name = "bom", version.ref = "astring" }
+astring-compose = {group = "xyz.tynn.astring", name = "compose", version.ref = "astring" }
+astring-core = {group = "xyz.tynn.astring", name = "core", version.ref = "astring" }
+astring-material = {group = "xyz.tynn.astring", name = "material", version.ref = "astring" }
+

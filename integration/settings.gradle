@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+        google()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+    }
+
+    versionCatalogs {
+        libs.from files('../gradle/libs.versions.toml')
+
+        buildLibs {
+            from files('../astring/catalog/versions.toml')
+            try {
+                version 'astring', settings.version
+            } catch (MissingPropertyException ignored) {
+                includeBuild '..'
+            }
+        }
+    }
+}
+
+include 'binding'
+include 'compose'
+
+rootProject.name = 'AString Integration'

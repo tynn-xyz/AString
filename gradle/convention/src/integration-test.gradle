@@ -1,0 +1,6 @@
+['check', 'connectedCheck'].each {
+    tasks.named(it) { task ->
+        final path = ":${project.name}:${task.name}"
+        dependsOn gradle.includedBuild('integration').task(path)
+    }
+}

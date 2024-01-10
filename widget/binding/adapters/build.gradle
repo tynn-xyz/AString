@@ -36,7 +36,7 @@ project(':widget').subprojects {
     }
 
     final adaptersApi = "${name}Api"
-    pluginManager.withPlugin(libs.plugins.android.get().pluginId) {
+    pluginManager.withPlugin(libs.plugins.android.asProvider().get().pluginId) {
         configurations {
             api.dependencies.all {
                 try {
@@ -69,7 +69,7 @@ project(':widget').subprojects {
             include '**/*.json'
         }
 
-        android.libraryVariants.all {
+        android.libraryVariants.configureEach {
             packageLibraryProvider.configure {
                 from androidDatabinding, {
                     eachFile {
@@ -80,7 +80,7 @@ project(':widget').subprojects {
 
             configurations.matching {
                 it.name =~ /^$name(Api|Runtime)Elements$/
-            }.all {
+            }.configureEach {
                 outgoing.variants {
                     add 'android-databinding' {
                         artifact androidDatabinding, {

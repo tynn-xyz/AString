@@ -1,5 +1,6 @@
 plugins {
     alias libs.plugins.android
+    id 'integration-test'
     id 'nexus-publish'
 }
 

@@ -1,0 +1,18 @@
+plugins {
+    alias libs.plugins.android.app apply false
+    alias libs.plugins.kotlin apply false
+    alias libs.plugins.paparazzi apply false
+    alias libs.plugins.conventions
+}
+
+allprojects {
+    group = 'xyz.tynn.astring.integration'
+}
+
+subprojects {
+    pluginManager.withPlugin(libs.plugins.android.app.get().pluginId) {
+        java.toolchain.languageVersion.set JavaLanguageVersion.of(17)
+        dependencies { api platform(libs.kotlin.bom) }
+        android.defaultConfig.minSdk 21
+    }
+}
