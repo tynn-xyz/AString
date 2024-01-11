@@ -17,12 +17,12 @@ dependencyResolutionManagement {
 include ':astring:bom'
 include ':astring:catalog'
 
+include ':binding:adapters'
 include ':compose'
 
-include ':widget:core'
-include ':widget:appcompat'
-include ':widget:material'
-include ':widget:binding:adapters'
+include ':extension:core'
+include ':extension:appcompat'
+include ':extension:material'
 
 includeBuild 'integration'
 

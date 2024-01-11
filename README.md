@@ -160,7 +160,7 @@ result of the recovered `AString` is equal to the original result.
 
 ## License
 
-    Copyright (C) 2020-2023 Christian Schmitz
+    Copyright (C) 2020-2024 Christian Schmitz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

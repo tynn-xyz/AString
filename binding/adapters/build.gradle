@@ -1,0 +1,107 @@
+import com.android.build.api.attributes.ProductFlavorAttr
+
+plugins {
+    alias libs.plugins.android
+    alias libs.plugins.kotlin.kapt
+}
+
+android {
+    namespace "${group}.binding.adapters"
+
+    buildFeatures {
+        androidResources true
+        dataBinding true
+    }
+
+    buildTypes {
+        databinding {
+            matchingFallbacks = ['release']
+        }
+    }
+
+    flavorDimensions += 'source'
+
+    variantFilter {
+        ignore = buildType.name != 'databinding'
+    }
+}
+
+final extension = project(':extension')
+extension.evaluationDependsOnChildren()
+
+final adapters = project
+extension.subprojects {
+    if (android.buildFeatures.dataBinding) return
+
+    adapters.android {
+        productFlavors.register name
+        sourceSets.named(name) {
+            root "$projectDir/src/main"
+        }
+    }
+
+    final adaptersApi = "${name}Api"
+    configurations {
+        api.dependencies.configureEach {
+            try {
+                adapters.dependencies.add adaptersApi, it
+            } catch (ignored) {
+            }
+        }
+
+        databinding {
+            transitive false
+            canBeResolved true
+            canBeConsumed false
+
+            attributes.attribute ProductFlavorAttr.of('source'),
+                    objects.named(ProductFlavorAttr, project.name)
+        }
+    }
+
+    dependencies {
+        databinding adapters
+    }
+
+    final androidDatabinding = tasks.register('androidDatabinding', Copy) {
+        into layout.buildDirectory.dir("intermediates/data_binding_artifact/$name")
+        from configurations.databinding.incoming.artifactView {
+            attributes {
+                attribute ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, 'android-databinding'
+            }
+        }.files
+        include '**/*.json'
+    }
+
+    android.libraryVariants.configureEach {
+        packageLibraryProvider.configure {
+            from androidDatabinding, {
+                eachFile {
+                    relativePath = relativePath.prepend 'data-binding'
+                }
+            }
+        }
+
+        configurations.matching {
+            it.name =~ /^$name(Api|Runtime)Elements$/
+        }.configureEach {
+            outgoing.variants {
+                add 'android-databinding' {
+                    artifact androidDatabinding, {
+                        type 'android-databinding'
+                    }
+                }
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    final emptyTasks = ['assemble', 'build', 'check', 'lint', 'test']
+    tasks.matching {
+        it.name in emptyTasks
+    }.configureEach {
+        enabled false
+        dependsOn.clear()
+    }
+}

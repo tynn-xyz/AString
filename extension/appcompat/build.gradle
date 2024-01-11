@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    api project(':widget:core')
+    api project(':extension:core')
     api libs.androidx.appcompat
 
     compileOnly libs.androidx.databinding.common

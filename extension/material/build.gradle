@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-    api project(':widget:appcompat')
+    api project(':extension:appcompat')
     api libs.google.material
 
     compileOnly libs.androidx.databinding.common
