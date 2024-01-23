@@ -34,9 +34,11 @@ extension.subprojects {
     if (android.buildFeatures.dataBinding) return
 
     adapters.android {
-        productFlavors.register name
-        sourceSets.named(name) {
-            root "$projectDir/src/main"
+        if (!System.getProperty('idea.sync.active')?.toBoolean()) {
+            productFlavors.register name
+            sourceSets.named(name) {
+                root "$projectDir/src/main"
+            }
         }
     }
 
