@@ -19,7 +19,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: lint
           cache-read-only: true
@@ -33,6 +33,6 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: check -xlint
