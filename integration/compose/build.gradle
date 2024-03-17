@@ -37,3 +37,14 @@ dependencies {
     androidTestImplementation libs.androidx.compose.ui.test
     androidTestImplementation libs.bundles.testing.android
 }
+
+afterEvaluate {
+    dependencies.constraints.testImplementation 'com.google.guava:guava', {
+        attributes {
+            attribute(
+                    TargetJvmEnvironment.TARGET_JVM_ENVIRONMENT_ATTRIBUTE,
+                    objects.named(TargetJvmEnvironment, TargetJvmEnvironment.STANDARD_JVM)
+            )
+        }
+    }
+}

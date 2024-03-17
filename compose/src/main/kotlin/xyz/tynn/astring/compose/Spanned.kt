@@ -47,7 +47,6 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.VerbatimTtsAnnotation
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontFamily.Companion.Cursive
 import androidx.compose.ui.text.font.FontFamily.Companion.Default
@@ -62,6 +61,7 @@ import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.BaselineShift.Companion.Subscript
 import androidx.compose.ui.text.style.BaselineShift.Companion.Superscript
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.text.style.TextAlign.Companion.Unspecified
 import androidx.compose.ui.text.style.TextDecoration.Companion.LineThrough
 import androidx.compose.ui.text.style.TextDecoration.Companion.Underline
 import androidx.compose.ui.text.style.TextGeometricTransform
@@ -113,9 +113,9 @@ private fun Any.toParagraphStyle() = when (this) {
     is AlignmentSpan -> ParagraphStyle(
         textAlign = when (alignment) {
             ALIGN_CENTER -> Center
-            ALIGN_NORMAL -> null
-            ALIGN_OPPOSITE -> null
-            else -> null
+            ALIGN_NORMAL -> Unspecified
+            ALIGN_OPPOSITE -> Unspecified
+            else -> Unspecified
         },
     )
 
