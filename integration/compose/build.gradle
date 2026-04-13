@@ -1,28 +1,23 @@
 plugins {
     alias libs.plugins.android.app
-    alias libs.plugins.kotlin
-    alias libs.plugins.paparazzi
+    alias libs.plugins.compose
+    alias libs.plugins.screenshot
 }
 
 android {
     buildFeatures {
-        compose true
+        compose = true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
-    kotlinOptions {
-        freeCompilerArgs += [
-                '-P', 'plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=' +
-                libs.versions.kotlin.get()
-        ]
-    }
+    experimentalProperties['android.experimental.enableScreenshotTest'] = true
 }
 
 tasks.named('check') {
-    dependsOn tasks.named('verifyPaparazzi')
+    dependsOn tasks.named('validateScreenshotTest')
 }
 
 dependencies {
@@ -30,21 +25,15 @@ dependencies {
     implementation buildLibs.astring.compose
     implementation libs.androidx.appcompat
 
-    implementation libs.bundles.compose
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.ui.preview
     debugImplementation libs.androidx.compose.ui.tooling
 
     androidTestImplementation platform(libs.androidx.compose.bom)
     androidTestImplementation libs.androidx.compose.ui.test
     androidTestImplementation libs.bundles.testing.android
-}
 
-afterEvaluate {
-    dependencies.constraints.testImplementation 'com.google.guava:guava', {
-        attributes {
-            attribute(
-                    TargetJvmEnvironment.TARGET_JVM_ENVIRONMENT_ATTRIBUTE,
-                    objects.named(TargetJvmEnvironment, TargetJvmEnvironment.STANDARD_JVM)
-            )
-        }
-    }
+    screenshotTestImplementation libs.androidx.compose.ui.tooling
+    screenshotTestImplementation libs.screenshot.validation.api
 }

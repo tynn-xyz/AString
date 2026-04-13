@@ -38,7 +38,7 @@ internal class QuantityStringResourceTest {
 
         assertEquals(
             "foo34",
-            Resource.wrap(1, 2, arrayOf(3, "4")).invoke(context),
+            Resource.wrap(1, 2, arrayOf<Any>(3, "4")).invoke(context),
         )
     }
 
@@ -53,8 +53,8 @@ internal class QuantityStringResourceTest {
                     Resource.wrap(1, 2, arrayOf())
         }
         assertTrue {
-            Resource.wrap(1, 2, arrayOf(2, "3")) ==
-                    Resource.wrap(1, 2, arrayOf(2, "3"))
+            Resource.wrap(1, 2, arrayOf<Any>(2, "3")) ==
+                    Resource.wrap(1, 2, arrayOf<Any>(2, "3"))
         }
     }
 
@@ -65,16 +65,16 @@ internal class QuantityStringResourceTest {
                     Resource.wrap(1, 1, arrayOf())
         }
         assertFalse {
-            Resource.wrap(1, 2, arrayOf(3, "4")) ==
-                    Resource.wrap(1, 1, arrayOf(3, "4"))
+            Resource.wrap(1, 2, arrayOf<Any>(3, "4")) ==
+                    Resource.wrap(1, 1, arrayOf<Any>(3, "4"))
         }
         assertFalse {
             Resource.wrap(1, 2, arrayOf()) ==
                     Resource.wrap(2, 2, arrayOf())
         }
         assertFalse {
-            Resource.wrap(1, 2, arrayOf(3, "4")) ==
-                    Resource.wrap(2, 2, arrayOf(3, "4"))
+            Resource.wrap(1, 2, arrayOf<Any>(3, "4")) ==
+                    Resource.wrap(2, 2, arrayOf<Any>(3, "4"))
         }
     }
 
@@ -86,7 +86,7 @@ internal class QuantityStringResourceTest {
         }
         assertFalse {
             Resource.wrap(1, 2, arrayOf()) ==
-                    Resource.wrap(1, 2, arrayOf(3, "4"))
+                    Resource.wrap(1, 2, arrayOf<Any>(3, "4"))
         }
     }
 
@@ -124,7 +124,7 @@ internal class QuantityStringResourceTest {
         )
         assertEquals(
             30567633,
-            Resource.wrap(1, 2, arrayOf(3, "4")).hashCode(),
+            Resource.wrap(1, 2, arrayOf<Any>(3, "4")).hashCode(),
         )
     }
 
@@ -136,7 +136,7 @@ internal class QuantityStringResourceTest {
         )
         assertEquals(
             "AString(Format(AString(QuantityTextResource(1,2)),3,4))",
-            Resource.wrap(1, 2, arrayOf(3, "4")).toString(),
+            Resource.wrap(1, 2, arrayOf<Any>(3, "4")).toString(),
         )
     }
 }

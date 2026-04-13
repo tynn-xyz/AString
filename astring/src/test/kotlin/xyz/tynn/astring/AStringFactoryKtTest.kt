@@ -167,7 +167,7 @@ internal class AStringFactoryKtTest {
             Format.wrap(
                 Resource.wrap(1, null),
                 null,
-                arrayOf(2, "3"),
+                arrayOf<Any>(2, "3"),
             ),
             StringResource(1, 2, "3"),
         )
@@ -219,7 +219,7 @@ internal class AStringFactoryKtTest {
             Format.wrap(
                 Resource.wrap(1, 2),
                 null,
-                arrayOf(3, "4"),
+                arrayOf<Any>(3, "4"),
             ),
             QuantityStringResource(1, 2, 3, "4"),
         )
@@ -244,15 +244,15 @@ internal class AStringFactoryKtTest {
     @Test
     fun `format should return Format`() {
         assertEquals(
-            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf<Any>(1, "2")),
             TextResource(1).format(1, "2"),
         )
         assertEquals(
-            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf<Any>(1, "2")),
             TextResource(1).format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
-            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf<Any>(1, "2")),
             TextResource(1).format(locale = null, 1, "2"),
         )
     }
@@ -260,15 +260,15 @@ internal class AStringFactoryKtTest {
     @Test
     fun `format should return Format with format args for Format`() {
         assertEquals(
-            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf<Any>(1, "2")),
             TextResource(1).mapToString().format(1, "2"),
         )
         assertEquals(
-            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), Locale.GERMAN, arrayOf<Any>(1, "2")),
             TextResource(1).mapToString().format(Locale.GERMAN, 1, "2"),
         )
         assertEquals(
-            Format.wrap(TextResource(1), null, arrayOf(1, "2")),
+            Format.wrap(TextResource(1), null, arrayOf<Any>(1, "2")),
             TextResource(1).mapToString().format(locale = null, 1, "2"),
         )
     }

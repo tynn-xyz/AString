@@ -16,11 +16,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import io.mockk.called
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Rule
@@ -38,6 +36,7 @@ import java.util.Locale
 import java.util.Locale.FRENCH
 import java.util.Locale.GERMANY
 import java.util.Locale.UK
+import kotlin.test.fail
 
 @Config(sdk = [33])
 @RunWith(RobolectricTestRunner::class)
@@ -114,12 +113,12 @@ internal class AStringTest {
     @ExperimentalTextApi
     fun `asAnnotatedString should map null to empty annotated string`() = compose.runTest {
         mockkStatic(CharSequence::toAnnotatedString) {
+            every { any<CharSequence>().toAnnotatedString() } answers { fail() }
+
             assertEquals(
                 AnnotatedString(""),
                 null.asAString().asAnnotatedString(),
             )
-
-            verify { any<CharSequence>().toAnnotatedString() wasNot called }
         }
     }
 

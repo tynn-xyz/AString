@@ -1,5 +1,6 @@
 plugins {
     alias libs.plugins.android
+    alias libs.plugins.compose
     id 'integration-test'
     id 'nexus-publish'
 }
@@ -7,23 +8,12 @@ plugins {
 ext.isKotlinOnly = true
 
 android {
-    defaultConfig {
-        minSdk 21
-    }
-
     buildFeatures {
-        compose true
+        compose = true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
-
-    kotlinOptions {
-        freeCompilerArgs += [
-                '-P', 'plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=' +
-                libs.versions.kotlin.get()
-        ]
     }
 
     testOptions {

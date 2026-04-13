@@ -7,6 +7,7 @@ import static android.content.DialogInterface.BUTTON_NEUTRAL;
 import static xyz.tynn.astring.appcompat.test.MockKt.verify;
 
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
 import android.os.Message;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +34,8 @@ public class AStringAlertDialogTest {
     @MockK
     OnClickListener listener;
     @MockK
+    Drawable icon;
+    @MockK
     Message message;
 
     @Test
@@ -50,7 +53,7 @@ public class AStringAlertDialogTest {
     }
 
     @Test
-    public void setButton_with_null_listener_should_delegate_null_to_dialog() {
+    public void setButton_with_listener_should_delegate_null_to_dialog() {
         AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, listener);
 
         verify(() -> dialog.setButton(BUTTON_NEUTRAL, null, listener));
@@ -60,6 +63,40 @@ public class AStringAlertDialogTest {
     @Test(expected = NullPointerException.class)
     public void setButton_with_listener_should_throw_on_null_dialog() {
         AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, listener);
+    }
+
+    @Test
+    public void setButton_with_icon_should_delegate_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, aString, icon, listener);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, aString.invoke(dialog.getContext()), icon, listener));
+    }
+
+    @Test
+    public void setButton_with_icon_should_delegate_null_listener_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, aString, icon, null);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, aString.invoke(dialog.getContext()), icon, null));
+    }
+
+    @Test
+    public void setButton_with_null_icon_should_delegate_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, aString, null, listener);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, aString.invoke(dialog.getContext()), null, listener));
+    }
+
+    @Test
+    public void setButton_with_icon_should_delegate_null_to_dialog() {
+        AStringAlertDialog.setButton(dialog, BUTTON_NEUTRAL, null, icon, listener);
+
+        verify(() -> dialog.setButton(BUTTON_NEUTRAL, null, icon, listener));
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    @Test(expected = NullPointerException.class)
+    public void setButton_with_icon_should_throw_on_null_dialog() {
+        AStringAlertDialog.setButton(null, BUTTON_NEUTRAL, aString, icon, listener);
     }
 
     @Test

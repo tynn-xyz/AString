@@ -1,14 +1,13 @@
 plugins {
     alias libs.plugins.android
-    alias libs.plugins.kotlin.kapt
     id 'integration-test'
     id 'nexus-publish'
 }
 
 android {
     buildFeatures {
-        androidResources true
-        dataBinding true
+        androidResources = true
+        dataBinding = true
     }
 }
 

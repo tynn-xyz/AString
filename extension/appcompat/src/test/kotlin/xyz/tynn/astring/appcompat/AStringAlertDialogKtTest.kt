@@ -5,6 +5,7 @@ package xyz.tynn.astring.appcompat
 
 import android.content.DialogInterface.BUTTON_NEUTRAL
 import android.content.DialogInterface.OnClickListener
+import android.graphics.drawable.Drawable
 import android.os.Message
 import androidx.appcompat.app.AlertDialog
 import io.mockk.mockk
@@ -18,7 +19,7 @@ internal class AStringAlertDialogKtTest {
     private val dialog = mockk<AlertDialog>(relaxed = true)
 
     @Test
-    fun `setNegativeButton with listener should delegate to dialog`() {
+    fun `setButton with listener should delegate to dialog`() {
         val listener: OnClickListener? = null
 
         dialog.setButton(BUTTON_NEUTRAL, aString, listener)
@@ -27,7 +28,7 @@ internal class AStringAlertDialogKtTest {
     }
 
     @Test
-    fun `setNegativeButton with listener should delegate null to dialog`() {
+    fun `setButton with listener should delegate null to dialog`() {
         val listener = mockk<OnClickListener>()
 
         dialog.setButton(BUTTON_NEUTRAL, null as AString?, listener)
@@ -36,7 +37,27 @@ internal class AStringAlertDialogKtTest {
     }
 
     @Test
-    fun `setNegativeButton with message should delegate to dialog`() {
+    fun `setButton with icon should delegate to dialog`() {
+        val icon = mockk<Drawable>()
+        val listener: OnClickListener? = null
+
+        dialog.setButton(BUTTON_NEUTRAL, aString, icon, listener)
+
+        verify { dialog.setButton(BUTTON_NEUTRAL, aString(dialog.context), icon, listener) }
+    }
+
+    @Test
+    fun `setButton with icon should delegate null to dialog`() {
+        val icon = mockk<Drawable>()
+        val listener = mockk<OnClickListener>()
+
+        dialog.setButton(BUTTON_NEUTRAL, null as AString?, icon, listener)
+
+        verify { dialog.setButton(BUTTON_NEUTRAL, null, icon, listener) }
+    }
+
+    @Test
+    fun `setButton with message should delegate to dialog`() {
         val message: Message? = null
 
         dialog.setButton(BUTTON_NEUTRAL, aString, message)
@@ -45,7 +66,7 @@ internal class AStringAlertDialogKtTest {
     }
 
     @Test
-    fun `setNegativeButton with message should delegate null to dialog`() {
+    fun `setButton with message should delegate null to dialog`() {
         val message = mockk<Message>()
 
         dialog.setButton(BUTTON_NEUTRAL, null as AString?, message)

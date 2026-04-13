@@ -6,6 +6,7 @@ package xyz.tynn.astring.core;
 import static androidx.core.view.ViewCompat.setAccessibilityPaneTitle;
 import static androidx.core.view.ViewCompat.setStateDescription;
 import static androidx.core.view.ViewCompat.setTooltipText;
+import static xyz.tynn.astring.core.test.MockKt.justRun;
 import static xyz.tynn.astring.core.test.MockKt.prepare;
 import static xyz.tynn.astring.core.test.MockKt.verify;
 
@@ -39,6 +40,8 @@ public class AStringViewTest {
 
     @Test
     public void setAccessibilityPaneTitle_should_delegate_to_ViewCompat() {
+        justRun(ViewCompat::setAccessibilityPaneTitle);
+
         AStringView.setAccessibilityPaneTitle(view, aString);
 
         verify(() -> setAccessibilityPaneTitle(view, aString.invoke(view.getContext())));
@@ -46,6 +49,8 @@ public class AStringViewTest {
 
     @Test
     public void setAccessibilityPaneTitle_should_delegate_null_to_ViewCompat() {
+        justRun(ViewCompat::setAccessibilityPaneTitle);
+
         AStringView.setAccessibilityPaneTitle(view, null);
 
         verify(() -> setAccessibilityPaneTitle(view, null));
@@ -73,6 +78,8 @@ public class AStringViewTest {
 
     @Test
     public void setStateDescription_should_delegate_to_ViewCompat() {
+        justRun(ViewCompat::setStateDescription);
+
         AStringView.setStateDescription(view, aString);
 
         verify(() -> setStateDescription(view, aString.invoke(view.getContext())));
@@ -80,6 +87,8 @@ public class AStringViewTest {
 
     @Test
     public void setStateDescription_should_delegate_null_to_ViewCompat() {
+        justRun(ViewCompat::setStateDescription);
+
         AStringView.setStateDescription(view, null);
 
         verify(() -> setStateDescription(view, null));

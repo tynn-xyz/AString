@@ -1,0 +1,75 @@
+final ProductFlavorAttr = Class.forName(
+        'com.android.build.api.attributes.ProductFlavorAttr',
+)
+final SingleArtifactAAR = Class.forName(
+        'com.android.build.api.artifact.SingleArtifact$AAR',
+)
+
+final androidDataBinding = tasks.register('generateBindingAdapters', Copy) {
+    into layout.buildDirectory.dir("intermediates/data_binding_artifact/$name")
+    from configurations.databinding.incoming.artifactView {
+        attributes {
+            attribute ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, 'android-databinding'
+        }
+    }.files
+    include '**/*.json'
+    rename '.*binding\\.adapters(-.*)', "${android.namespace}\$1"
+}
+
+androidComponents {
+    onVariants(selector().all()) {
+        artifacts.use(
+                tasks.register("${name}BindingUpdater", BindingAar) {
+                    from androidDataBinding, {
+                        eachFile {
+                            relativePath = relativePath.prepend 'data-binding'
+                        }
+                    }
+                }
+        ).wiredWithFiles(BindingAar::getInitialAar, BindingAar::getUpdatedAar)
+                .toTransform SingleArtifactAAR.INSTANCE
+
+        configurations.matching {
+            it.name =~ /^${name}(Api|Runtime)Elements$/
+        }.configureEach {
+            outgoing.variants {
+                add 'android-databinding' {
+                    artifact androidDataBinding, {
+                        type 'android-databinding'
+                    }
+                }
+            }
+        }
+    }
+}
+
+configurations {
+    databinding {
+        transitive = false
+        canBeResolved = true
+        canBeConsumed = false
+
+        attributes.attribute ProductFlavorAttr.of('source'),
+                objects.named(ProductFlavorAttr, project.name)
+    }
+}
+
+dependencies {
+    databinding project(':binding:adapters')
+}
+
+abstract class BindingAar extends Zip {
+
+    BindingAar() {
+        from project.zipTree(initialAar)
+    }
+
+    @InputFiles
+    abstract RegularFileProperty getInitialAar()
+
+    @OutputFile
+    abstract RegularFileProperty getUpdatedAar()
+
+    @Override
+    Provider<RegularFile> getArchiveFile() { updatedAar }
+}

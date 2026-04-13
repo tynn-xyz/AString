@@ -1,12 +1,6 @@
 plugins {
     alias libs.plugins.android apply false
-    alias libs.plugins.kotlin apply false
-    alias libs.plugins.kotlin.kapt apply false
-    alias libs.plugins.conventions
-    alias libs.plugins.publish
+    alias libs.plugins.compose apply false
+    alias convention.plugins.project
     id 'android-kotlin'
-}
-
-allprojects {
-    group = 'xyz.tynn.astring'
 }

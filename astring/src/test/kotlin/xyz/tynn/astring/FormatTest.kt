@@ -17,7 +17,7 @@ internal class FormatTest {
 
     private val locale = Locale.CANADA
     private val format = FormatAString()
-    private val formatArgs = arrayOf('1', 2, "3")
+    private val formatArgs = arrayOf<Any>('1', 2, "3")
 
     @Test
     fun `invoke should return string without locale`() {

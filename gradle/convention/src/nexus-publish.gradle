@@ -2,20 +2,42 @@ plugins {
     id 'maven-publish'
 }
 
-publishing.publications.all {
-    pom {
-        description = 'A context aware string abstraction for Android'
-        developers {
-            developer {
-                id = 'tynn'
-                name = 'Christian Schmitz'
-                email = 'christian@tynn.xyz'
-            }
+rootProject.tasks.with {
+    try {
+        return named('createCentralBundleZip')
+    } catch (UnknownTaskException ignored) {
+        return register('createCentralBundleZip', Zip) {
+            archiveFile.set project.layout.buildDirectory.file('maven/central-bundle.zip')
         }
-        licenses {
-            license {
-                name = 'The Apache License, Version 2.0'
-                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    }
+}.configure {
+    mustRunAfter tasks.withType(PublishToMavenRepository)
+    from layout.buildDirectory.dir('repo')
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'build'
+            url = layout.buildDirectory.dir('repo')
+        }
+    }
+
+    publications.configureEach {
+        pom {
+            description = 'A context aware string abstraction for Android'
+            developers {
+                developer {
+                    id = 'tynn'
+                    name = 'Christian Schmitz'
+                    email = 'christian@tynn.xyz'
+                }
+            }
+            licenses {
+                license {
+                    name = 'The Apache License, Version 2.0'
+                    url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
             }
         }
     }

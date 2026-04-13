@@ -4,11 +4,7 @@ plugins {
 }
 
 android {
-    namespace group
-
-    kotlinOptions {
-        freeCompilerArgs += '-Xjvm-default=all'
-    }
+    namespace = group
 
     testFixtures {
         enable = true

@@ -1,8 +1,7 @@
 plugins {
     alias libs.plugins.android.app apply false
-    alias libs.plugins.kotlin apply false
-    alias libs.plugins.paparazzi apply false
-    alias libs.plugins.conventions
+    alias libs.plugins.compose apply false
+    alias convention.plugins.project
 }
 
 allprojects {
@@ -11,8 +10,8 @@ allprojects {
 
 subprojects {
     pluginManager.withPlugin(libs.plugins.android.app.get().pluginId) {
+        android.defaultConfig.minSdk 23
         java.toolchain.languageVersion.set JavaLanguageVersion.of(17)
         dependencies { api platform(libs.kotlin.bom) }
-        android.defaultConfig.minSdk 21
     }
 }

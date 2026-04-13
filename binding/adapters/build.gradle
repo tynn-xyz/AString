@@ -1,16 +1,14 @@
-import com.android.build.api.attributes.ProductFlavorAttr
-
 plugins {
     alias libs.plugins.android
-    alias libs.plugins.kotlin.kapt
+    alias libs.plugins.android.kapt
 }
 
 android {
-    namespace "${group}.binding.adapters"
+    namespace = "${group}.binding.adapters"
 
     buildFeatures {
-        androidResources true
-        dataBinding true
+        androidResources = true
+        dataBinding = true
     }
 
     buildTypes {
@@ -20,78 +18,33 @@ android {
     }
 
     flavorDimensions += 'source'
+}
 
-    variantFilter {
-        ignore = buildType.name != 'databinding'
+androidComponents {
+    beforeVariants(selector().all()) {
+        enable = buildType == 'databinding'
     }
 }
 
-final extension = project(':extension')
-extension.evaluationDependsOnChildren()
-
-final adapters = project
-extension.subprojects {
-    if (android.buildFeatures.dataBinding) return
-
-    adapters.android {
-        if (!System.getProperty('idea.sync.active')?.toBoolean()) {
-            productFlavors.register name
-            sourceSets.named(name) {
-                root "$projectDir/src/main"
-            }
-        }
-    }
-
-    final adaptersApi = "${name}Api"
-    configurations {
-        api.dependencies.configureEach {
-            try {
-                adapters.dependencies.add adaptersApi, it
-            } catch (ignored) {
-            }
+if (!System.getProperty('idea.sync.active')?.toBoolean()) {
+    final adapters = project
+    rootProject.subprojects {
+        if (project != adapters) {
+            adapters.evaluationDependsOn(path)
         }
 
-        databinding {
-            transitive false
-            canBeResolved true
-            canBeConsumed false
-
-            attributes.attribute ProductFlavorAttr.of('source'),
-                    objects.named(ProductFlavorAttr, project.name)
-        }
-    }
-
-    dependencies {
-        databinding adapters
-    }
-
-    final androidDatabinding = tasks.register('androidDatabinding', Copy) {
-        into layout.buildDirectory.dir("intermediates/data_binding_artifact/$name")
-        from configurations.databinding.incoming.artifactView {
-            attributes {
-                attribute ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, 'android-databinding'
-            }
-        }.files
-        include '**/*.json'
-    }
-
-    android.libraryVariants.configureEach {
-        packageLibraryProvider.configure {
-            from androidDatabinding, {
-                eachFile {
-                    relativePath = relativePath.prepend 'data-binding'
+        if (pluginManager.hasPlugin('binding-adapters')) {
+            adapters.android {
+                productFlavors.register name
+                sourceSets.named(name) {
+                    root = "$projectDir/src/main"
                 }
             }
-        }
 
-        configurations.matching {
-            it.name =~ /^$name(Api|Runtime)Elements$/
-        }.configureEach {
-            outgoing.variants {
-                add 'android-databinding' {
-                    artifact androidDatabinding, {
-                        type 'android-databinding'
-                    }
+            final adaptersApi = "${name}Api"
+            configurations {
+                api.dependencies.configureEach {
+                    adapters.dependencies.add adaptersApi, it
                 }
             }
         }
@@ -103,7 +56,7 @@ afterEvaluate {
     tasks.matching {
         it.name in emptyTasks
     }.configureEach {
-        enabled false
+        enabled = false
         dependsOn.clear()
     }
 }

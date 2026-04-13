@@ -44,9 +44,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.VerbatimTtsAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily.Companion.Cursive
@@ -78,7 +78,11 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.util.Date
-import java.util.Locale.*
+import java.util.Locale.ENGLISH
+import java.util.Locale.FRANCE
+import java.util.Locale.GERMANY
+import java.util.Locale.UK
+import java.util.Locale.US
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
@@ -125,8 +129,8 @@ internal class SpannedTest {
     fun `toAnnotatedString should include UrlAnnotation`() {
         assertEquals(
             buildAnnotatedString(string) {
-                addUrlAnnotation(
-                    UrlAnnotation(
+                addLink(
+                    LinkAnnotation.Url(
                         url = string,
                     ),
                     1,

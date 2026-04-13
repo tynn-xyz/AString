@@ -43,9 +43,9 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.AnnotatedString.Builder
 import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.VerbatimTtsAnnotation
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontFamily.Companion.Cursive
@@ -103,8 +103,8 @@ private fun Builder.maybeAddSpan(
     addStringAnnotation(tag, annotation, start, end)
 } ?: span.toTtsAnnotation()?.let {
     addTtsAnnotation(it, start, end)
-} ?: span.toUrlAnnotation()?.let {
-    addUrlAnnotation(it, start, end)
+} ?: span.toLink()?.let {
+    addLink(it, start, end)
 } ?: addSpan(span, start, end)
 
 private fun Any.toParagraphStyle() = when (this) {
@@ -235,8 +235,8 @@ private fun Any.toStringAnnotation() = when (this) {
 }
 
 @ExperimentalTextApi
-private fun Any.toUrlAnnotation() = when (this) {
-    is URLSpan -> UrlAnnotation(url)
+private fun Any.toLink() = when (this) {
+    is URLSpan -> LinkAnnotation.Url(url)
     else -> null
 }
 

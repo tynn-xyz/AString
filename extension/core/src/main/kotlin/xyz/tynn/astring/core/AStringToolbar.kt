@@ -5,7 +5,6 @@
 
 package xyz.tynn.astring.core
 
-import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
@@ -16,7 +15,6 @@ import xyz.tynn.astring.aString
  * Sets a description of the toolbar's logo
  * @see Toolbar.setLogoDescription
  */
-@RequiresApi(LOLLIPOP)
 @Suppress("UsePropertyAccessSyntax")
 public fun Toolbar.setLogoDescription(
     description: AString?,
@@ -28,7 +26,6 @@ public fun Toolbar.setLogoDescription(
  * Sets a subtitle
  * @see Toolbar.setSubtitle
  */
-@RequiresApi(LOLLIPOP)
 @BindingAdapter("android:subtitle")
 public fun Toolbar.setSubtitle(
     subtitle: AString?,
@@ -40,7 +37,6 @@ public fun Toolbar.setSubtitle(
  * Sets a title
  * @see Toolbar.setTitle
  */
-@RequiresApi(LOLLIPOP)
 @BindingAdapter("android:title")
 public fun Toolbar.setTitle(
     title: AString?,

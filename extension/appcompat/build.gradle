@@ -1,7 +1,10 @@
 plugins {
     alias libs.plugins.android
+    id 'binding-adapters'
     id 'nexus-publish'
 }
+
+android.testOptions.unitTests.includeAndroidResources = true
 
 dependencies {
     api project(':extension:core')

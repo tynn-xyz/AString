@@ -7,13 +7,7 @@ import androidx.databinding.ObservableField;
 
 import xyz.tynn.astring.AString;
 
-public class BindingData {
-
-    private final ObservableField<AString> aString;
-
-    BindingData(ObservableField<AString> aString) {
-        this.aString = aString;
-    }
+public record BindingData(ObservableField<AString> aString) {
 
     public ObservableField<AString> getAString() {
         return aString;

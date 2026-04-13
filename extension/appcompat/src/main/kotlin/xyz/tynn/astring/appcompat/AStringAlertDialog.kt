@@ -5,7 +5,8 @@
 
 package xyz.tynn.astring.appcompat
 
-import android.content.DialogInterface.*
+import android.content.DialogInterface.OnClickListener
+import android.graphics.drawable.Drawable
 import android.os.Message
 import androidx.appcompat.app.AlertDialog
 import xyz.tynn.astring.AString
@@ -26,6 +27,27 @@ public fun AlertDialog.setButton(
 ): Unit = setButton(
     whichButton,
     context.aString(text),
+    listener,
+)
+
+/**
+ * Sets an icon to be displayed along with the button text
+ * and a listener to be invoked when the positive button
+ * of the dialog is pressed.
+ *
+ * This method has no effect if called after [AlertDialog.show]
+ *
+ * @see AlertDialog.setButton
+ */
+public fun AlertDialog.setButton(
+    @DialogInterfaceButton whichButton: Int,
+    text: AString?,
+    icon: Drawable?,
+    listener: OnClickListener?,
+): Unit = setButton(
+    whichButton,
+    context.aString(text),
+    icon,
     listener,
 )
 

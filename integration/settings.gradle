@@ -1,15 +1,28 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        mavenLocal()
         google()
     }
 }
 
+plugins {
+    id 'xyz.tynn.convention.settings' version "$xyzTynnConventionVersion"
+}
+
 dependencyResolutionManagement {
     repositories {
+        if (System.env.DEPLOYMENT) maven {
+            name = 'deployment'
+            url = System.env.DEPLOYMENT
+            credentials(HttpHeaderCredentials)
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+            content {
+                includeGroup group
+            }
+        }
         google()
-        mavenLocal()
         mavenCentral()
     }
 
@@ -19,8 +32,8 @@ dependencyResolutionManagement {
         buildLibs {
             from files('../astring/catalog/versions.toml')
             try {
-                version 'astring', settings.version
-            } catch (MissingPropertyException ignored) {
+                version 'astring', gradle.parent ?: settings.version
+            } catch (ignored) { // includedBuild || not released
                 includeBuild '..'
             }
         }

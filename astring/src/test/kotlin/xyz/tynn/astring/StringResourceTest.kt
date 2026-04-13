@@ -38,7 +38,7 @@ internal class StringResourceTest {
 
         assertEquals(
             "foo23",
-            Resource.wrap(1, null, arrayOf(2, "3")).invoke(context),
+            Resource.wrap(1, null, arrayOf<Any>(2, "3")).invoke(context),
         )
     }
 
@@ -53,8 +53,8 @@ internal class StringResourceTest {
                     Resource.wrap(1, null, arrayOf())
         }
         assertTrue {
-            Resource.wrap(1, null, arrayOf(2, "3")) ==
-                    Resource.wrap(1, null, arrayOf(2, "3"))
+            Resource.wrap(1, null, arrayOf<Any>(2, "3")) ==
+                    Resource.wrap(1, null, arrayOf<Any>(2, "3"))
         }
     }
 
@@ -65,8 +65,8 @@ internal class StringResourceTest {
                     Resource.wrap(2, null, arrayOf())
         }
         assertFalse {
-            Resource.wrap(1, null, arrayOf(2, "3")) ==
-                    Resource.wrap(2, null, arrayOf(2, "3"))
+            Resource.wrap(1, null, arrayOf<Any>(2, "3")) ==
+                    Resource.wrap(2, null, arrayOf<Any>(2, "3"))
         }
     }
 
@@ -78,7 +78,7 @@ internal class StringResourceTest {
         }
         assertFalse {
             Resource.wrap(1, null, arrayOf()) ==
-                    Resource.wrap(1, null, arrayOf(2, "3"))
+                    Resource.wrap(1, null, arrayOf<Any>(2, "3"))
         }
     }
 
@@ -116,7 +116,7 @@ internal class StringResourceTest {
         )
         assertEquals(
             30508019,
-            Resource.wrap(1, null, arrayOf(2, "3")).hashCode(),
+            Resource.wrap(1, null, arrayOf<Any>(2, "3")).hashCode(),
         )
     }
 
@@ -128,7 +128,7 @@ internal class StringResourceTest {
         )
         assertEquals(
             "AString(Format(AString(TextResource(1)),2,3))",
-            Resource.wrap(1, null, arrayOf(2, "3")).toString(),
+            Resource.wrap(1, null, arrayOf<Any>(2, "3")).toString(),
         )
     }
 }

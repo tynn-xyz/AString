@@ -1,4 +1,4 @@
-//  Copyright 2024 Christian Schmitz
+//  Copyright 2024-2026 Christian Schmitz
 //  SPDX-License-Identifier: Apache-2.0
 
 package xyz.tynn.astring.integration.compose
@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import xyz.tynn.astring.AString
@@ -26,47 +27,45 @@ import xyz.tynn.astring.compose.asAnnotatedString
 import xyz.tynn.astring.compose.asString
 import xyz.tynn.astring.core.setText
 
-@[Composable Preview(widthDp = 180, heightDp = 320, uiMode = UI_MODE_NIGHT_NO)]
+@[Composable PreviewConfig]
+@OptIn(ExperimentalTextApi::class)
 fun ComposeWidget(aString: AString = TextResource(R.string.astring)) {
     Column(Modifier.fillMaxSize(), SpaceAround, CenterHorizontally) {
         Text(aString.asString())
-        @OptIn(ExperimentalTextApi::class)
+        Text(aString.asAnnotatedString())
         UriText(aString.asAnnotatedString())
         AndroidTextView { it.setText(aString) }
     }
 }
 
 @Composable
-@OptIn(ExperimentalTextApi::class)
+@Suppress("DEPRECATION")
 private fun UriText(text: AnnotatedString) {
     val uriHandler = LocalUriHandler.current
-    ClickableText(text) {
-        val url = text.getUrlAnnotations(it, it)
-            .firstOrNull()?.item?.url
-            ?: return@ClickableText
-        uriHandler.openUri(url)
+    ClickableText(text) { offset ->
+        text.getLinkAnnotations(
+            start = offset,
+            end = offset,
+        ).firstNotNullOfOrNull { (link) ->
+            link as? LinkAnnotation.Url
+        }?.url?.let(uriHandler::openUri)
     }
 }
 
 @Composable
 private fun AndroidTextView(update: (TextView) -> Unit) {
     AndroidView(
+        update = update,
         factory = {
             TextView(it).apply {
                 setTextColor(android.graphics.Color.BLACK)
                 movementMethod = LinkMovementMethod.getInstance()
             }
         },
-        update = update
     )
 }
 
-@[Composable Preview(widthDp = 180, heightDp = 320, uiMode = UI_MODE_NIGHT_YES)]
-private fun ComposeWidget_night() {
-    ComposeWidget()
-}
-
-@[Composable Preview(widthDp = 320, heightDp = 180, uiMode = UI_MODE_NIGHT_YES)]
-private fun ComposeWidget_land() {
-    ComposeWidget()
-}
+@Preview(widthDp = 180, heightDp = 320, uiMode = UI_MODE_NIGHT_NO)
+@Preview(widthDp = 180, heightDp = 320, uiMode = UI_MODE_NIGHT_YES)
+@Preview(widthDp = 320, heightDp = 180, uiMode = UI_MODE_NIGHT_YES)
+internal annotation class PreviewConfig

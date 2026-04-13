@@ -1,11 +1,12 @@
 plugins {
     alias libs.plugins.android
+    id 'binding-adapters'
     id 'nexus-publish'
 }
 
 android {
     buildFeatures {
-        androidResources true
+        androidResources = true
     }
 }
 

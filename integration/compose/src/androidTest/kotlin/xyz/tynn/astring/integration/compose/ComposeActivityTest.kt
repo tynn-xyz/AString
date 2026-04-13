@@ -11,6 +11,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.espresso.Espresso.onView
@@ -34,13 +35,16 @@ class ComposeActivityTest {
             setDefaultNightMode(MODE_NIGHT_NO)
         }
 
-        composeTestRule
-            .onNode(withString(defaultText))
-            .assertIsDisplayed()
+        composeTestRule.onNode(
+            matcher = withString(defaultText),
+        ).assertIsDisplayed()
 
-        composeTestRule
-            .onNode(withAnnotatedString(defaultText))
-            .assertIsDisplayed()
+        composeTestRule.onAllNodes(
+            matcher = withAnnotatedString(defaultText),
+        ).apply {
+            this[0].isDisplayed()
+            this[1].isDisplayed()
+        }
 
         onView(withText(defaultText))
             .check(matches(isDisplayed()))
@@ -50,27 +54,34 @@ class ComposeActivityTest {
             setDefaultNightMode(MODE_NIGHT_YES)
         }
 
-        composeTestRule
-            .onNode(withString(nightText))
-            .assertIsDisplayed()
+        composeTestRule.onNode(
+            matcher = withString(nightText),
+        ).assertIsDisplayed()
 
-        composeTestRule
-            .onNode(withAnnotatedString(nightText))
-            .assertIsDisplayed()
+        composeTestRule.onAllNodes(
+            matcher = withAnnotatedString(nightText),
+        ).apply {
+            this[0].isDisplayed()
+            this[1].isDisplayed()
+        }
 
         onView(withText(nightText))
             .check(matches(isDisplayed()))
 
         val landText = "eulav AString"
         composeTestRule.activity.requestedOrientation = SCREEN_ORIENTATION_LANDSCAPE
+        composeTestRule.activityRule.scenario.recreate() // trigger AndroidView.update
 
-        composeTestRule
-            .onNode(withString(landText))
-            .assertIsDisplayed()
+        composeTestRule.onNode(
+            matcher = withString(landText),
+        ).assertIsDisplayed()
 
-        composeTestRule
-            .onNode(withAnnotatedString(landText))
-            .assertIsDisplayed()
+        composeTestRule.onAllNodes(
+            matcher = withAnnotatedString(landText),
+        ).apply {
+            this[0].isDisplayed()
+            this[1].isDisplayed()
+        }
 
         onView(withText(landText))
             .check(matches(isDisplayed()))
