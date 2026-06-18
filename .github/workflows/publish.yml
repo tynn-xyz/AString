@@ -10,7 +10,7 @@ jobs:
     outputs:
       version: ${{ steps.semver.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: tynn-xyz/semantic-version@v1
         with:
           versioning: ${{ github.ref }}
