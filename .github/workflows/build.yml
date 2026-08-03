@@ -19,7 +19,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
+      - uses: gradle/actions/setup-gradle@v6.2.0
         with:
           cache-read-only: true
       - run: ./gradlew lint
@@ -32,5 +32,5 @@ jobs:
         with:
           distribution: adopt
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
+      - uses: gradle/actions/setup-gradle@v6.2.0
       - run: ./gradlew check -xlint
